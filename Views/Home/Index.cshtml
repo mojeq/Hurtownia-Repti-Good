@@ -1,8 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@using HurtowniaReptiGood.Models.Entities
+@model ProductsListViewModel
+
+<body>
+    <div>
+
+        <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
+            <tr>
+                <th>Symbol</th>
+                <th>Nazwa</th>
+                <th>Zdjęcie</th>
+                <th>Cena</th>
+                <th>Stan</th>
+                <th>Do koszyka</th>
+            </tr>
+            @foreach (ProductViewModel product in Model.Products)
+            {
+                <tr text-align="center">
+                    <td>@product.ProductSymbol</td>
+                    <td>@product.ProductName</td>
+                    <td><img src="~/Media/img/@product.Photo" width="200" /></td>
+                    <td>@product.Price</td>
+                    <td>@product.Stock szt</td>
+                    <td>
+                        <form action="Cart/AddItemToCart" method="post">
+                            <input type="hidden" name="ProductSymbol" value="@product.ProductSymbol">
+                            <input type="hidden" name="ProductName" value="@product.ProductName">
+                            <input type="hidden" name="Price" value="@product.Price">
+                            <label name="Quantity">Sztuk: </label>
+                            <input size="5" type="number" height="25" name="Quantity" min="1" />
+                            <input type="submit" value="Dodaj" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+
+
