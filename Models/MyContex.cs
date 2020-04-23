@@ -26,13 +26,13 @@ namespace HurtowniaReptiGood.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<OrderEntity>()
-                .HasOne(p => p.Customer)
-                .WithMany(o => o.OrderList);
+            //builder.Entity<OrderEntity>()
+            //    .HasOne(p => p.Customer)
+            //    .WithMany(o => o.OrderList);
 
-            builder.Entity<OrderDetailEntity>()
-                .HasOne(p => p.Order)
-                .WithMany(o => o.OrderDetails);
+            //builder.Entity<OrderDetailEntity>()
+            //    .HasOne(p => p.Order)
+            //    .WithMany(o => o.OrderDetails);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace HurtowniaReptiGood.Models.Entities
         [Required]
         public string Street { get; set; }
         [Required]
-        string StreetNumber { get; set; }
+        public string StreetNumber { get; set; }
         [Required]
         public string City { get; set; }
         [Required]

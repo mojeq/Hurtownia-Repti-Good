@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using HurtowniaReptiGood.Models.Entities
+@using HurtowniaReptiGood.Models
 @model ProductsListViewModel
 
 <body>
@@ -29,6 +29,7 @@
                     <td>@product.Stock szt</td>
                     <td>
                         <form action="Cart/AddItemToCart" method="post">
+                            <input type="hidden" name="ProductId" value="@product.ProductId">
                             <input type="hidden" name="ProductSymbol" value="@product.ProductSymbol">
                             <input type="hidden" name="ProductName" value="@product.ProductName">
                             <input type="hidden" name="Price" value="@product.Price">

@@ -12,8 +12,6 @@ namespace HurtowniaReptiGood.Models.Entities
         [Required]
         public int OrderDetailId { get; set; }
         [Required]
-        public int OrderId { get; set; }
-        [Required]
         public string ProductSymbol { get; set; }
         [Required]
         public string ProductName { get; set; }
@@ -23,7 +21,9 @@ namespace HurtowniaReptiGood.Models.Entities
         public double Price { get; set; }
         [Required]
         public double Value { get; set; }
-        public virtual ProductEntity Product { get; set; }
-        public virtual OrderEntity Order { get; set; }
+        public int ProductId { get; set; }
+        public ProductEntity Product { get; set; }     
+        public int OrderId { get; set; }
+        public OrderEntity Order { get; set; }
     }
 }

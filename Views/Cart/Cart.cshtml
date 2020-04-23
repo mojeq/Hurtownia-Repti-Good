@@ -1,0 +1,239 @@
+﻿@{
+    ViewData["Title"] = "Koszyk";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using HurtowniaReptiGood.Models.ViewModels
+
+@model CartAndAddressesViewModel
+@*@section extraMenu
+    {
+        <li>
+            @Html.ActionLink("Kontakt", "Contact", "Contact")
+        </li>
+    }*@
+
+<body>
+    <h3>Zawartość koszyka @ViewBag.OrderId:</h3>
+
+    <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th>Symbol</th>
+            <th>Nazwa</th>
+            <th>Cena brutto</th>
+            <th>Sztuk</th>
+            <th>Wartość</th>
+            <th>Usuń</th>
+        </tr>
+        @foreach (OrderDetailViewModel cart in Model.CartToView.OrderDetailList)
+        {
+            <tr text-align="center">
+                <td>@cart.ProductSymbol</td>
+                <td>@cart.ProductName</td>
+                <td>@cart.Price</td>
+                <td>
+
+                    <form action="UpdateQuantityInCart" method="post">
+                        <input size="5" height="25" type="number" name="Quantity" min="1" value="@cart.Quantity" />
+                        <input type="hidden" name="OrderId" value="@cart.OrderId" />
+                        <input type="hidden" name="OrderDetailId" value="@cart.OrderDetailId" />
+                        <input type="hidden" name="ProductSymbol" value="@cart.ProductId" />
+                        <input type="submit" value="Odśwież" />
+                    </form>
+                </td>
+
+                <td>@(itemValue = cart.Price * (Convert.ToDouble(cart.Quantity)))zł</td>
+                <td>
+                    <button class="myButton3">
+                        @Html.ActionLink("Usuń", "RemoveItemFromCart", "Cart",
+                        new { orderDetailId = cart.OrderDetailId, orderId = cart.OrderId },
+                        new { onclick = "return confirm('Na pewno usunąć pozycję?');" })
+                    </button>
+                </td>
+
+            </tr>
+            method: @CalculateCartBrutto(itemValue);
+                @CalculateCartNetto(totalValueBrutto);
+                @GenerateMessageAndDiscount(totalValueNetto, totalValueBrutto);
+         }
+
+        <tr>
+            <th colspan="2">Wartość netto zamówienia</th>
+            <th colspan="4">@totalValueNetto zł</th>
+        </tr>
+        <tr>
+            <th colspan="2">Wartość brutto zamówienia</th>
+            <th colspan="4">@totalValueBrutto zł</th>
+        </tr>
+        <tr>
+            <th colspan="2">Koszt wysyłki</th>
+            <th colspan="4">@shippingCost zł</th>
+        </tr>
+        <tr>
+            <th colspan="2">Rabat</th>
+            <th colspan="4">@discount %</th>
+        </tr>
+        <tr>
+            <th colspan="2">Wartość brutto zamówienia po rabacie</th>
+            <th colspan="4">@(valueOrder = totalValueBruttoWithDiscount + shippingCost) zł</th>
+        </tr>
+        <tr>
+            <th colspan="6">@message</th>
+        </tr>
+        <tr>
+            <td colspan="6"><button class="myButton">@Html.ActionLink("Dodaj kolejny produkt", "Index", "Home")</button></td>
+        </tr>
+    </table>
+
+    <p>
+        <table style="width:700px" cellpadding="2" cellspacing="2" border="1">
+            <tr>
+                <th colspan="2">Dane do faktury</th>
+            </tr>
+            <tr>
+                <td>Nazwa firmy</td>
+                <td>@Model.InvoiceAddress.CompanyName</td>
+            </tr>
+            <tr>
+                <td>NIP</td>
+                <td>@Model.InvoiceAddress.NIP</td>
+            </tr>
+            <tr>
+                <td>Ulica</td>
+                <td>@Model.InvoiceAddress.Street</td>
+            </tr>
+            <tr>
+                <td>Miasto</td>
+                <td>@Model.InvoiceAddress.City</td>
+            </tr>
+            <tr>
+                <td>Kod pocztowy</td>
+                <td>@Model.InvoiceAddress.ZipCode</td>
+            </tr>
+            <tr>
+                <td>Telefon</td>
+                <td>@Model.InvoiceAddress.Phone</td>
+            </tr>
+        </table>
+    </p>
+
+    <p>
+        <table style="width:700px" cellpadding="2" cellspacing="2" border="1">
+            <tr>
+                <th colspan="2">Dane do wysyłki</th>
+            </tr>
+            <tr>
+                <td>Nazwa firmy</td>
+                <td>@Model.ShippingAddress.CompanyName @Model.ShippingAddress.CustomerName @Model.ShippingAddress.CustomerSurname</td>
+            </tr>
+            <tr>
+                <td>Ulica</td>
+                <td>@Model.ShippingAddress.Street</td>
+            </tr>
+            <tr>
+                <td>Miasto</td>
+                <td>@Model.ShippingAddress.City</td>
+            </tr>
+            <tr>
+                <td>Kod pocztowy</td>
+                <td>@Model.ShippingAddress.ZipCode</td>
+            </tr>
+            <tr>
+                <td>Telefon</td>
+                <td>@Model.ShippingAddress.Phone</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>@Model.ShippingAddress.Email</td>
+            </tr>
+        </table>
+    </p>
+
+    <p>
+        <table style="width:700px" cellpadding="2" cellspacing="2" border="1">
+            <tr>
+                <th colspan="2">Uwagi do zamówienia</th>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="message" rows="14" cols="60">Uwagi do zamówienia, np. zmiana adresu</textarea>
+                </td>
+            </tr>
+        </table>
+    </p>
+
+    <button class="myButton2">
+        @Html.ActionLink("Wyślij zamówienie", "SaveNewOrder", "Cart",
+        new { id = ViewBag.OrderId, valueOrder = valueOrder, customer = ViewBag.userLogged },
+        new { onclick = "return confirm('Na pewno wysłać zamówienie?');" })
+    </button>
+</body>
+
+@functions
+{
+    double valueOrder;
+    double totalValueBrutto = 0;
+    double totalValueNetto = 0;
+    double totalValueBruttoWithDiscount = 0;
+    double itemValue = 0;
+    string message = "";
+    double discount = 0;
+    double shippingCost;
+    int id;
+    int OrderId;
+
+
+    void CalculateCartBrutto(double itemValue)
+    {
+        totalValueBrutto = totalValueBrutto + itemValue;
+    }
+
+    void GenerateMessageAndDiscount(double totalValueNetto, double totalValueBrutto)
+    {
+        if (totalValueNetto >= 3000)
+        {
+            totalValueBruttoWithDiscount = totalValueBrutto * 0.91;
+            string temp = String.Format("{0:N2}", totalValueBruttoWithDiscount);
+            totalValueBruttoWithDiscount = double.Parse(temp);
+            message = "Twoje zamówienie przekracza próg 3000zł netto, otrzymujesz darmową dostawę oraz 9% rabatu na wybrane marki.";
+            shippingCost = 0;
+            discount = 9;
+            return;
+        }
+        else if (totalValueNetto >= 1500)
+        {
+            //totalValueNetto(totalValueBrutto);
+            message = "Dodaj towary o wartości " + (3000 - totalValueNetto) + " zł aby otrzymać 9% rabatu. Twoje zamówienie przekracza próg 1500zł netto, otrzymujesz darmową dostawę oraz 5% rabatu na wybrane marki.";
+            totalValueBruttoWithDiscount = totalValueBrutto * 0.95;
+            string temp = String.Format("{0:N2}", totalValueBruttoWithDiscount);
+            totalValueBruttoWithDiscount = double.Parse(temp);
+            shippingCost = 0;
+            discount = 5;
+            return;
+        }
+        else if (totalValueNetto >= 800)
+        {
+            //totalCartValueNetto(totalValueBrutto);
+            message = "Dodaj towary o wartości " + (1500 - totalValueNetto) + " zł aby otrzymać 5% rabatu. Twoje zamówienie przekracza próg 800zł netto i otrzymujesz darmową dostawę.";
+            totalValueBruttoWithDiscount = totalValueBrutto;
+            shippingCost = 0;
+            discount = 0;
+            return;
+        }
+        else if (totalValueNetto < 800)
+        {
+            //totalCartValueNetto(totalValueBrutto);
+            message = "Brakuje " + (800 - totalValueNetto) + " zł do darmowej wysyłki. Dodaj towary o wartości " + (1500 - totalValueNetto) + " zł aby otrzymać darmową wysyłkę i 5% rabatu.";
+            totalValueBruttoWithDiscount = totalValueBrutto;
+            shippingCost = 18;
+            discount = 0;
+            return;
+        }
+    }
+    void CalculateCartNetto(double totalValueBrutto)
+    {
+        totalValueNetto = totalValueBrutto / 1.23;
+        string netto = String.Format("{0:N0}", totalValueNetto);
+        totalValueNetto = double.Parse(netto);
+    }
+}

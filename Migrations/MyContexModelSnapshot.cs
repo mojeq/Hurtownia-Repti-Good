@@ -40,7 +40,7 @@ namespace HurtowniaReptiGood.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("InvoiceAddressId")
+                    b.Property<int>("InvoiceAddressId")
                         .HasColumnType("int");
 
                     b.Property<int>("ShippingAddressId")
@@ -92,6 +92,10 @@ namespace HurtowniaReptiGood.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("StreetNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ZipCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -114,7 +118,7 @@ namespace HurtowniaReptiGood.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
@@ -137,7 +141,7 @@ namespace HurtowniaReptiGood.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetailEntity");
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("HurtowniaReptiGood.Models.Entities.OrderEntity", b =>
@@ -152,9 +156,6 @@ namespace HurtowniaReptiGood.Migrations
 
                     b.Property<DateTime>("DateOrder")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("OrderDetailId")
-                        .HasColumnType("int");
 
                     b.Property<string>("StateOrder")
                         .IsRequired()
@@ -171,9 +172,7 @@ namespace HurtowniaReptiGood.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("OrderDetailId");
-
-                    b.ToTable("OrderEntity");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("HurtowniaReptiGood.Models.Entities.ProductEntity", b =>
@@ -217,6 +216,16 @@ namespace HurtowniaReptiGood.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerSurname")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -229,7 +238,7 @@ namespace HurtowniaReptiGood.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TypeAddress")
+                    b.Property<string>("StreetNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -440,9 +449,11 @@ namespace HurtowniaReptiGood.Migrations
 
             modelBuilder.Entity("HurtowniaReptiGood.Models.Entities.CustomerEntity", b =>
                 {
-                    b.HasOne("HurtowniaReptiGood.Models.Entities.InvoiceAddressEntity", "InvoiceAddres")
+                    b.HasOne("HurtowniaReptiGood.Models.Entities.InvoiceAddressEntity", "InvoiceAddress")
                         .WithMany()
-                        .HasForeignKey("InvoiceAddressId");
+                        .HasForeignKey("InvoiceAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HurtowniaReptiGood.Models.Entities.ShippingAddressEntity", "ShippingAddress")
                         .WithMany()
@@ -461,20 +472,18 @@ namespace HurtowniaReptiGood.Migrations
 
                     b.HasOne("HurtowniaReptiGood.Models.Entities.ProductEntity", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HurtowniaReptiGood.Models.Entities.OrderEntity", b =>
                 {
                     b.HasOne("HurtowniaReptiGood.Models.Entities.CustomerEntity", "Customer")
-                        .WithMany("OrderList")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("HurtowniaReptiGood.Models.Entities.OrderDetailEntity", "OrderDetail")
-                        .WithMany()
-                        .HasForeignKey("OrderDetailId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -53,8 +53,8 @@ namespace HurtowniaReptiGood.Controllers
                 var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if (signInResult.Succeeded)
                 {
-                    string userLogged = _userManager.GetUserName(HttpContext.User);
-                    Response.Cookies.Append("userLogged", userLogged);
+                    //string userLogged = _userManager.GetUserName(HttpContext.User);
+                    //Response.Cookies.Append("userLogged", userLogged);
                     return RedirectToAction("Index");
                 }
             }

@@ -21,9 +21,11 @@ namespace HurtowniaReptiGood.Models.Entities
         public string Email { get; set; }
         [Required]
         public int ShippingAddressId { get; set; }
-        public virtual ShippingAddressEntity ShippingAddress { get; set; }
-        public virtual InvoiceAddressEntity InvoiceAddres { get; set; }
-        public virtual ICollection<OrderEntity> OrderList { get; set; }
+        public ShippingAddressEntity ShippingAddress { get; set; }
+        [Required]
+        public int InvoiceAddressId { get; set; }
+        public InvoiceAddressEntity InvoiceAddress { get; set; }
+        //public virtual ICollection<OrderEntity> OrderList { get; set; }
         //public OrderEntity Order { get; set; }
     }
 }

@@ -12,17 +12,16 @@ namespace HurtowniaReptiGood.Models.Entities
         [Required]
         public int OrderId { get; set; }
         [Required]
-        public int CustomerId { get; set; }
-        [Required]
         public string StateOrder { get; set; }
         [Required]
         public string StatusOrder { get; set; }
         [Required]
         public DateTime DateOrder { get; set; }
         [Required]
-        public double ValueOrder { get; set; } 
-        public virtual CustomerEntity Customer { get; set; }
-        public virtual ICollection<OrderDetailEntity> OrderDetails { get; set; }
-        public OrderDetailEntity OrderDetail { get; set; }
+        public double ValueOrder { get; set; }
+        [Required]
+        public int CustomerId { get; set; }
+        public CustomerEntity Customer { get; set; }
+        public  ICollection<OrderDetailEntity> OrderDetails { get; set; }        
     }
 }

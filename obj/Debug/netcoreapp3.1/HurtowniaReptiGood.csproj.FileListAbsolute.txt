@@ -152,4 +152,4 @@ C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\zh-Hant\M
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Home\Register.cshtml.g.cs
-C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\aaaaa.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Cart\Cart.cshtml.g.cs

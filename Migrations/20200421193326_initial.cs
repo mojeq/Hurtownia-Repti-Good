@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HurtowniaReptiGood.Migrations
 {
-    public partial class addidentity : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,65 @@ namespace HurtowniaReptiGood.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InvoiceAddresses",
+                columns: table => new
+                {
+                    InvoiceAddressId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyName = table.Column<string>(nullable: false),
+                    CustomerName = table.Column<string>(nullable: true),
+                    CustomerSurname = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: false),
+                    StreetNumber = table.Column<string>(nullable: false),
+                    City = table.Column<string>(nullable: false),
+                    ZipCode = table.Column<string>(nullable: false),
+                    Phone = table.Column<string>(nullable: false),
+                    NIP = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InvoiceAddresses", x => x.InvoiceAddressId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductSymbol = table.Column<string>(nullable: false),
+                    ProductName = table.Column<string>(nullable: false),
+                    Price = table.Column<double>(nullable: false),
+                    Stock = table.Column<int>(nullable: false),
+                    Photo = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShippingAddresses",
+                columns: table => new
+                {
+                    ShippingAddressId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyName = table.Column<string>(nullable: false),
+                    CustomerName = table.Column<string>(nullable: true),
+                    CustomerSurname = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: false),
+                    StreetNumber = table.Column<string>(nullable: false),
+                    City = table.Column<string>(nullable: false),
+                    ZipCode = table.Column<string>(nullable: false),
+                    Phone = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShippingAddresses", x => x.ShippingAddressId);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +211,91 @@ namespace HurtowniaReptiGood.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    CustomerId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(nullable: false),
+                    CompanyName = table.Column<string>(nullable: false),
+                    CustomerName = table.Column<string>(nullable: true),
+                    CustomerSurname = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: false),
+                    ShippingAddressId = table.Column<int>(nullable: false),
+                    InvoiceAddressId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                    table.ForeignKey(
+                        name: "FK_Customers_InvoiceAddresses_InvoiceAddressId",
+                        column: x => x.InvoiceAddressId,
+                        principalTable: "InvoiceAddresses",
+                        principalColumn: "InvoiceAddressId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Customers_ShippingAddresses_ShippingAddressId",
+                        column: x => x.ShippingAddressId,
+                        principalTable: "ShippingAddresses",
+                        principalColumn: "ShippingAddressId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StateOrder = table.Column<string>(nullable: false),
+                    StatusOrder = table.Column<string>(nullable: false),
+                    DateOrder = table.Column<DateTime>(nullable: false),
+                    ValueOrder = table.Column<double>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderDetails",
+                columns: table => new
+                {
+                    OrderDetailId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductSymbol = table.Column<string>(nullable: false),
+                    ProductName = table.Column<string>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Price = table.Column<double>(nullable: false),
+                    Value = table.Column<double>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderDetails", x => x.OrderDetailId);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +334,31 @@ namespace HurtowniaReptiGood.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_InvoiceAddressId",
+                table: "Customers",
+                column: "InvoiceAddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_ShippingAddressId",
+                table: "Customers",
+                column: "ShippingAddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_OrderId",
+                table: "OrderDetails",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_ProductId",
+                table: "OrderDetails",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerId",
+                table: "Orders",
+                column: "CustomerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +379,28 @@ namespace HurtowniaReptiGood.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "OrderDetails");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "InvoiceAddresses");
+
+            migrationBuilder.DropTable(
+                name: "ShippingAddresses");
         }
     }
 }
