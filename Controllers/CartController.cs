@@ -153,5 +153,18 @@ namespace HurtowniaReptiGood.Controllers
             _cartService.RemoveItemFromCart(orderDetailId);
             return RedirectToAction("Cart", orderId);
         }
+
+        [Authorize]
+        public IActionResult SaveNewOrder(int orderId, double valueOrder)
+        {
+            _cartService.SaveNewOrder(orderId, valueOrder);
+            _cartService.CreatePdfAttachmentWithOrder(orderId);
+            //_cartService.SendMailWithOrderToCustomer(orderId);
+
+            Response.Cookies.Delete("cartStatus");
+            Response.Cookies.Delete("orderId");
+
+            return View();
+        }
     }
 }

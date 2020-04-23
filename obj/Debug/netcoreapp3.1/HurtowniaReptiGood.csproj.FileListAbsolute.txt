@@ -149,7 +149,16 @@ C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\ru\Micros
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Home\Register.cshtml.g.cs
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Cart\Cart.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Cart\SaveNewOrder.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Home\CartEmpty.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\iTextSharp.LGPLv2.Core.dll
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache

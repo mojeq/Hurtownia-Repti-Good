@@ -1,8 +1,11 @@
 ﻿using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models.ViewModels;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -166,6 +169,78 @@ namespace HurtowniaReptiGood.Models.Services
             var orderDetailExist = _myContex.OrderDetails.Find(orderDetailId);
             orderDetailExist.Quantity = quantity;
             _myContex.SaveChanges();
-        }        
+        }   
+        
+        public void SaveNewOrder(int orderId, double valueOrder)
+        {
+            var orderUpdate = _myContex.Orders.Find(orderId);
+            orderUpdate.DateOrder = DateTime.Now;
+            orderUpdate.StateOrder = "bought";
+            orderUpdate.ValueOrder = valueOrder;
+            orderUpdate.StatusOrder = "W realizacji";
+            _myContex.SaveChanges();
+        }
+
+        public void CreatePdfAttachmentWithOrder(int orderId)
+        {
+            var orderExist = _myContex.Orders.Find(orderId);
+            var orderExistDetailList = _myContex.OrderDetails.Where(x => x.OrderId == orderId).ToList();
+
+            FontFactory.RegisterDirectory("C:WINDOWSFonts"); //add polish signs
+            var titleFont18 = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED, 18, Font.BOLD);
+            var titleFont14 = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED, 14, Font.BOLD);
+            var textFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED, 12);
+            Font link = FontFactory.GetFont("Arial", 12, Font.UNDERLINE);
+
+            FileStream fs = new FileStream("PDF/Order" + orderId + ".pdf", FileMode.Create);
+            Document orderPdf = new Document(PageSize.A4);
+            PdfWriter writer = PdfWriter.GetInstance(orderPdf, fs);
+            orderPdf.Open();
+
+            Anchor orderLink = new Anchor("Link do panelu klienta http://www.reptigood.pl/zamowienia/index \n", link);
+            orderPdf.Add(new Paragraph(orderLink));
+            String line = "Zamówienie nr " + orderId;
+            orderPdf.Add(new Paragraph(line + "\n\n", titleFont14));
+            //orderLink.Reference = "http://www.reptigood.pl/zamowienia/index";           
+
+            PdfPTable table = new PdfPTable(2);
+            table.AddCell(new Phrase("Numer dokumentu", textFont));
+            table.AddCell(orderId.ToString());
+            table.AddCell(new Phrase("Data i godzina przyjęcia zamówienia", textFont));
+            table.AddCell(orderExist.DateOrder.ToString());
+            table.AddCell(new Phrase("Wartość zamówienia brutto", textFont));
+            table.AddCell(new Phrase(orderExist.ValueOrder.ToString() + "zł", textFont));
+
+            PdfPTable table2 = new PdfPTable(3);
+            table2.SetWidths(new int[] { 7, 1, 1 });
+            PdfPCell cell2 = new PdfPCell(new Phrase("\n\nZawartość zamówienia:\n", titleFont14));
+            cell2.Colspan = 3;
+            cell2.Border = 0;
+            cell2.HorizontalAlignment = 0; //0=Left, 1=Centre, 2=Right  
+            table2.AddCell(cell2);
+
+            PdfPCell cell3 = new PdfPCell(new Phrase("Nazwa", textFont));
+            cell3.HorizontalAlignment = 1;
+            table2.AddCell(cell3);
+            PdfPCell cell4 = new PdfPCell(new Phrase("Ilość", textFont));
+            cell3.HorizontalAlignment = 1;
+            table2.AddCell(cell4);
+            PdfPCell cell5 = new PdfPCell(new Phrase("Cena", textFont));
+            cell3.HorizontalAlignment = 1;
+            table2.AddCell(cell5);
+
+            foreach (var orderDetail in orderExistDetailList)
+            {
+                table2.AddCell(new Phrase(orderDetail.ProductName, textFont));
+                table2.AddCell(new Phrase(orderDetail.Quantity));
+                table2.AddCell(new Phrase(orderDetail.Price + "zł", textFont));
+            }
+            orderPdf.Add(table);
+            orderPdf.Add(table2);            
+
+            orderPdf.Close();
+            writer.Close();
+            fs.Close();
+        }
     }
 }

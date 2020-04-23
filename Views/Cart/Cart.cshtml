@@ -14,7 +14,7 @@
     }*@
 
 <body>
-    <h3>Zawartość koszyka @ViewBag.OrderId:</h3>
+    <h3>Zawartość koszyka @Model.CartToView.OrderDetailList[0].OrderId:</h3>
 
     <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
         <tr>
@@ -164,7 +164,7 @@
 
     <button class="myButton2">
         @Html.ActionLink("Wyślij zamówienie", "SaveNewOrder", "Cart",
-        new { id = ViewBag.OrderId, valueOrder = valueOrder, customer = ViewBag.userLogged },
+        new { orderId = @Model.CartToView.OrderDetailList[0].OrderId, valueOrder = valueOrder},
         new { onclick = "return confirm('Na pewno wysłać zamówienie?');" })
     </button>
 </body>
