@@ -71,45 +71,8 @@ namespace HurtowniaReptiGood.Controllers
                 {
                     OrderDetailList = cartDetails.OrderDetailList
                 }
-            };
+            };    
 
-            //string stateOrder;
-            //Customer loggedUser;
-            //Address invoiceAddress;
-            //Address shippingAddress;
-            //List<OrderDetail> itemsInCart = new List<OrderDetail>();
-
-            // achive shipping address and invoice address from database
-            
-
-            //using(var contex = new MyContex())
-            //{
-            //    var order = contex.Orders.FirstOrDefault(a => a.OrderId == OrderId);
-            //    stateOrder = order.StateOrder;
-            //}
-
-            //if (String.IsNullOrEmpty(Request.Cookies["cartStatus"]) || (stateOrder=="bought"))
-            //{
-            //    return View("CartEmpty");
-            //}
-
-            //using (var contex = new MyContex())
-            //{
-            //    loggedUser = contex.Customers.FirstOrDefault(a => a.UserName == userLogged);
-
-            //    invoiceAddress = contex.Addresses.FirstOrDefault(b => b.AddressId == loggedUser.InvoiceAddressId);
-
-            //    shippingAddress = contex.Addresses.FirstOrDefault(c => c.AddressId == loggedUser.ShippingAddressId);
-
-            //    ViewBag.loggedUser = loggedUser;
-            //    ViewBag.invoiceAddress = invoiceAddress;
-            //    ViewBag.shippingAddress = shippingAddress;
-            //    ViewBag.userLogged = loggedUser.UserName;
-
-            //    itemsInCart = contex.OrderDetails.Where(c => c.OrderId == OrderId).ToList();
-            //    ViewBag.itemCartList = itemsInCart;
-            //}
-            
             return View(dataToView);
         }
 
@@ -128,12 +91,10 @@ namespace HurtowniaReptiGood.Controllers
             {
                 orderId=_cartService.AddItemToExistCart(loggedUser, itemCart);
             }
-            // CookieOptions option = new CookieOptions();
-            // option.Expires = DateTime.Now.AddMinutes(30);
-            Response.Cookies.Append("cartStatus", "tempCart");            
-            //option.Expires = DateTime.Now.AddMinutes(30);
+
+            Response.Cookies.Append("cartStatus", "tempCart");        
             Response.Cookies.Append("orderId", orderId.ToString());    
-            //ViewBag.itemCartList = itemsInCart;
+          
             return RedirectToAction("Cart", orderId);
         }
 
