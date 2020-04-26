@@ -12,16 +12,20 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
+#nullable restore
 #line 1 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\_ViewImports.cshtml"
 using HurtowniaReptiGood;
 
 #line default
 #line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\_ViewImports.cshtml"
 using HurtowniaReptiGood.Models;
 
 #line default
 #line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4962106691ebe3bdd2c8e82c8805021efeded911", @"/Views/Home/Login.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6834015aa91ceb0ba53bc76759ac2bb4cb41557b", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Login : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
@@ -54,6 +58,7 @@ using HurtowniaReptiGood.Models;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("\r\n");
+#nullable restore
 #line 2 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Login.cshtml"
   
     ViewData["Title"] = "Login";
@@ -61,8 +66,9 @@ using HurtowniaReptiGood.Models;
 
 #line default
 #line hidden
+#nullable disable
             WriteLiteral("\r\n<h1>Login</h1>\r\n\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4962106691ebe3bdd2c8e82c8805021efeded9113981", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4962106691ebe3bdd2c8e82c8805021efeded9114095", async() => {
                 WriteLiteral("\r\n    <input type=\"text\" name=\"username\"");
                 BeginWriteAttribute("value", " value=\"", 140, "\"", 148, 0);
                 EndWriteAttribute();

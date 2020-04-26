@@ -12,21 +12,27 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
+#nullable restore
 #line 1 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\_ViewImports.cshtml"
 using HurtowniaReptiGood;
 
 #line default
 #line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\_ViewImports.cshtml"
 using HurtowniaReptiGood.Models;
 
 #line default
 #line hidden
+#nullable disable
+#nullable restore
 #line 6 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
 using HurtowniaReptiGood.Models.ViewModels;
 
 #line default
 #line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"164e73dc01de02009943aa203237d3ef0d4b1452", @"/Views/Cart/Cart.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6834015aa91ceb0ba53bc76759ac2bb4cb41557b", @"/Views/_ViewImports.cshtml")]
     public class Views_Cart_Cart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<CartAndAddressesViewModel>
@@ -59,6 +65,7 @@ using HurtowniaReptiGood.Models.ViewModels;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
+#nullable restore
 #line 1 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
   
     ViewData["Title"] = "Koszyk";
@@ -66,16 +73,19 @@ using HurtowniaReptiGood.Models.ViewModels;
 
 #line default
 #line hidden
+#nullable disable
             WriteLiteral("\r\n");
             WriteLiteral("\r\n");
             WriteLiteral("\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "164e73dc01de02009943aa203237d3ef0d4b14524364", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "164e73dc01de02009943aa203237d3ef0d4b14524516", async() => {
                 WriteLiteral("\r\n    <h3>Zawartość koszyka ");
+#nullable restore
 #line 17 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                      Write(Model.CartToView.OrderDetailList[0].OrderId);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(@":</h3>
 
     <table style=""width:1200px"" cellpadding=""2"" cellspacing=""2"" border=""1"">
@@ -88,63 +98,79 @@ using HurtowniaReptiGood.Models.ViewModels;
             <th>Usuń</th>
         </tr>
 ");
+#nullable restore
 #line 28 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
          foreach (OrderDetailViewModel cart in Model.CartToView.OrderDetailList)
         {
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("            <tr text-align=\"center\">\r\n                <td>");
+#nullable restore
 #line 31 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(cart.ProductSymbol);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n                <td>");
+#nullable restore
 #line 32 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(cart.ProductName);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n                <td>");
+#nullable restore
 #line 33 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(cart.Price);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n                <td>\r\n\r\n                    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "164e73dc01de02009943aa203237d3ef0d4b14526152", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "164e73dc01de02009943aa203237d3ef0d4b14526494", async() => {
                     WriteLiteral("\r\n                        <input size=\"5\" height=\"25\" type=\"number\" name=\"Quantity\" min=\"1\"");
                     BeginWriteAttribute("value", " value=\"", 1118, "\"", 1140, 1);
+#nullable restore
 #line 37 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
 WriteAttributeValue("", 1126, cart.Quantity, 1126, 14, false);
 
 #line default
 #line hidden
+#nullable disable
                     EndWriteAttribute();
                     WriteLiteral(" />\r\n                        <input type=\"hidden\" name=\"OrderId\"");
                     BeginWriteAttribute("value", " value=\"", 1205, "\"", 1226, 1);
+#nullable restore
 #line 38 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
 WriteAttributeValue("", 1213, cart.OrderId, 1213, 13, false);
 
 #line default
 #line hidden
+#nullable disable
                     EndWriteAttribute();
                     WriteLiteral(" />\r\n                        <input type=\"hidden\" name=\"OrderDetailId\"");
                     BeginWriteAttribute("value", " value=\"", 1297, "\"", 1324, 1);
+#nullable restore
 #line 39 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
 WriteAttributeValue("", 1305, cart.OrderDetailId, 1305, 19, false);
 
 #line default
 #line hidden
+#nullable disable
                     EndWriteAttribute();
                     WriteLiteral(" />\r\n                        <input type=\"hidden\" name=\"ProductSymbol\"");
                     BeginWriteAttribute("value", " value=\"", 1395, "\"", 1418, 1);
+#nullable restore
 #line 40 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
 WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
 
 #line default
 #line hidden
+#nullable disable
                     EndWriteAttribute();
                     WriteLiteral(" />\r\n                        <input type=\"submit\" value=\"Odśwież\" />\r\n                    ");
                 }
@@ -164,12 +190,15 @@ WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                </td>\r\n\r\n                <td>");
+#nullable restore
 #line 45 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                 Write(itemValue = cart.Price * (Convert.ToDouble(cart.Quantity)));
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("zł</td>\r\n                <td>\r\n                    <button class=\"myButton3\">\r\n                        ");
+#nullable restore
 #line 48 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                    Write(Html.ActionLink("Usuń", "RemoveItemFromCart", "Cart",
                         new { orderDetailId = cart.OrderDetailId, orderId = cart.OrderId },
@@ -177,7 +206,9 @@ WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("\r\n                    </button>\r\n                </td>\r\n\r\n            </tr>\r\n");
+#nullable restore
 #line 55 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
             method: @CalculateCartBrutto(itemValue);
                 @CalculateCartNetto(totalValueBrutto);
@@ -186,48 +217,63 @@ WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("\r\n        <tr>\r\n            <th colspan=\"2\">Wartość netto zamówienia</th>\r\n            <th colspan=\"4\">");
+#nullable restore
 #line 62 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                        Write(totalValueNetto);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(" zł</th>\r\n        </tr>\r\n        <tr>\r\n            <th colspan=\"2\">Wartość brutto zamówienia</th>\r\n            <th colspan=\"4\">");
+#nullable restore
 #line 66 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                        Write(totalValueBrutto);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(" zł</th>\r\n        </tr>\r\n        <tr>\r\n            <th colspan=\"2\">Koszt wysyłki</th>\r\n            <th colspan=\"4\">");
+#nullable restore
 #line 70 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                        Write(shippingCost);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(" zł</th>\r\n        </tr>\r\n        <tr>\r\n            <th colspan=\"2\">Rabat</th>\r\n            <th colspan=\"4\">");
+#nullable restore
 #line 74 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                        Write(discount);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(" %</th>\r\n        </tr>\r\n        <tr>\r\n            <th colspan=\"2\">Wartość brutto zamówienia po rabacie</th>\r\n            <th colspan=\"4\">");
+#nullable restore
 #line 78 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                         Write(valueOrder = totalValueBruttoWithDiscount + shippingCost);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(" zł</th>\r\n        </tr>\r\n        <tr>\r\n            <th colspan=\"6\">");
+#nullable restore
 #line 81 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                        Write(message);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</th>\r\n        </tr>\r\n        <tr>\r\n            <td colspan=\"6\"><button class=\"myButton\">");
+#nullable restore
 #line 84 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                                                 Write(Html.ActionLink("Dodaj kolejny produkt", "Index", "Home"));
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(@"</button></td>
         </tr>
     </table>
@@ -240,41 +286,53 @@ WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
             <tr>
                 <td>Nazwa firmy</td>
                 <td>");
+#nullable restore
 #line 95 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.InvoiceAddress.CompanyName);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>NIP</td>\r\n                <td>");
+#nullable restore
 #line 99 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.InvoiceAddress.NIP);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Ulica</td>\r\n                <td>");
+#nullable restore
 #line 103 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.InvoiceAddress.Street);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Miasto</td>\r\n                <td>");
+#nullable restore
 #line 107 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.InvoiceAddress.City);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Kod pocztowy</td>\r\n                <td>");
+#nullable restore
 #line 111 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.InvoiceAddress.ZipCode);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Telefon</td>\r\n                <td>");
+#nullable restore
 #line 115 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.InvoiceAddress.Phone);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(@"</td>
             </tr>
         </table>
@@ -288,53 +346,69 @@ WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
             <tr>
                 <td>Nazwa firmy</td>
                 <td>");
+#nullable restore
 #line 127 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.ShippingAddress.CompanyName);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(" ");
+#nullable restore
 #line 127 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                                                   Write(Model.ShippingAddress.CustomerName);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(" ");
+#nullable restore
 #line 127 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                                                                                       Write(Model.ShippingAddress.CustomerSurname);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Ulica</td>\r\n                <td>");
+#nullable restore
 #line 131 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.ShippingAddress.Street);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Miasto</td>\r\n                <td>");
+#nullable restore
 #line 135 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.ShippingAddress.City);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Kod pocztowy</td>\r\n                <td>");
+#nullable restore
 #line 139 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.ShippingAddress.ZipCode);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Telefon</td>\r\n                <td>");
+#nullable restore
 #line 143 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.ShippingAddress.Phone);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>E-mail</td>\r\n                <td>");
+#nullable restore
 #line 147 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
                Write(Model.ShippingAddress.Email);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(@"</td>
             </tr>
         </table>
@@ -355,6 +429,7 @@ WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
 
     <button class=""myButton2"">
         ");
+#nullable restore
 #line 166 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
    Write(Html.ActionLink("Wyślij zamówienie", "SaveNewOrder", "Cart",
         new { orderId = @Model.CartToView.OrderDetailList[0].OrderId, valueOrder = valueOrder},
@@ -362,6 +437,7 @@ WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("\r\n    </button>\r\n");
             }
             );
@@ -377,6 +453,7 @@ WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
             WriteLiteral("\r\n\r\n");
         }
         #pragma warning restore 1998
+#nullable restore
 #line 173 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Cart\Cart.cshtml"
  
     double valueOrder;
@@ -447,6 +524,7 @@ WriteAttributeValue("", 1403, cart.ProductId, 1403, 15, false);
 
 #line default
 #line hidden
+#nullable disable
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
         public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]

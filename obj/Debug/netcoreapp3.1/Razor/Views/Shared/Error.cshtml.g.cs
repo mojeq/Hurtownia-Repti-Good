@@ -12,16 +12,20 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
+#nullable restore
 #line 1 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\_ViewImports.cshtml"
 using HurtowniaReptiGood;
 
 #line default
 #line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\_ViewImports.cshtml"
 using HurtowniaReptiGood.Models;
 
 #line default
 #line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d6a5625cc8fb4476f348b0fe9041c550465d8bf9", @"/Views/Shared/Error.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6834015aa91ceb0ba53bc76759ac2bb4cb41557b", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Error : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ErrorViewModel>
@@ -29,31 +33,39 @@ using HurtowniaReptiGood.Models;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
+#nullable restore
 #line 2 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Shared\Error.cshtml"
   
     ViewData["Title"] = "Error";
 
 #line default
 #line hidden
+#nullable disable
             WriteLiteral("\r\n<h1 class=\"text-danger\">Error.</h1>\r\n<h2 class=\"text-danger\">An error occurred while processing your request.</h2>\r\n\r\n");
+#nullable restore
 #line 9 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Shared\Error.cshtml"
  if (Model.ShowRequestId)
 {
 
 #line default
 #line hidden
+#nullable disable
             WriteLiteral("    <p>\r\n        <strong>Request ID:</strong> <code>");
+#nullable restore
 #line 12 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Shared\Error.cshtml"
                                       Write(Model.RequestId);
 
 #line default
 #line hidden
+#nullable disable
             WriteLiteral("</code>\r\n    </p>\r\n");
+#nullable restore
 #line 14 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Shared\Error.cshtml"
 }
 
 #line default
 #line hidden
+#nullable disable
             WriteLiteral(@"
 <h3>Development Mode</h3>
 <p>

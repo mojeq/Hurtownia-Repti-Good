@@ -2,12 +2,16 @@
 using HurtowniaReptiGood.Models.ViewModels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
+
 
 namespace HurtowniaReptiGood.Models.Services
 {
@@ -241,6 +245,27 @@ namespace HurtowniaReptiGood.Models.Services
             orderPdf.Close();
             writer.Close();
             fs.Close();
+        }
+
+        public void SendMailWithAttachment()
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Hurtownia TerraHurt", "biuro@reptigood.pl"));
+            message.To.Add(new MailboxAddress("customer", "biuro@reptigood.pl"));
+            BodyBuilder message_body = new BodyBuilder();
+            //message_body.Attachments.Add("order1.pdf");
+            string textBody = "Zamówienie";
+            message_body.TextBody = textBody;
+            message.Body = message_body.ToMessageBody();
+
+            using (var smtpClient = new SmtpClient())
+            {
+                var mailConfig = _myContex.Mails.Find(1);
+                smtpClient.Connect(mailConfig.Serwer, 465, true);
+                smtpClient.Authenticate(mailConfig.Mail, mailConfig.Password);
+                smtpClient.Send(message);
+                smtpClient.Disconnect(true);
+            }
         }
     }
 }

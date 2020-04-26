@@ -12,16 +12,20 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
+#nullable restore
 #line 1 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\_ViewImports.cshtml"
 using HurtowniaReptiGood;
 
 #line default
 #line hidden
+#nullable disable
+#nullable restore
 #line 7 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
 using HurtowniaReptiGood.Models;
 
 #line default
 #line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8c277c10fc46cf341ca31b0d1e33dd8212efca4d", @"/Views/Home/Index.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6834015aa91ceb0ba53bc76759ac2bb4cb41557b", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ProductsListViewModel>
@@ -57,6 +61,7 @@ using HurtowniaReptiGood.Models;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("\r\n");
+#nullable restore
 #line 2 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
   
     ViewData["Title"] = "Index";
@@ -64,9 +69,10 @@ using HurtowniaReptiGood.Models;
 
 #line default
 #line hidden
+#nullable disable
             WriteLiteral("\r\n");
             WriteLiteral("\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c277c10fc46cf341ca31b0d1e33dd8212efca4d4705", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c277c10fc46cf341ca31b0d1e33dd8212efca4d4819", async() => {
                 WriteLiteral(@"
     <div>
 
@@ -80,37 +86,45 @@ using HurtowniaReptiGood.Models;
                 <th>Do koszyka</th>
             </tr>
 ");
+#nullable restore
 #line 22 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
              foreach (ProductViewModel product in Model.Products)
             {
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("                <tr text-align=\"center\">\r\n                    <td>");
+#nullable restore
 #line 25 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
                    Write(product.ProductSymbol);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n                    <td>");
+#nullable restore
 #line 26 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
                    Write(product.ProductName);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n                    <td>");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "8c277c10fc46cf341ca31b0d1e33dd8212efca4d6062", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "8c277c10fc46cf341ca31b0d1e33dd8212efca4d6290", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
                 __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper);
                 BeginAddHtmlAttributeValues(__tagHelperExecutionContext, "src", 2, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
                 AddHtmlAttributeValue("", 757, "~/Media/img/", 757, 12, true);
+#nullable restore
 #line 27 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
 AddHtmlAttributeValue("", 769, product.Photo, 769, 14, false);
 
 #line default
 #line hidden
+#nullable disable
                 EndAddHtmlAttributeValues(__tagHelperExecutionContext);
                 __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_0);
                 await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
@@ -121,50 +135,62 @@ AddHtmlAttributeValue("", 769, product.Photo, 769, 14, false);
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("</td>\r\n                    <td>");
+#nullable restore
 #line 28 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
                    Write(product.Price);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("</td>\r\n                    <td>");
+#nullable restore
 #line 29 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
                    Write(product.Stock);
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral(" szt</td>\r\n                    <td>\r\n                        ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c277c10fc46cf341ca31b0d1e33dd8212efca4d8157", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c277c10fc46cf341ca31b0d1e33dd8212efca4d8499", async() => {
                     WriteLiteral("\r\n                            <input type=\"hidden\" name=\"ProductId\"");
                     BeginWriteAttribute("value", " value=\"", 1065, "\"", 1091, 1);
+#nullable restore
 #line 32 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
 WriteAttributeValue("", 1073, product.ProductId, 1073, 18, false);
 
 #line default
 #line hidden
+#nullable disable
                     EndWriteAttribute();
                     WriteLiteral(">\r\n                            <input type=\"hidden\" name=\"ProductSymbol\"");
                     BeginWriteAttribute("value", " value=\"", 1164, "\"", 1194, 1);
+#nullable restore
 #line 33 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
 WriteAttributeValue("", 1172, product.ProductSymbol, 1172, 22, false);
 
 #line default
 #line hidden
+#nullable disable
                     EndWriteAttribute();
                     WriteLiteral(">\r\n                            <input type=\"hidden\" name=\"ProductName\"");
                     BeginWriteAttribute("value", " value=\"", 1265, "\"", 1293, 1);
+#nullable restore
 #line 34 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
 WriteAttributeValue("", 1273, product.ProductName, 1273, 20, false);
 
 #line default
 #line hidden
+#nullable disable
                     EndWriteAttribute();
                     WriteLiteral(">\r\n                            <input type=\"hidden\" name=\"Price\"");
                     BeginWriteAttribute("value", " value=\"", 1358, "\"", 1380, 1);
+#nullable restore
 #line 35 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
 WriteAttributeValue("", 1366, product.Price, 1366, 14, false);
 
 #line default
 #line hidden
+#nullable disable
                     EndWriteAttribute();
                     WriteLiteral(@">
                             <label name=""Quantity"">Sztuk: </label>
@@ -188,11 +214,13 @@ WriteAttributeValue("", 1366, product.Price, 1366, 14, false);
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                    </td>\r\n                </tr>\r\n");
+#nullable restore
 #line 42 "C:\Users\mojeq\source\repos\HurtowniaReptiGood\Views\Home\Index.cshtml"
             }
 
 #line default
 #line hidden
+#nullable disable
                 WriteLiteral("        </table>\r\n    </div>\r\n");
             }
             );

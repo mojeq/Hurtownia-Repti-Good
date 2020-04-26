@@ -120,7 +120,7 @@ namespace HurtowniaReptiGood.Controllers
         {
             _cartService.SaveNewOrder(orderId, valueOrder);
             _cartService.CreatePdfAttachmentWithOrder(orderId);
-            //_cartService.SendMailWithOrderToCustomer(orderId);
+            _cartService.SendMailWithAttachment(); ;
 
             Response.Cookies.Delete("cartStatus");
             Response.Cookies.Delete("orderId");

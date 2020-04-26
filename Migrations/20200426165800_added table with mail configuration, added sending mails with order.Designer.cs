@@ -4,14 +4,16 @@ using HurtowniaReptiGood.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HurtowniaReptiGood.Migrations
 {
     [DbContext(typeof(MyContex))]
-    partial class MyContexModelSnapshot : ModelSnapshot
+    [Migration("20200426165800_added table with mail configuration, added sending mails with order")]
+    partial class addedtablewithmailconfigurationaddedsendingmailswithorder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
