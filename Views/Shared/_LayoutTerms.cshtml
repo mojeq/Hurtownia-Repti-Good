@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="~/Media/Style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Media/default.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Media/fonts.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="C:\Users\mojeq\source\repos\WholesaleReptiGood\lib\bootstrap\css\bootstrap.css" rel="stylesheet" />
+
+    <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+
+</head>
+<body>
+    <div id="header-wrapper">
+        <div id="header" class="container">
+            <div id="logo">
+                <h1><span class="icon icon-cog"></span><a href="#">Terra Hurt</a></h1>
+                <span>Jesteś zalogowany: @ViewBag.userLogged</span>
+                <button class="myButton">@Html.ActionLink("Wyloguj", "LogOut", "Home")</button>
+                <button class="myButton">
+                    @Html.ActionLink("Koszyk", "Cart", "Cart",
+                new { OrderId = ViewBag.OrderId })
+            </button>
+            @*<div id="menu">
+                    <ul>
+                        <li class="current_page_item"><a href="#" accesskey="1" title="">Strona główna</a></li>
+                        <li><a href="#" accesskey="3" title="">O nas</a></li>
+                        <li><a href="#" accesskey="4" title="">Kontakt</a></li>
+                        <li>@Html.ActionLink("Zamówienia", "OrdersList", "Account")</li>
+                    </ul>
+                </div>*@
+            <nav>
+                <ul>
+                    <li>
+                        @Html.ActionLink("Zamów", "Index", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Warunki", "TermsAndConditions", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Historia zamówień", "OrdersHistory", "CustomerAccount")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Kontakt", "Contact", "Contact")
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+    <div id="wrapper2">
+        @RenderBody()
+        
+        <p>- minimalne zamówienie 500zł netto </p>
+        <p>- koszt wysyłki 18zł przedpłata/pobranie</p>
+        <p>- przy zamówieniu 800zł netto wysyłka gratis</p>
+        <p>- przy zamówieniu 1500zł netto 5% rabatu</p>
+        <p>- przy zamówieniu 3000zł netto 9% rabatu</p>
+    </div>
+<div id="copyright" class="container">
+    <p>&copy; HURTOWNIA ZOOLOGICZNO-TERRARYSTYCZNA</p>
+    <a href="www.reptigood.pl">reptigood.pl</a>
+    <ul class="contact">
+        <li><p>Polub nas na FB</p><a href="#" class="icon icon-facebook"><span></span></a></li>
+    </ul>
+</div>
+</body>
+</html>
+
+

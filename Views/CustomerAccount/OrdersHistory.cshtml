@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "OrdersHistory";
+}
+
+@using HurtowniaReptiGood.Models.ViewModels
+
+@model OrderListViewModel
+
+<h1>Historia zamówień</h1>
+<body>
+    <div>
+        <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
+            <tr>
+                <th>Id</th>
+                <th>Data</th>
+                <th>Kwota</th>
+                <th>Status</th>
+                <th>Szczegóły</th>
+            </tr>
+            @foreach (OrderViewModel order in Model.OrdersList)
+            {
+                <tr text-align="center">
+                    <td>@order.OrderId</td>
+                    <td>@order.DateOrder</td>
+                    <td>@order.ValueOrder zł</td>
+                    <td>@order.StatusOrder</td>
+                    <td>
+                        <button class="myButton2">
+                            @Html.ActionLink("Pokaż", "OrderHistoryDetails", "CustomerAccount",
+                            new { OrderId = order.OrderId })
+                        </button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HurtowniaReptiGood.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HurtowniaReptiGood.Models.Entities
 {
-    public class OrderDetailEntity
+    public class OrderDetailEntity : IOrderDetail
     {
         [Key]
         [Required]

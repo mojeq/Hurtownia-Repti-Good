@@ -13,18 +13,12 @@ namespace HurtowniaReptiGood.Models
 {
     public class AppService
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly MyContex _myContex;    
-        public AppService(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            MyContex myContex)
+        public AppService(MyContex myContex)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _myContex = myContex;
         }
+
         public CustomerEntity GetLoggedCustomer(string userLogged)
         {
             CustomerEntity loggedUser = _myContex.Customers.FirstOrDefault(a => a.UserName == userLogged);

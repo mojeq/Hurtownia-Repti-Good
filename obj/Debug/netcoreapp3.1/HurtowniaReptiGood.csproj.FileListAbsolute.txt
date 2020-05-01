@@ -159,3 +159,10 @@ C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\MailKit.d
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.csproj.CoreCompileInputs.cache
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\CustomerAccount\OrdersHistory.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\CustomerAccount\OrderHistoryDetails.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Home\TermsAndConditions.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutTerms.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddNewProduct.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HurtowniaReptiGood.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HurtowniaReptiGood.Models.Entities
 {
-    public class CustomerEntity
+    public class CustomerEntity : ICustomer
     {
         [Key]
         [Required]
@@ -25,7 +26,5 @@ namespace HurtowniaReptiGood.Models.Entities
         [Required]
         public int InvoiceAddressId { get; set; }
         public InvoiceAddressEntity InvoiceAddress { get; set; }
-        //public virtual ICollection<OrderEntity> OrderList { get; set; }
-        //public OrderEntity Order { get; set; }
     }
 }

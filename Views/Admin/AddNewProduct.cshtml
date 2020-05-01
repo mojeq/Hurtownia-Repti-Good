@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "AddNewProduct";
+}
+
+<h3>Dodawanie nowego produktu</h3>
+
+<body>
+    <div>
+        <form action="AddNewProduct" method="post">
+            <label>Symbol produktu</label>
+            <input type="text" name="ProductSymbol">
+            <label>Nazwa produktu</label>
+            <input type="text" name="ProductName">
+            <label>Producent</label>
+            <input type="text" name="Manufacturer">
+            <label>Cena</label>
+            <input type="text" name="Price">
+            <label>Ilość</label>
+            <input type="number" min="1" name="Stock">
+            <label>Zdjęcie</label>
+            <input type="text" name="Photo">
+            <input class="myButton4"type="submit" value="Dodaj Produkt" />
+        </form>
+    </div>
+</body>
+

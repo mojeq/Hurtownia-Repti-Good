@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HurtowniaReptiGood.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HurtowniaReptiGood.Models
 {
-    public class CustomerViewModel
+    public class CustomerViewModel : ICustomer
     {
         public int CustomerId { get; set; }
         public string UserName { get; set; }

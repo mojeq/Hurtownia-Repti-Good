@@ -35,7 +35,7 @@ namespace HurtowniaReptiGood.Controllers
             _cartService = cartService;
         }
 
-        [Authorize]
+        [Authorize (Roles="user")]
         [HttpGet]
         public ActionResult Cart(int orderId)
         {
@@ -76,7 +76,7 @@ namespace HurtowniaReptiGood.Controllers
             return View(dataToView);
         }
 
-        [Authorize]
+        [Authorize(Roles = "user")]
         public ActionResult AddItemToCart(ItemCartViewModel itemCart)
         {
             string userLogged = _userManager.GetUserName(HttpContext.User);
@@ -99,28 +99,28 @@ namespace HurtowniaReptiGood.Controllers
         }
 
         //update quantity of item in cart
-        [Authorize]
+        [Authorize(Roles = "user")]
         [HttpPost]
         public ActionResult UpdateQuantityInCart(OrderDetailViewModel orderDetail)
         {
             _cartService.UpdateQuantityItemInCart(orderDetail.OrderDetailId, orderDetail.Quantity);
 
             return RedirectToAction("Cart", orderDetail.OrderId);
-        }       
+        }
 
-        [Authorize]
+        [Authorize(Roles = "user")]
         public IActionResult RemoveItemFromCart(int orderId, int orderDetailId)
         {
             _cartService.RemoveItemFromCart(orderDetailId);
             return RedirectToAction("Cart", orderId);
         }
 
-        [Authorize]
+        [Authorize(Roles = "user")]
         public IActionResult SaveNewOrder(int orderId, double valueOrder)
         {
             _cartService.SaveNewOrder(orderId, valueOrder);
             _cartService.CreatePdfAttachmentWithOrder(orderId);
-            _cartService.SendMailWithAttachment(); ;
+            _cartService.SendMailWithAttachment(orderId);
 
             Response.Cookies.Delete("cartStatus");
             Response.Cookies.Delete("orderId");

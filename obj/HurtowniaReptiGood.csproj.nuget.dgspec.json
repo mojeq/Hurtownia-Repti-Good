@@ -81,7 +81,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.0-preview1-19509-03, )"
+              "version": "[3.1.2, )"
             },
             "iTextSharp.LGPLv2.Core": {
               "target": "Package",

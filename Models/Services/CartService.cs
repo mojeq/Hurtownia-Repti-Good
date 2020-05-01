@@ -17,18 +17,12 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class CartService
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly MyContex _myContex;
-        public CartService(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            MyContex myContex)
+        public CartService(MyContex myContex)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _myContex = myContex;
         }
+
         public int CreateNewCartOrder(CustomerEntity loggedUser, ItemCartViewModel itemCart)
         {
             OrderEntity order = new OrderEntity()
@@ -247,14 +241,15 @@ namespace HurtowniaReptiGood.Models.Services
             fs.Close();
         }
 
-        public void SendMailWithAttachment()
+        public void SendMailWithAttachment(int orderId)
         {
+            var customerMail = _myContex.ShippingAddresses.Find(_myContex.Customers.Find(_myContex.Orders.Find(orderId).CustomerId).ShippingAddressId).Email;
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Hurtownia TerraHurt", "biuro@reptigood.pl"));
-            message.To.Add(new MailboxAddress("customer", "biuro@reptigood.pl"));
+            message.To.Add(new MailboxAddress("Hurtownia TerraHurt", customerMail));
             BodyBuilder message_body = new BodyBuilder();
             //message_body.Attachments.Add("order1.pdf");
-            string textBody = "Zamówienie";
+            string textBody = "Zamówienie w załączniku\nPozdrawiam\nPiotr Moj\nreptigood.pl";
             message_body.TextBody = textBody;
             message.Body = message_body.ToMessageBody();
 

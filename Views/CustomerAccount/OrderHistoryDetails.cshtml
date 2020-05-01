@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "OrderHistoryDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using HurtowniaReptiGood.Models.ViewModels
+@model OrderAndOrderDetailListViewModel
+
+<h1>Szczegóły zamówienia</h1>
+<body>
+    <div>
+        <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
+            <tr>
+                <th>ID</th>
+                <th>Symbol towaru</th>
+                <th>Nazwa towaru</th>
+                <th>Ilość</th>
+                <th>Cena</th>
+                <th>Wartość</th>
+            </tr>
+            @foreach (OrderDetailViewModel orderItem in Model.OrderDetails.OrderDetailList)
+            {
+                <tr text-align="center">
+                    <td>@orderItem.OrderId</td>
+                    <td>@orderItem.ProductSymbol</td>
+                    <td>@orderItem.ProductName</td>
+                    <td>@orderItem.Quantity</td>
+                    <td>@orderItem.Price zł</td>
+                    <td>@(Convert.ToDouble(orderItem.Quantity) * orderItem.Price) zł</td>
+                </tr>
+            }
+            <tr>
+                <th colspan="3">Wartość zamówienia</th>
+                <th colspan="3">@Model.Order.ValueOrder zł</th>
+            </tr>
+            <tr>
+                <th colspan="3">Data zamówienia</th>
+                <th colspan="3">@Model.Order.DateOrder</th>
+            </tr>
+            <tr>
+                <th colspan="3">Status zamówienia</th>
+                <th colspan="3">@Model.Order.StatusOrder</th>
+            </tr>            
+        </table>
+        <p>
+            <button class="myButton2">
+                @Html.ActionLink("Wróć", "OrdersList", "Account")
+            </button>
+        </p>
+    </div>
+</body>
+
+
+

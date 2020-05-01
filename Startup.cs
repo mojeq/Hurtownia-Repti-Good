@@ -33,8 +33,11 @@ namespace HurtowniaReptiGood
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
             })
-            .AddEntityFrameworkStores<MyContex>() 
-            .AddDefaultTokenProviders();
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<MyContex>()
+            .AddDefaultTokenProviders()
+            
+            .AddRoleManager<RoleManager<IdentityRole>>();
 
             services.ConfigureApplicationCookie(config =>
             {
@@ -47,6 +50,8 @@ namespace HurtowniaReptiGood
             services.AddControllersWithViews();
             services.AddTransient<AppService>();
             services.AddTransient<CartService>();
+            services.AddTransient<CustomerAccountService>();
+            services.AddTransient<AdminService>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

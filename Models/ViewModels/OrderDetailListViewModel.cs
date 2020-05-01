@@ -7,6 +7,6 @@ namespace HurtowniaReptiGood.Models.ViewModels
 {
     public class OrderDetailListViewModel
     {
-        public List<OrderDetailViewModel> OrderDetailList { get; set; }
+        public IList<OrderDetailViewModel> OrderDetailList { get; set; }
     }
 }
