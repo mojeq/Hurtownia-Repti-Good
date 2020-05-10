@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "EditProduct";
+}
+@model HurtowniaReptiGood.Models.ProductViewModel
+
+<h3>Edycja produktu</h3>
+
+<body>
+    <div>
+        <form action="EditProduct" method="post">
+            <div class="form-group">
+                <label>Symbol produktu</label>
+                <input type="text" class="form-control" name="ProductSymbol" value="@Model.ProductSymbol">
+            </div>
+            <div class="form-group">
+                <label>Nazwa produktu</label>
+                <input type="text" class="form-control" name="ProductName" value="@Model.ProductName">
+            </div>
+            <div class="form-group">
+                <label>Producent</label>
+                <input type="text" class="form-control" name="Manufacturer" value="@Model.Manufacturer">
+            </div>
+            <div class="form-group">
+                <label>Cena</label>
+                <input type="text" class="form-control" name="Price" value="@Model.Price">
+            </div>
+            <div class="form-group">
+                <label>Ilość</label>
+                <input type="number" class="form-control" min="1" name="Stock" value="@Model.Stock">
+            </div>
+            <div class="form-group">
+                <label>Zdjęcie</label>
+                <input type="text" class="form-control" name="Photo" value="@Model.Photo">
+                <input type="hidden" name="ProductId" value="@Model.ProductId"/>
+            </div>
+            <input class="myButton4" type="submit" value="Zapisz zmiany" />
+        </form>
+    </div>
+</body>
+

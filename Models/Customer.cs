@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HurtowniaReptiGood.Models.Interfaces
+namespace HurtowniaReptiGood.Models
 {
-    interface ICustomer
+    public class Customer
     {
         public int CustomerId { get; set; }
         public string UserName { get; set; }

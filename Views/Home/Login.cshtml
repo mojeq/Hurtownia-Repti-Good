@@ -4,21 +4,33 @@
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<head>
 
-        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
-        <link href="~/Media/Style.css" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
+    <link href="~/Media/Style.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Media/login.css" rel="stylesheet" />
 
-    </head>
-    <body>
-        <h1>Logowanie do systemu</h1>
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <div class="fadeIn first">
+                <img src="~/Media/img/reptigood-logo.jpg" id="icon" alt="logo" />
+            </div>
 
-        <form action="Login" method="post">
-            <label>Login</label>
-            <input type="text" name="username" value="" />
-            <label>Hasło</label>
-            <input type="text" name="password" value="" />
-            <br /><br /><button class="myButton" type="submit">Zaloguj</button>
-        </form>
-    </body>
+            <form action="Login" method="post">
+                <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
+                <input type="text" id="password" class="fadeIn third" name="password" placeholder="hasło">
+                <input type="submit" class="fadeIn fourth" value="Zaloguj">
+            </form>
+
+            <div id="formFooter">
+                <a class="underlineHover" href="#">Nie możesz się zalogować?</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
 </html>

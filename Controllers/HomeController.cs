@@ -41,8 +41,7 @@ namespace HurtowniaReptiGood.Controllers
             string userLogged = _userManager.GetUserName(HttpContext.User);
             ViewBag.userLogged = userLogged;
 
-            var productsList = new ProductsListViewModel();
-            productsList.Products = _appService.GetAllProducts();            
+            var productsList = _appService.GetAllProducts();            
             return View(productsList);
         }
 

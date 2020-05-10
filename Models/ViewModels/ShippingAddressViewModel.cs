@@ -1,5 +1,4 @@
-﻿using HurtowniaReptiGood.Models.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,17 +6,9 @@ using System.Threading.Tasks;
 
 namespace HurtowniaReptiGood.Models
 {
-    public class ShippingAddressViewModel : IAddress
+    public class ShippingAddressViewModel : Address
     {
         public int AddressId { get; set; }
-        public string CompanyName { get; set; }
-        public string CustomerName { get; set; }
-        public string CustomerSurname { get; set; }  
-        public string Street { get; set; }
-        public string StreetNumber { get; set; }
-        public string City { get; set; }
-        public string ZipCode { get; set; }
-        public string Phone { get; set; }
         public string Email { get; set; }
     }
 }

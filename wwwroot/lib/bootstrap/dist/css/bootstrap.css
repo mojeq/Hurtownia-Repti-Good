@@ -35,7 +35,7 @@
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-*,
+/**,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -81,9 +81,9 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
-}
+}*/
 
-abbr[title],
+/*abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;
   -webkit-text-decoration: underline dotted;
@@ -92,7 +92,7 @@ abbr[data-original-title] {
   border-bottom: 0;
   -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
-}
+}*/
 
 address {
   margin-bottom: 1rem;
@@ -153,13 +153,13 @@ sup {
 }
 
 a {
-  color: #007bff;
+  /*color: #007bff;*/
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #0056b3;
+  /*color: #0056b3;*/
   text-decoration: underline;
 }
 
@@ -226,7 +226,7 @@ label {
   margin-bottom: 0.5rem;
 }
 
-button {
+/*button {
   border-radius: 0;
 }
 
@@ -280,7 +280,7 @@ button::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
   padding: 0;
   border-style: none;
-}
+}*/
 
 input[type="radio"],
 input[type="checkbox"] {
@@ -545,7 +545,7 @@ pre code {
   overflow-y: scroll;
 }
 
-.container {
+/*.container {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
@@ -583,7 +583,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-}
+}*/
 
 .row {
   display: -ms-flexbox;

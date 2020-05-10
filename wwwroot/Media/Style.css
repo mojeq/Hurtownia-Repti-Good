@@ -8,7 +8,6 @@ th {
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
-    
 }
 
 th, td {
@@ -71,22 +70,22 @@ th, td {
         top: 1px;
     }
 
-    .myButton3 {
-        box-shadow: inset 0px 1px 0px 0px #a4e271;
-        background: linear-gradient(to bottom, #89c403 5%, #77a809 100%);
-        background-color: #89c403;
-        border-radius: 6px;
-        border: 1px solid #74b807;
-        display: inline-block;
-        cursor: pointer;
-        color: #ffffff;
-        font-family: Arial;
-        font-size: 13px;
-        font-weight: bold;
-        padding: 6px 22px;
-        text-decoration: none;
-        text-shadow: 0px 1px 0px #528009;
-    }
+.myButton3 {
+    box-shadow: inset 0px 1px 0px 0px #a4e271;
+    background: linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+    background-color: #89c403;
+    border-radius: 6px;
+    border: 1px solid #74b807;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px 22px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #528009;
+}
 
     .myButton3:hover {
         background: linear-gradient(to bottom, #77a809 5%, #89c403 100%);
@@ -98,22 +97,22 @@ th, td {
         top: 1px;
     }
 
-    .myButton4 {
-        box-shadow: inset 0px 1px 0px 0px #a4e271;
-        background: linear-gradient(to bottom, #89c403 5%, #77a809 100%);
-        background-color: #89c403;
-        border-radius: 6px;
-        border: 1px solid #74b807;
-        display: inline-block;
-        cursor: pointer;
-        color: #ffffff;
-        font-family: Arial;
-        font-size: 15px;
-        font-weight: bold;
-        padding: 9px 28px;
-        text-decoration: none;
-        text-shadow: 0px 1px 0px #528009;
-    }
+.myButton4 {
+    box-shadow: inset 0px 1px 0px 0px #a4e271;
+    background: linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+    background-color: #89c403;
+    border-radius: 6px;
+    border: 1px solid #74b807;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 9px 28px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #528009;
+}
 
     .myButton4:hover {
         background: linear-gradient(to bottom, #77a809 5%, #89c403 100%);
@@ -127,22 +126,22 @@ th, td {
 
 
 
-    input[type=submit] {
-        box-shadow: inset 0px 1px 0px 0px #a4e271;
-        background: linear-gradient(to bottom, #89c403 5%, #77a809 100%);
-        background-color: #89c403;
-        border-radius: 6px;
-        border: 1px solid #74b807;
-        display: inline-block;
-        cursor: pointer;
-        color: #ffffff;
-        font-family: Arial;
-        font-size: 13px;
-        font-weight: bold;
-        padding: 6px 22px;
-        text-decoration: none;
-        text-shadow: 0px 1px 0px #528009;
-    }
+input[type=submit] {
+    box-shadow: inset 0px 1px 0px 0px #a4e271;
+    background: linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+    background-color: #89c403;
+    border-radius: 6px;
+    border: 1px solid #74b807;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px 22px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #528009;
+}
 
     input[type=submit]:hover {
         background: linear-gradient(to bottom, #77a809 5%, #89c403 100%);
@@ -154,12 +153,12 @@ th, td {
         top: 1px;
     }
 
-    nav {
-        max-width: 960px;
-        mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
-        margin: 0 auto;
-        padding: 27px 0 0 0;
-    }
+nav {
+    max-width: 960px;
+    mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
+    margin: 0 auto;
+    padding: 27px 0 0 0;
+}
 
     nav ul {
         text-align: center;
@@ -167,26 +166,23 @@ th, td {
         box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
     }
 
-    nav ul li {
-        display: inline-block;
-    }
+        nav ul li {
+            display: inline-block;
+        }
 
-    nav ul li a {
-        padding: 18px;
-        font-family: "Open Sans";
-        text-transform: uppercase;
-        color: rgba(0, 35, 122, 0.5);
-        font-size: 18px;
-        text-decoration: none;
-        display: block;
-    }
+            nav ul li a {
+                padding: 18px;
+                font-family: "Open Sans";
+                text-transform: uppercase;
+                color: rgba(0, 35, 122, 0.5);
+                font-size: 18px;
+                text-decoration: none;
+                display: block;
+            }
 
-    nav ul li a:hover {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-        background: rgba(255, 255, 255, 0.1);
-        color: rgba(0, 35, 122, 0.7);
-    }
-
-
-
+                nav ul li a:hover {
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+                    background: rgba(255, 255, 255, 0.1);
+                    color: rgba(0, 35, 122, 0.7);
+                }
 

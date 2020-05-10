@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "GetProducts";
+}
+
+@using HurtowniaReptiGood.Models
+@model ProductsListViewModel
+
+<body>
+    <div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Symbol</th>
+                    <th scope="col" class="text-center">Nazwa</th>
+                    <th scope="col" class="text-center">Producent</th>
+                    <th scope="col" class="text-center">Zdjęcie</th>
+                    <th scope="col" class="text-center">Cena</th>
+                    <th scope="col" class="text-center">Stan</th>
+                    <th scope="col" class="text-center">Edytuj</th>
+                </tr>
+            <thead>
+            <tbody>
+                @foreach (ProductViewModel product in Model.Products)
+                {
+                    <tr class="text-center">
+                        <td>@product.ProductSymbol</td>
+                        <td>@product.ProductName</td>
+                        <td>@product.Manufacturer</td>
+                        <td><img src="~/Media/img/@product.Photo" width="200" /></td>
+                        <td>@product.Price</td>
+                        <td>@product.Stock szt</td>
+                        <td>
+                            <form action="ProductDetails" method="get">
+                                <input type="hidden" name="ProductId" value="@product.ProductId">
+                                <input type="submit" value="Edytuj" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            <tbody>
+        </table>
+    </div>
+</body>
+
+
+

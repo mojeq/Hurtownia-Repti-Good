@@ -34,6 +34,7 @@
           "Microsoft.Extensions.Logging.Debug": "3.1.0-preview1.19506.1",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.9.5",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.2",
+          "bootstrap": "4.4.1",
           "iTextSharp.LGPLv2.Core": "1.6.6",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
@@ -308,6 +309,12 @@
           "HurtowniaReptiGood.dll": {}
         }
       },
+      "bootstrap/4.4.1": {
+        "dependencies": {
+          "jQuery": "3.0.0",
+          "popper.js": "1.16.0"
+        }
+      },
       "iTextSharp.LGPLv2.Core/1.6.6": {
         "dependencies": {
           "Portable.BouncyCastle": "1.8.6.7",
@@ -331,6 +338,7 @@
           "lib/netstandard2.0/iTextSharp.LGPLv2.Core.dll": {}
         }
       },
+      "jQuery/3.0.0": {},
       "MailKit/2.6.0": {
         "dependencies": {
           "MimeKit": "2.6.0",
@@ -1423,6 +1431,7 @@
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
         }
       },
+      "popper.js/1.16.0": {},
       "Portable.BouncyCastle/1.8.6.7": {
         "runtime": {
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
@@ -4177,12 +4186,26 @@
       "serviceable": false,
       "sha512": ""
     },
+    "bootstrap/4.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/QO9//Z8IYv8VmxTS3VzLaQC3wYnJDNbACnZHgLEeMABYjNuVPToLa6VDP2S4KwU3gUFiXglhQYZ00cddSK0IQ==",
+      "path": "bootstrap/4.4.1",
+      "hashPath": "bootstrap.4.4.1.nupkg.sha512"
+    },
     "iTextSharp.LGPLv2.Core/1.6.6": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-wKN6ISRMpX96XdnD9x9kAeXhrEJJypcESHSLemLZh0tHvJgRmEJv2N3i7Ua+0ga+2hBbfCTUK+znpb/OXn0VDw==",
       "path": "itextsharp.lgplv2.core/1.6.6",
       "hashPath": "itextsharp.lgplv2.core.1.6.6.nupkg.sha512"
+    },
+    "jQuery/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FXANjZia/vux9/ObNiPwh2zNWuzcgHMKXia1OQrviuf0OKPBWB2TBIVAICgtObuzEW+XLyaBEoVuOUlMXy0kNA==",
+      "path": "jquery/3.0.0",
+      "hashPath": "jquery.3.0.0.nupkg.sha512"
     },
     "MailKit/2.6.0": {
       "type": "package",
@@ -4750,6 +4773,13 @@
       "sha512": "sha512-qbXaB76XYUVLocLBs8Z9TS/ERGK2wm797feO+0JEPFvT7o7MRadOR77mqaSD4J1k8G+DlZQyq+MlkCuxrkr3ag==",
       "path": "nuget.frameworks/4.7.0",
       "hashPath": "nuget.frameworks.4.7.0.nupkg.sha512"
+    },
+    "popper.js/1.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZJhaIouJ7dztoRoqj+KA1ADGpEIr+MzCWOkKm/Q6tu3CAauSsc+ZzXsxsD6RClRwieacqE3QNYNpaLU/mkVnWg==",
+      "path": "popper.js/1.16.0",
+      "hashPath": "popper.js.1.16.0.nupkg.sha512"
     },
     "Portable.BouncyCastle/1.8.6.7": {
       "type": "package",

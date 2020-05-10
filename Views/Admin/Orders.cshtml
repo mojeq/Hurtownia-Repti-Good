@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Orders";
+}
+@using HurtowniaReptiGood.Models.ViewModels
+
+@model OrderListViewModel
+
+<h1>Zamówienia</h1>
+<body>
+    <div>
+        <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
+            <tr>
+                <th>Id</th>
+                <th>Data</th>
+                <th>Kwota</th>
+                <th>Status</th>
+                <th>Szczegóły</th>
+            </tr>
+            @foreach (OrderViewModel order in Model.OrdersList)
+            {
+                <tr text-align="center">
+                    <td>@order.OrderId</td>
+                    <td>@order.DateOrder</td>
+                    <td>@order.ValueOrder zł</td>
+                    <td>@order.StatusOrder</td>
+                    <td>          
+                            @Html.ActionLink("Edytuj", "OrderDetails", "Admin",
+                            new { @class = "myButton2" },
+                            new { OrderId = order.OrderId })                        
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+
+

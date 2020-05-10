@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using HurtowniaReptiGood.Models.Interfaces;
 
 namespace HurtowniaReptiGood.Models.Entities
 {
-    public class ProductEntity : IProduct
+    public class ProductEntity
     {
         [Key]
         [Required]

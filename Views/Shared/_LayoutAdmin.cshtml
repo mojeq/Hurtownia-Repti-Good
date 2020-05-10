@@ -4,8 +4,7 @@
     <link href="~/Media/Style.css" rel="stylesheet" type="text/css" />
     <link href="~/Media/default.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/Media/fonts.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="C:\Users\mojeq\source\repos\WholesaleReptiGood\lib\bootstrap\css\bootstrap.css" rel="stylesheet" />
-
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />  
     <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
 </head>
@@ -19,16 +18,13 @@
                 <nav>
                     <ul>
                         <li>
-                            @Html.ActionLink("Zamówienia", "ManageOrders", "Admin")
+                            @Html.ActionLink("Zamówienia", "Orders", "Admin")
                         </li>
                         <li>
                             @Html.ActionLink("Dodaj produkt", "AddNewProduct", "Admin")
                         </li>
                         <li>
-                            @Html.ActionLink("Produkty", "ManageProducts", "Admin")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Kontakt", "Contact", "Contact")
+                            @Html.ActionLink("Produkty", "Products", "Admin")
                         </li>
                     </ul>
                 </nav>

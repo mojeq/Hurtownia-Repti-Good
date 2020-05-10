@@ -25,9 +25,10 @@ namespace HurtowniaReptiGood.Models
             return loggedUser;
         }
 
-        public IEnumerable<ProductViewModel> GetAllProducts()
+        public ProductsListViewModel GetAllProducts()
         {
-            var productsList = _myContex.Products.Select(x=>new ProductViewModel
+            var productsList = new ProductsListViewModel();
+            productsList.Products = _myContex.Products.Select(x=>new ProductViewModel
             {
                 ProductId=x.ProductId,
                 ProductSymbol=x.ProductSymbol,
