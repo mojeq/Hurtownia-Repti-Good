@@ -7,31 +7,46 @@
 
 @model OrderListViewModel
 
-<h1>Zamówienia</h1>
+<h3>Zamówienia</h3>
 <body>
     <div>
-        <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
-            <tr>
-                <th>Id</th>
-                <th>Data</th>
-                <th>Kwota</th>
-                <th>Status</th>
-                <th>Szczegóły</th>
-            </tr>
-            @foreach (OrderViewModel order in Model.OrdersList)
-            {
-                <tr text-align="center">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Id</th>
+                    <th scope="col" class="text-center">Id klienta</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Data</th>
+                    <th scope="col" class="text-center">Wartość</th>
+                    <th scope="col" class="text-center">Edytuj</th>
+                    <th scope="col" class="text-center">Pokaż</th>
+                </tr>
+            <thead>
+            <tbody>
+                @foreach (OrderViewModel order in Model.OrdersList)
+                {
+                <tr class="text-center">
                     <td>@order.OrderId</td>
-                    <td>@order.DateOrder</td>
-                    <td>@order.ValueOrder zł</td>
+                    <td>@order.CustomerId</td>
                     <td>@order.StatusOrder</td>
-                    <td>          
-                            @Html.ActionLink("Edytuj", "OrderDetails", "Admin",
-                            new { @class = "myButton2" },
-                            new { OrderId = order.OrderId })                        
+                    <td>@order.DateOrder</td>
+                    <td>@order.ValueOrder</td>
+                    <td>
+                        <button class="myButton3">
+                            @Html.ActionLink("Edytuj", "EditOrder", "Admin",
+                            new { orderId = order.OrderId })
+                        </button>
+                    </td>
+                    <td>
+                        <button class="myButton3">
+                            @Html.ActionLink("Pokaż", "OrderDetails", "Admin",
+                            new { OrderId = order.OrderId })
+                        </button>
                     </td>
                 </tr>
-            }
+                }
+            <tbody>
         </table>
     </div>
 </body>

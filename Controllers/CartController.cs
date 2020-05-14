@@ -35,6 +35,7 @@ namespace HurtowniaReptiGood.Controllers
             _cartService = cartService;
         }
 
+        // view current cart with added items
         [Authorize (Roles="user")]
         [HttpGet]
         public ActionResult Cart(int orderId)
@@ -76,6 +77,7 @@ namespace HurtowniaReptiGood.Controllers
             return View(dataToView);
         }
 
+        // adding next product to cart
         [Authorize(Roles = "user")]
         public ActionResult AddItemToCart(ItemCartViewModel itemCart)
         {
@@ -98,7 +100,7 @@ namespace HurtowniaReptiGood.Controllers
             return RedirectToAction("Cart", orderId);
         }
 
-        //update quantity of item in cart
+        // update quantity of item in cart
         [Authorize(Roles = "user")]
         [HttpPost]
         public ActionResult UpdateQuantityInCart(OrderDetailViewModel orderDetail)
@@ -108,6 +110,7 @@ namespace HurtowniaReptiGood.Controllers
             return RedirectToAction("Cart", orderDetail.OrderId);
         }
 
+        // deleting one item from current cart
         [Authorize(Roles = "user")]
         public IActionResult RemoveItemFromCart(int orderId, int orderDetailId)
         {
@@ -115,6 +118,7 @@ namespace HurtowniaReptiGood.Controllers
             return RedirectToAction("Cart", orderId);
         }
 
+        // save new order to database exactly change state of current order and create attachment and sending mail with confirmation order
         [Authorize(Roles = "user")]
         public IActionResult SaveNewOrder(int orderId, double valueOrder)
         {

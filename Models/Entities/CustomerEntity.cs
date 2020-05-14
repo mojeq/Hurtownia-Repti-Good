@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HurtowniaReptiGood.Models.Entities
 {
     public class CustomerEntity
-    {
+    {        
         [Key]
         [Required]
         public int CustomerId { get; set; }

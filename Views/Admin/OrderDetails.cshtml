@@ -1,7 +1,47 @@
 ﻿
 @{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ViewData["Title"] = "OrderDetails";
 }
+@using HurtowniaReptiGood.Models.ViewModels 
 
-<h1>OrderDetails</h1>
+@model OrderDetailListViewModel 
+
+<h3>Szczegóły zamówienia</h3>
+
+<body>
+    <div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Symbol</th>
+                    <th scope="col" class="text-center">Nazwa</th>
+                    <th scope="col" class="text-center">Sztuk</th>
+                    <th scope="col" class="text-center">Cena</th>
+                    <th scope="col" class="text-center">Wartość</th>                    
+                    <th scope="col" class="text-center">Edytuj</th>
+                </tr>
+            <thead>
+            <tbody>
+                @foreach (OrderDetailViewModel detail in Model.OrderDetailList)
+                {
+                    <tr class="text-center">
+                        <td>@detail.ProductSymbol</td>
+                        <td>@detail.ProductName</td>
+                        <td>@detail.Quantity</td>
+                        <td>@detail.Price</td>
+                        <td>@detail.Value</td>                        
+                        <td>
+                            <form action="EditDetail" method="get">
+                                <input type="hidden" name="OrderDetailId" value="@detail.OrderDetailId">
+                                <input type="submit" value="Edytuj" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            <tbody>
+        </table>
+    </div>
+</body>
 

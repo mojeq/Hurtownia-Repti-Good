@@ -38,6 +38,7 @@ namespace HurtowniaReptiGood.Controllers
             _customerAccountService = customerAccountService;
         }
 
+        // view with orders list from logged customer
         [Authorize(Roles = "user")]
         [HttpGet]
         public IActionResult OrdersHistory()
@@ -49,6 +50,7 @@ namespace HurtowniaReptiGood.Controllers
             return View(ordersHistory);
         }
 
+        // view with one order details
         [Authorize(Roles = "user")]
         [HttpGet]
         public IActionResult OrderHistoryDetails(int orderId)

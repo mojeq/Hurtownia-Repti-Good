@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models;
-
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HurtowniaReptiGood.Controllers
 {
@@ -34,6 +34,7 @@ namespace HurtowniaReptiGood.Controllers
             _appService = appService;
         }
 
+        // view list with all products from database 
         [Authorize (Roles ="user")]
         [HttpGet]
         public IActionResult Index()
@@ -45,6 +46,7 @@ namespace HurtowniaReptiGood.Controllers
             return View(productsList);
         }
 
+        // view site with terms and conditions 
         [Authorize (Roles = "user")]
         [HttpGet]
         public IActionResult TermsAndConditions()
@@ -52,6 +54,7 @@ namespace HurtowniaReptiGood.Controllers
             return View();
         }
 
+        // logging to app
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
@@ -77,11 +80,13 @@ namespace HurtowniaReptiGood.Controllers
             }
             return RedirectToAction("Login");
         }
+
         public IActionResult Login()
         {
             return View();
         }
 
+        // registering new user
         [Authorize (Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Register(string username, string password)
@@ -104,18 +109,20 @@ namespace HurtowniaReptiGood.Controllers
             }
             return RedirectToAction("Register");
         }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        // log out from app
         public async Task<IActionResult> LogOut()
         {
             Response.Cookies.Delete("cartStatus");
             Response.Cookies.Delete("orderId");
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
-        }
-
-        [Authorize(Roles = "admin")]
-        public IActionResult Register()
-        {
-            return View();
         }
     }
 }

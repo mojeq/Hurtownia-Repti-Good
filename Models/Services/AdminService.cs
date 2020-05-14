@@ -15,6 +15,8 @@ namespace HurtowniaReptiGood.Models.Services
         {
             _myContex = myContex;
         }
+
+        // adding new product to database
         public void AddNewProduct(NewProductViewModel newProduct)
         {
             ProductEntity newProductEntity = new ProductEntity
@@ -30,6 +32,7 @@ namespace HurtowniaReptiGood.Models.Services
             _myContex.SaveChanges();
         }
 
+        // get one product from database
         public ProductViewModel GetProduct(int productId)
         {
             ProductViewModel productToEdit = _myContex.Products
@@ -48,6 +51,7 @@ namespace HurtowniaReptiGood.Models.Services
             return productToEdit;
         }
 
+        // save edited product to database
         public void SaveChangesProduct(ProductViewModel productToChange)
         {
             var product = _myContex.Products.Find(productToChange.ProductId);
@@ -60,10 +64,13 @@ namespace HurtowniaReptiGood.Models.Services
             _myContex.SaveChanges();
         }
 
+        // get list with all orders
         public OrderListViewModel GetOrders()
         {
             OrderListViewModel orders = new OrderListViewModel();
-            orders.OrdersList = _myContex.Orders.Select(x => new OrderViewModel
+            orders.OrdersList = _myContex.Orders
+                .Where(c=>c.StateOrder=="bought")
+                .Select(x => new OrderViewModel
             {
                 OrderId=x.OrderId,
                 CustomerId=x.CustomerId,
@@ -76,6 +83,7 @@ namespace HurtowniaReptiGood.Models.Services
             return orders;
         }
 
+        // get content of one order
         public OrderDetailListViewModel GetOrderDetails(int orderId)
         {
             OrderDetailListViewModel orderDetails = new OrderDetailListViewModel();

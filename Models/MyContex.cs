@@ -23,6 +23,7 @@ namespace HurtowniaReptiGood.Models
         public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
         public DbSet<MailDataEntity> Mails { get; set; }
+        public DbSet<DpdConfigEntity> DpdConfigs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

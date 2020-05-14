@@ -25,6 +25,7 @@ namespace HurtowniaReptiGood.Models.Services
             _myContex = myContex;
         }
 
+        // get list with all orders from this customer from database
         public OrderListViewModel GetOrdersHistory(string userLogged)
         {
             CustomerEntity loggedUser = _appService.GetLoggedCustomer(userLogged);
@@ -46,6 +47,7 @@ namespace HurtowniaReptiGood.Models.Services
             return ordersHistory;
         }
 
+        // get one order from database
         public OrderViewModel GetOrder(int orderId)
         {
             OrderViewModel order = new OrderViewModel();

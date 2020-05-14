@@ -4,14 +4,16 @@ using HurtowniaReptiGood.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HurtowniaReptiGood.Migrations
 {
     [DbContext(typeof(MyContex))]
-    partial class MyContexModelSnapshot : ModelSnapshot
+    [Migration("20200514183443_Added DPD class and tracking number to order class")]
+    partial class AddedDPDclassandtrackingnumbertoorderclass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,9 +208,6 @@ namespace HurtowniaReptiGood.Migrations
 
                     b.Property<string>("StatusOrder")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TrackingNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("ValueOrder")

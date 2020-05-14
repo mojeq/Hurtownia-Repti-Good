@@ -28,6 +28,7 @@ namespace HurtowniaReptiGood.Controllers
             return View();
         }
 
+        //adding new product to database
         [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult AddNewProduct(NewProductViewModel newProduct)
@@ -42,6 +43,7 @@ namespace HurtowniaReptiGood.Controllers
             return View();
         }
 
+        // view list with all products
         [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Products()
@@ -50,6 +52,7 @@ namespace HurtowniaReptiGood.Controllers
             return View(productsList);
         }
 
+        // view details of one product
         [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult ProductDetails(int productId)
@@ -59,6 +62,7 @@ namespace HurtowniaReptiGood.Controllers
             return View("EditProduct", productToEdit);
         }
 
+        // saving edited product and return to view with all products
         [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult EditProduct(ProductViewModel productToChange)
@@ -68,6 +72,7 @@ namespace HurtowniaReptiGood.Controllers
             return RedirectToAction("Products");
         }
 
+        // view list with all orders
         [Authorize(Roles ="admin")]
         [HttpGet]
         public IActionResult Orders()
@@ -77,13 +82,14 @@ namespace HurtowniaReptiGood.Controllers
             return View(orders);
         }
 
+        // view details of one order
         [Authorize(Roles ="admin")]
         [HttpGet]
         public IActionResult OrderDetails(int orderId)
         {
             var orderDetails = _adminService.GetOrderDetails(orderId);
 
-            return RedirectToAction("Orders", orderDetails);
+            return View(orderDetails);
         }
     }
 }

@@ -13,5 +13,6 @@ namespace HurtowniaReptiGood.Models
         public string StatusOrder { get; set; }
         public DateTime DateOrder { get; set; }
         public double ValueOrder { get; set; }
+        public string TrackingNumber { get; set; }
     }
 }

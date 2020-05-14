@@ -23,6 +23,7 @@ namespace HurtowniaReptiGood.Models.Services
             _myContex = myContex;
         }
 
+        // creating new cart and saving that to database with state "cart"
         public int CreateNewCartOrder(CustomerEntity loggedUser, ItemCartViewModel itemCart)
         {
             OrderEntity order = new OrderEntity()
@@ -49,12 +50,15 @@ namespace HurtowniaReptiGood.Models.Services
                 OrderId = orderId,
                 Quantity = itemCart.Quantity,
                 Price = itemCart.Price,
+                Value=itemCart.Quantity*itemCart.Price,
             };
             _myContex.OrderDetails.Add(orderDetail);
             _myContex.SaveChanges();
 
             return orderId;
         }
+
+        // adding next product to current cart or increase quantity
         public int AddItemToExistCart(CustomerEntity loggedUser, ItemCartViewModel itemCart)
         {
             // finding last order ID
@@ -63,7 +67,7 @@ namespace HurtowniaReptiGood.Models.Services
                                              .Where(o => o.StateOrder == "cart")
                                              .FirstOrDefault().OrderId;
 
-            //checking it is this item in cart if yes increase quantity if no, add new position OrderDetail
+            // checking it is this item in cart if yes increase quantity if no, add new position OrderDetail
             OrderDetailEntity orderDetailExist = _myContex.OrderDetails.Where(a => a.OrderId == orderId)
                                                                   .Where(a => a.ProductSymbol == itemCart.ProductSymbol)
                                                                   .FirstOrDefault();
@@ -78,6 +82,7 @@ namespace HurtowniaReptiGood.Models.Services
                     OrderId = orderId,
                     Quantity = itemCart.Quantity,
                     Price = itemCart.Price,
+                    Value = itemCart.Quantity * itemCart.Price,
                 };
                 _myContex.OrderDetails.Add(orderDetail);
                 _myContex.SaveChanges();
@@ -88,11 +93,12 @@ namespace HurtowniaReptiGood.Models.Services
                 _myContex.SaveChanges();
             }
 
-            //receive items in cart
+            // receive items in cart
             var itemsInCart = _myContex.OrderDetails.Where(c => c.OrderId == orderId).ToList();
             return orderId;
         }
 
+        // get content of current cart/order
         public OrderDetailListViewModel GetCartDetailList(int orderId)
         {
             OrderDetailListViewModel cartDetails = new OrderDetailListViewModel();
@@ -111,6 +117,7 @@ namespace HurtowniaReptiGood.Models.Services
             return cartDetails;
         }
 
+        // get shipping address of customer who make purchase 
         public ShippingAddressViewModel GetShippingAddress(int orderId)
         {
             var customerId = _myContex.Orders.Find(orderId).CustomerId;
@@ -133,6 +140,7 @@ namespace HurtowniaReptiGood.Models.Services
             return shippingAddress;
         }
 
+        // get shipping address of customer who make purchase  
         public InvoiceAddressViewModel GetInvoiceAddress(int orderId)
         {
             var customerId = _myContex.Orders.Find(orderId).CustomerId;
@@ -155,6 +163,7 @@ namespace HurtowniaReptiGood.Models.Services
             return invoiceAddress;
         }
 
+        // remowe one item from current cart
         public void RemoveItemFromCart(int orderDetailId)
         {
             var orderDetailToRemove = _myContex.OrderDetails.Find(orderDetailId);
@@ -162,13 +171,15 @@ namespace HurtowniaReptiGood.Models.Services
             _myContex.SaveChanges();
         }
 
+        // update quantity of one item from current cart (button quantity in cart) 
         public void UpdateQuantityItemInCart(int orderDetailId, int quantity)
         {           
             var orderDetailExist = _myContex.OrderDetails.Find(orderDetailId);
             orderDetailExist.Quantity = quantity;
             _myContex.SaveChanges();
-        }   
-        
+        }
+
+        // save new order to database exactly change state of current order and create attachment and sending mail with confirmation order
         public void SaveNewOrder(int orderId, double valueOrder)
         {
             var orderUpdate = _myContex.Orders.Find(orderId);
@@ -179,6 +190,7 @@ namespace HurtowniaReptiGood.Models.Services
             _myContex.SaveChanges();
         }
 
+        // create pdf with order 
         public void CreatePdfAttachmentWithOrder(int orderId)
         {
             var orderExist = _myContex.Orders.Find(orderId);
@@ -241,6 +253,7 @@ namespace HurtowniaReptiGood.Models.Services
             fs.Close();
         }
 
+        // send mail with pdf attachment to customer
         public void SendMailWithAttachment(int orderId)
         {
             var customerMail = _myContex.ShippingAddresses.Find(_myContex.Customers.Find(_myContex.Orders.Find(orderId).CustomerId).ShippingAddressId).Email;

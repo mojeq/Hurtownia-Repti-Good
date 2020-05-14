@@ -19,12 +19,14 @@ namespace HurtowniaReptiGood.Models
             _myContex = myContex;
         }
 
+        // get current logged user
         public CustomerEntity GetLoggedCustomer(string userLogged)
         {
             CustomerEntity loggedUser = _myContex.Customers.FirstOrDefault(a => a.UserName == userLogged);
             return loggedUser;
         }
 
+        // get list with all products from database
         public ProductsListViewModel GetAllProducts()
         {
             var productsList = new ProductsListViewModel();
