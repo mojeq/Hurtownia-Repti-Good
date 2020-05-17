@@ -3,9 +3,9 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ViewData["Title"] = "OrderDetails";
 }
-@using HurtowniaReptiGood.Models.ViewModels 
+@using HurtowniaReptiGood.Models.ViewModels
 
-@model OrderDetailListViewModel 
+@model OrderDetailsAndDpdTrackingStatusViewModel
 
 <h3>Szczegóły zamówienia</h3>
 
@@ -24,14 +24,14 @@
                 </tr>
             <thead>
             <tbody>
-                @foreach (OrderDetailViewModel detail in Model.OrderDetailList)
+                @foreach (OrderDetailViewModel detail in Model.OrderDetails.OrderDetailList)
                 {
                     <tr class="text-center">
                         <td>@detail.ProductSymbol</td>
                         <td>@detail.ProductName</td>
                         <td>@detail.Quantity</td>
                         <td>@detail.Price</td>
-                        <td>@detail.Value</td>                        
+                        <td>@detail.Value</td>
                         <td>
                             <form action="EditDetail" method="get">
                                 <input type="hidden" name="OrderDetailId" value="@detail.OrderDetailId">
@@ -40,6 +40,21 @@
                         </td>
                     </tr>
                 }
+                <tr>
+                    <th scope="col" class="text-center">Numer przesyłki</th>
+                    <th colspan="2" scope="col" class="text-center">Status</th>
+                    <th colspan="2" scope="col" class="text-center">Data</th>
+                    <th scope="col" class="text-center">Miejsce</th>
+                </tr>
+                <tr>
+                    @foreach (DpdTrackingStatusViewModel status in Model.DpdTrackingStatusList.TrackingList)
+                    {
+                    <td scope="col" class="text-center">@status.TrackingNumber</td>
+                    <td colspan="2" scope="col" class="text-center">@status.Event</td>
+                    <td colspan="2" scope="col" class="text-center">@status.EventDateTime</td>
+                    <td scope="col" class="text-center">@status.EventPlace</td>
+                    }
+                </tr>
             <tbody>
         </table>
     </div>

@@ -21,6 +21,7 @@ namespace HurtowniaReptiGood.Controllers
         private readonly AppService _appService;
         private readonly CartService _cartService;
         private readonly CustomerAccountService _customerAccountService;
+        private readonly DpdService _dpdService;
 
         public CustomerAccountController(
             UserManager<IdentityUser> userManager,
@@ -28,7 +29,8 @@ namespace HurtowniaReptiGood.Controllers
             MyContex myContex,
             AppService appService,
             CartService cartService,
-            CustomerAccountService customerAccountService)
+            CustomerAccountService customerAccountService,
+            DpdService dpdService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -36,6 +38,7 @@ namespace HurtowniaReptiGood.Controllers
             _appService = appService;
             _cartService = cartService;
             _customerAccountService = customerAccountService;
+            _dpdService = dpdService;
         }
 
         // view with orders list from logged customer
@@ -54,12 +57,21 @@ namespace HurtowniaReptiGood.Controllers
         [Authorize(Roles = "user")]
         [HttpGet]
         public IActionResult OrderHistoryDetails(int orderId)
-        {            
-            OrderAndOrderDetailListViewModel orderAndOrderDetails = new OrderAndOrderDetailListViewModel();
-            orderAndOrderDetails.OrderDetails= _cartService.GetCartDetailList(orderId);
-            orderAndOrderDetails.Order = _customerAccountService.GetOrder(orderId);
+        {
+            DpdTrackingStatusListViewModel dpdTrackingStatusViewModel = _dpdService.GetTrackingStatusFromDPDWebservice(orderId);
+            OrderAndOrderDetailListViewModel orderAndOrderDetails = new OrderAndOrderDetailListViewModel()
+            {
+                OrderDetails = _cartService.GetCartDetailList(orderId),
+                Order = _customerAccountService.GetOrder(orderId),
+            };
 
-            return View(orderAndOrderDetails);
+            OrderAndOrderDetailListAndDpdTrackingStatusViewModel orderAndOrderDetailsAndTrackincStatus = new OrderAndOrderDetailListAndDpdTrackingStatusViewModel()
+            {
+                OrderAndDetailsOrder = orderAndOrderDetails,
+                DpdTrackingStatusList = dpdTrackingStatusViewModel,
+            };
+
+            return View(orderAndOrderDetailsAndTrackincStatus);
         }
     }
 }

@@ -15,11 +15,13 @@ namespace HurtowniaReptiGood.Controllers
         private readonly AdminService _adminService;
         private readonly AppService _appService;
         private readonly CustomerAccountService _customerAccountService;
-        public AdminController(AdminService adminService, AppService appService, CustomerAccountService customerAccountService)
+        private readonly DpdService _dpdService;
+        public AdminController(AdminService adminService, AppService appService, CustomerAccountService customerAccountService, DpdService dpdService)
         {
             _adminService = adminService;
             _appService = appService;
             _customerAccountService = customerAccountService;
+            _dpdService = dpdService;
         }
 
         [Authorize(Roles = "admin")]
@@ -87,9 +89,13 @@ namespace HurtowniaReptiGood.Controllers
         [HttpGet]
         public IActionResult OrderDetails(int orderId)
         {
-            var orderDetails = _adminService.GetOrderDetails(orderId);
+            OrderDetailsAndDpdTrackingStatusViewModel orderDetailsAndTracking = new OrderDetailsAndDpdTrackingStatusViewModel()
+            {
+                DpdTrackingStatusList = _dpdService.GetTrackingStatusFromDPDWebservice(orderId),
+                OrderDetails = _adminService.GetOrderDetails(orderId),
+            };
 
-            return View(orderDetails);
+            return View(orderDetailsAndTracking);
         }
     }
 }
