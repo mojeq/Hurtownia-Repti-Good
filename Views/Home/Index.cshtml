@@ -8,40 +8,52 @@
 @model ProductsListViewModel
 
 <body>
-    <div>
+    <div>                    
+        <form action="Home/ShowProductsFromCategory" method="post">
+            <label class="category">Wybierz producenta:</label>
+            <select class="form-control" name="ProductCategory" typeof="text">
+                <option>wszyscy</option>
+                <option>Hobby</option>
+                <option>Repashy</option>
+                <option>Repti Good</option>
+                <option>Ringder</option>
+            </select>
+            <input class="myButton4" type="submit" value="Pokaż produkty" />
+        </form><br />
+        
 
-        <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
-            <tr>
-                <th>Symbol</th>
-                <th>Nazwa</th>
-                <th>Zdjęcie</th>
-                <th>Cena</th>
-                <th>Stan</th>
-                <th>Do koszyka</th>
-            </tr>
-            @foreach (ProductViewModel product in Model.Products)
-            {
-                <tr text-align="center">
-                    <td>@product.ProductSymbol</td>
-                    <td>@product.ProductName</td>
-                    <td><img src="~/Media/img/@product.Photo" width="200" /></td>
-                    <td>@product.Price</td>
-                    <td>@product.Stock szt</td>
-                    <td>
-                        <form action="Cart/AddItemToCart" method="post">
-                            <input type="hidden" name="ProductId" value="@product.ProductId">
-                            <input type="hidden" name="ProductSymbol" value="@product.ProductSymbol">
-                            <input type="hidden" name="ProductName" value="@product.ProductName">
-                            <input type="hidden" name="Price" value="@product.Price">
-                            <label name="Quantity">Sztuk: </label>
-                            <input size="5" type="number" height="25" name="Quantity" min="1" />
-                            <input type="submit" value="Dodaj" />
-                        </form>
-                    </td>
+            <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
+                <tr>
+                    <th>Symbol</th>
+                    <th>Nazwa</th>
+                    <th>Zdjęcie</th>
+                    <th>Cena</th>
+                    <th>Stan</th>
+                    <th>Do koszyka</th>
                 </tr>
-            }
-        </table>
-    </div>
+                @foreach (ProductViewModel product in Model.Products)
+                {
+                    <tr text-align="center">
+                        <td>@product.ProductSymbol</td>
+                        <td>@product.ProductName</td>
+                        <td><img src="~/Media/img/@product.Photo" width="200" /></td>
+                        <td>@product.Price</td>
+                        <td>@product.Stock szt</td>
+                        <td>
+                            <form action="Cart/AddItemToCart" method="post">
+                                <input type="hidden" name="ProductId" value="@product.ProductId">
+                                <input type="hidden" name="ProductSymbol" value="@product.ProductSymbol">
+                                <input type="hidden" name="ProductName" value="@product.ProductName">
+                                <input type="hidden" name="Price" value="@product.Price">
+                                <label name="Quantity">Sztuk: </label>
+                                <input size="5" type="number" height="25" name="Quantity" min="1" />
+                                <input type="submit" value="Dodaj" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
 </body>
 
 

@@ -73,6 +73,14 @@ a {
 				display: block;
 				text-align: left;
 				margin-bottom: 0.5em;
+
+			}
+
+			form .category {
+				display: block;
+				text-align: left;
+				margin-bottom: -0.5em;
+				font-size: 1.2em;
 			}
 			
 			form .submit

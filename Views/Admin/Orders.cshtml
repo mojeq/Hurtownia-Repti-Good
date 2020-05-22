@@ -16,9 +16,10 @@
                 <tr>
                     <th scope="col" class="text-center">Id</th>
                     <th scope="col" class="text-center">Id klienta</th>
-                    <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center">Data</th>
                     <th scope="col" class="text-center">Wartość</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Numer przesyłki</th>
                     <th scope="col" class="text-center">Edytuj</th>
                     <th scope="col" class="text-center">Pokaż</th>
                 </tr>
@@ -29,9 +30,10 @@
                 <tr class="text-center">
                     <td>@order.OrderId</td>
                     <td>@order.CustomerId</td>
-                    <td>@order.StatusOrder</td>
                     <td>@order.DateOrder</td>
                     <td>@order.ValueOrder</td>
+                    <td>@order.StatusOrder</td>
+                    <td>@order.TrackingNumber</td>
                     <td>
                         <button class="myButton3">
                             @Html.ActionLink("Edytuj", "EditOrder", "Admin",

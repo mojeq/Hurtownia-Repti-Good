@@ -46,6 +46,16 @@ namespace HurtowniaReptiGood.Controllers
             return View(productsList);
         }
 
+        // view list with products from selected category
+        [Authorize(Roles = "user")]
+        [HttpPost]
+        public IActionResult ShowProductsFromCategory(string productCategory)
+        {
+            var productsList = _appService.GetProductsFromCategory(productCategory);
+
+            return View("Index", productsList);
+        }
+
         // view site with terms and conditions 
         [Authorize (Roles = "user")]
         [HttpGet]
@@ -68,14 +78,12 @@ namespace HurtowniaReptiGood.Controllers
                     var roleType = await _userManager.GetRolesAsync(user);
                     if (roleType[0] == "admin")
                     {
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("Orders", "Admin");
                     }
                     else if (roleType[0] == "user")
                     {
                         return RedirectToAction("Index");
-                    }
-                    //string userLogged = _userManager.GetUserName(HttpContext.User);
-                    //Response.Cookies.Append("userLogged", userLogged);                    
+                    }                  
                 }
             }
             return RedirectToAction("Login");

@@ -37,8 +37,28 @@ namespace HurtowniaReptiGood.Models
                 ProductName=x.ProductName,
                 Price=x.Price,
                 Stock=x.Stock,
-                Photo=x.Photo
+                Photo=x.Photo,
+                Manufacturer=x.Manufacturer
             }).ToList();
+            return productsList;
+        }
+
+        // get products from manufcturer category
+        public ProductsListViewModel GetProductsFromCategory(string manufacturer)
+        {
+            var productsList = new ProductsListViewModel();
+            productsList.Products = _myContex.Products
+                .Where(x => x.Manufacturer == manufacturer)
+                .Select(x => new ProductViewModel
+                {
+                    ProductId = x.ProductId,
+                    ProductSymbol = x.ProductSymbol,
+                    ProductName = x.ProductName,
+                    Price = x.Price,
+                    Stock = x.Stock,
+                    Photo = x.Photo
+                }).ToList();
+
             return productsList;
         }
     }

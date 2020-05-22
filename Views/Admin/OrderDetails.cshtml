@@ -19,7 +19,7 @@
                     <th scope="col" class="text-center">Nazwa</th>
                     <th scope="col" class="text-center">Sztuk</th>
                     <th scope="col" class="text-center">Cena</th>
-                    <th scope="col" class="text-center">Wartość</th>                    
+                    <th scope="col" class="text-center">Wartość</th>
                     <th scope="col" class="text-center">Edytuj</th>
                 </tr>
             <thead>
@@ -46,15 +46,17 @@
                     <th colspan="2" scope="col" class="text-center">Data</th>
                     <th scope="col" class="text-center">Miejsce</th>
                 </tr>
-                <tr>
-                    @foreach (DpdTrackingStatusViewModel status in Model.DpdTrackingStatusList.TrackingList)
-                    {
-                    <td scope="col" class="text-center">@status.TrackingNumber</td>
-                    <td colspan="2" scope="col" class="text-center">@status.Event</td>
-                    <td colspan="2" scope="col" class="text-center">@status.EventDateTime</td>
-                    <td scope="col" class="text-center">@status.EventPlace</td>
-                    }
-                </tr>
+
+                @foreach (DpdTrackingStatusViewModel status in Model.DpdTrackingStatusList.TrackingList)
+                {
+                    <tr>
+                        <td scope="col" class="text-center">@status.TrackingNumber</td>
+                        <td colspan="2" scope="col" class="text-center">@status.Event</td>
+                        <td colspan="2" scope="col" class="text-center">@status.EventDateTime</td>
+                        <td scope="col" class="text-center">@status.EventPlace</td>
+                    </tr>
+                }
+
             <tbody>
         </table>
     </div>

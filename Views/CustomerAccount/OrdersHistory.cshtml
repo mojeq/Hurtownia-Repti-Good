@@ -17,6 +17,7 @@
                 <th>Data</th>
                 <th>Kwota</th>
                 <th>Status</th>
+                <th>Numer przesyłki</th>
                 <th>Szczegóły</th>
             </tr>
             @foreach (OrderViewModel order in Model.OrdersList)
@@ -26,14 +27,16 @@
                     <td>@order.DateOrder</td>
                     <td>@order.ValueOrder zł</td>
                     <td>@order.StatusOrder</td>
+                    <td>@order.StatusOrder</td>
+                    <td>@order.TrackingNumber</td>
                     <td>
-                        <button class="myButton2">
+                        @*<button class="myButton2">*@
                             @Html.ActionLink("Pokaż", "OrderHistoryDetails", "CustomerAccount",
-                            new { OrderId = order.OrderId })
-                        </button>
+                            new { OrderId = order.OrderId }, new {@class = "myButton3" })
+                        @*</button>*@
                     </td>
                 </tr>
-            }
+                            }
         </table>
     </div>
 </body>

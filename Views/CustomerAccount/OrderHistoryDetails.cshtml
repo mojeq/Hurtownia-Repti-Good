@@ -11,18 +11,16 @@
 <body>
     <div>
         <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
-            <tr>
-                <th>ID</th>
-                <th>Symbol towaru</th>
-                <th>Nazwa towaru</th>
-                <th>Ilość</th>
-                <th>Cena</th>
-                <th>Wartość</th>
+            <tr>               
+                <th scope="col" class="text-center">Symbol towaru</th>
+                <th scope="col" class="text-center">Nazwa towaru</th>
+                <th scope="col" class="text-center">Ilość</th>
+                <th scope="col" class="text-center">Cena</th>
+                <th scope="col" class="text-center">Wartość</th>
             </tr>
             @foreach (OrderDetailViewModel orderItem in Model.OrderAndDetailsOrder.OrderDetails.OrderDetailList)
             {
-                <tr text-align="center">
-                    <td>@orderItem.OrderId</td>
+                <tr text-align="center">                    
                     <td>@orderItem.ProductSymbol</td>
                     <td>@orderItem.ProductName</td>
                     <td>@orderItem.Quantity</td>
@@ -31,20 +29,20 @@
                 </tr>
             }
             <tr>
-                <th colspan="3">Wartość zamówienia</th>
-                <th colspan="3">@Model.OrderAndDetailsOrder.Order.ValueOrder zł</th>
+                <th scope="col" class="text-center" colspan="2">Wartość zamówienia</th>
+                <th scope="col" class="text-center" colspan="3">@Model.OrderAndDetailsOrder.Order.ValueOrder zł</th>
             </tr>
             <tr>
-                <th colspan="3">Data zamówienia</th>
-                <th colspan="3">@Model.OrderAndDetailsOrder.Order.DateOrder</th>
+                <th scope="col" class="text-center" colspan="2">Data zamówienia</th>
+                <th scope="col" class="text-center" colspan="3">@Model.OrderAndDetailsOrder.Order.DateOrder</th>
             </tr>
             <tr>
-                <th colspan="3">Status zamówienia</th>
-                <th colspan="3">@Model.OrderAndDetailsOrder.Order.StatusOrder</th>
+                <th scope="col" class="text-center" colspan="2">Status zamówienia</th>
+                <th scope="col" class="text-center" colspan="3">@Model.OrderAndDetailsOrder.Order.StatusOrder</th>
             </tr>
             <tr>
                 <th scope="col" class="text-center">Numer przesyłki</th>
-                <th colspan="2" scope="col" class="text-center">Status</th>
+                <th scope="col" class="text-center">Status</th>
                 <th colspan="2" scope="col" class="text-center">Data</th>
                 <th scope="col" class="text-center">Miejsce</th>
             </tr>
@@ -53,16 +51,14 @@
             {
                 <tr>
                     <td scope="col" class="text-center">@status.TrackingNumber</td>
-                    <td colspan="2" scope="col" class="text-center">@status.Event</td>
+                    <td scope="col" class="text-center">@status.Event</td>
                     <td colspan="2" scope="col" class="text-center">@status.EventDateTime</td>
                     <td scope="col" class="text-center">@status.EventPlace</td>
                 </tr>
              }                
             </table>
         <p>
-            <button class="myButton3">
-                @Html.ActionLink("Wróć", "OrdersList", "Account")
-            </button>
+            <input type="button" class="myButton3" onclick="history.go(-1)" value="Wróć do listy zamówień" />
         </p>
     </div>
 </body>

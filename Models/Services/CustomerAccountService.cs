@@ -4,6 +4,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Internal;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace HurtowniaReptiGood.Models.Services
                     StatusOrder=x.StatusOrder,
                     DateOrder=x.DateOrder,
                     ValueOrder=x.ValueOrder,
+                    TrackingNumber = x.TrackingNumber,
                 })
                 .ToList();
 

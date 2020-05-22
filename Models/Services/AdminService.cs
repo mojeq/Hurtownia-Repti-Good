@@ -77,8 +77,9 @@ namespace HurtowniaReptiGood.Models.Services
                 DateOrder=x.DateOrder,
                 StateOrder=x.StateOrder,
                 StatusOrder=x.StatusOrder,
-                ValueOrder=x.ValueOrder
-            }).ToList();
+                ValueOrder=x.ValueOrder,
+                TrackingNumber = x.TrackingNumber
+                }).ToList();
 
             return orders;
         }
@@ -102,6 +103,16 @@ namespace HurtowniaReptiGood.Models.Services
                 }).ToList();
 
             return orderDetails;
+        }
+
+        // save changes in editable order
+        public void SaveChangesOrder(Order orderToChange)
+        {
+            var order = _myContex.Orders.Find(orderToChange.OrderId);
+            order.StatusOrder = orderToChange.StatusOrder;
+            order.ValueOrder = orderToChange.ValueOrder;
+            order.TrackingNumber = orderToChange.TrackingNumber;
+            _myContex.SaveChanges();
         }
     }
 }

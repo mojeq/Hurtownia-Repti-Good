@@ -177,3 +177,4 @@ C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Grpc.Net.
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Grpc.Net.Common.dll
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.csproj.CoreCompileInputs.cache
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditOrder.cshtml.g.cs

@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "EditOrder";
+}
+
+<h3>Edycja zamówienia</h3>
+
+<body>
+    <div>
+        <form action="Edit" method="post">
+            <div class="form-group">
+                <label>Id zamówienia</label>
+                <input type="text" class="form-control" name="OrderId" value="@Model.OrderId" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <label>Id klienta</label>
+                <input type="text" class="form-control" name="CustomerId" value="@Model.CustomerId" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <label>Data zamówienia</label>
+                <input type="text" class="form-control" name="DateOrder" value="@Model.DateOrder" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <label>Wartość zamówienia</label>
+                <input type="text" class="form-control" name="ValueOrder" value="@Model.ValueOrder">
+            </div>
+            <div class="form-group">
+                <label>Status zamówienia</label>
+                <input type="text" class="form-control" readonly="readonly" value="@Model.StatusOrder">
+                <label>Zmiana na:</label>
+                <select type="text" class="form-control" name="StatusOrder">
+                    <option>W realizacji</option>
+                    <option>Wysłane</option>
+                    <option>Anulowane</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Numer przesyłki</label>
+                <input type="text" class="form-control" name="TrackingNumber" value="@Model.TrackingNumber">
+            </div>
+            <input class="myButton4" type="submit" value="Zapisz zmiany" />
+        </form>
+    </div>
+</body>

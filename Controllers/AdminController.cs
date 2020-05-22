@@ -97,5 +97,26 @@ namespace HurtowniaReptiGood.Controllers
 
             return View(orderDetailsAndTracking);
         }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        // edit order, change status, add tracking number etc
+        public IActionResult EditOrder(int orderId)
+        {
+            OrderViewModel orderToEdit = _customerAccountService.GetOrder(orderId);
+
+            return View(orderToEdit);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        // edit order, change status, add tracking number etc
+        public IActionResult EditOrder(OrderViewModel order)
+        {
+            _adminService.SaveChangesOrder(order);
+
+            return RedirectToAction("Orders");
+        }
+
     }
 }
