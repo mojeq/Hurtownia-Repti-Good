@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "GetProducts";
+}
+
+@using HurtowniaReptiGood.Models.ViewModels
+@model UpdateProductsStockStatusViewModel
+
+<body>
+    <div>
+        <button class="myButton">@Html.ActionLink("Importuj stan magazynowy produktów z SubiektGT", "UpdateProductsStock", "Admin")</button>
+    </div>
+    <div> 
+        <p><span>@Status()</span></p>
+    </div>
+</body>
+
+@functions{
+    string UpdateStatus;
+
+    string Status()
+    {
+        if (Model.UpdateStatus=="")
+        {
+            Model.UpdateStatus = "Uruchom pobieranie stanu magazynowego";
+        }
+
+        return Model.UpdateStatus;
+    }
+}

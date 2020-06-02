@@ -23,5 +23,9 @@ namespace HurtowniaReptiGood.Models.Entities
         public string Photo { get; set; }
         [Required]
         public string Manufacturer { get; set; }
+        [Required]
+        public int IdSubiekt { get; set; }
+        [Required]
+        public int IdGroupSubiekt { get; set; }
     }
 }

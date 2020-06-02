@@ -53,6 +53,7 @@ namespace HurtowniaReptiGood
             services.AddTransient<CustomerAccountService>();
             services.AddTransient<AdminService>();
             services.AddTransient<DpdService>();
+            services.AddTransient<SubiektAPIService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

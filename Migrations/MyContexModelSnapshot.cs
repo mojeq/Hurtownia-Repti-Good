@@ -228,6 +228,12 @@ namespace HurtowniaReptiGood.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IdGroupSubiekt")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdSubiekt")
+                        .HasColumnType("int");
+
                     b.Property<string>("Manufacturer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

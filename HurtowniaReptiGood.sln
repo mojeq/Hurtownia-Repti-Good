@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HurtowniaReptiGood", "HurtowniaReptiGood.csproj", "{574333E1-691B-49D4-9B87-BF6B441F0754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HurtowniaReptiGood", "HurtowniaReptiGood.csproj", "{574333E1-691B-49D4-9B87-BF6B441F0754}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HurtowniaReptiGood.UnitTests", "..\HurtowniaReptiGood.UnitTests\HurtowniaReptiGood.UnitTests.csproj", "{58F9969E-EAB7-400A-9D8C-C49D4035607A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{574333E1-691B-49D4-9B87-BF6B441F0754}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{574333E1-691B-49D4-9B87-BF6B441F0754}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{574333E1-691B-49D4-9B87-BF6B441F0754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58F9969E-EAB7-400A-9D8C-C49D4035607A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58F9969E-EAB7-400A-9D8C-C49D4035607A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58F9969E-EAB7-400A-9D8C-C49D4035607A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58F9969E-EAB7-400A-9D8C-C49D4035607A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
