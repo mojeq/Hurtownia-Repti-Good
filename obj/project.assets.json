@@ -10899,11 +10899,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mojeq\\source\\repos\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
+      "projectUniqueName": "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
       "projectName": "HurtowniaReptiGood",
-      "projectPath": "C:\\Users\\mojeq\\source\\repos\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
+      "projectPath": "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
       "packagesPath": "C:\\Users\\mojeq\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mojeq\\source\\repos\\HurtowniaReptiGood\\obj\\",
+      "outputPath": "D:\\projects\\HurtowniaReptiGood\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -48,7 +48,16 @@ namespace HurtowniaReptiGood.Controllers
         {
             string userLogged = _userManager.GetUserName(HttpContext.User);
 
-            OrderListViewModel ordersHistory = _customerAccountService.GetOrdersHistory(userLogged);
+            OrderListViewModel ordersHistory;
+
+            try
+            {
+                ordersHistory = _customerAccountService.GetOrdersHistory(userLogged);
+            }
+            catch
+            {
+                throw new Exception("Nie udało się pobrać historii zamówień");
+            }
 
             return View(ordersHistory);
         }
@@ -58,12 +67,30 @@ namespace HurtowniaReptiGood.Controllers
         [HttpGet]
         public IActionResult OrderHistoryDetails(int orderId)
         {
-            DpdTrackingStatusListViewModel dpdTrackingStatusViewModel = _dpdService.GetTrackingStatusFromDPDWebservice(orderId);
-            OrderAndOrderDetailListViewModel orderAndOrderDetails = new OrderAndOrderDetailListViewModel()
+            DpdTrackingStatusListViewModel dpdTrackingStatusViewModel;
+            OrderAndOrderDetailListViewModel orderAndOrderDetails;
+
+            try
             {
-                OrderDetails = _cartService.GetCartDetailList(orderId),
-                Order = _customerAccountService.GetOrder(orderId),
-            };
+                dpdTrackingStatusViewModel = _dpdService.GetTrackingStatusFromDPDWebservice(orderId);
+            }
+            catch
+            {
+                throw new Exception("Nie udało się pobrać śledzenia przesyłki z serwisu DPD");
+            }
+
+            try
+            {
+                orderAndOrderDetails = new OrderAndOrderDetailListViewModel()
+                {
+                    OrderDetails = _cartService.GetCartDetailList(orderId),
+                    Order = _customerAccountService.GetOrder(orderId),
+                };
+            }
+            catch
+            {
+                throw new Exception("Nie powiodło się pobranie zawartości koszyka lub zamówienia");
+            }
 
             OrderAndOrderDetailListAndDpdTrackingStatusViewModel orderAndOrderDetailsAndTrackincStatus = new OrderAndOrderDetailListAndDpdTrackingStatusViewModel()
             {

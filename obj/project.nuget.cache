@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YbXYPsgdxDX/rorit/OauBd+KIrZ2WU+SzkZ3AxXVMz016sRo4O84l+K2Spsd+fu+yqw75saJHA/9xOdyT53cQ==",
+  "dgSpecHash": "fTXYnB2sj22a89u8lX8kbreIUIqYiqucsU1WngP/y0FPaj3ydVBkV5ek2v2kRQxfg3WHq79nxqJpUzHddMykwA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mojeq\\source\\repos\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
+  "projectFilePath": "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mojeq\\.nuget\\packages\\bootstrap\\4.4.1\\bootstrap.4.4.1.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\fluentassertions\\5.10.3\\fluentassertions.5.10.3.nupkg.sha512",

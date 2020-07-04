@@ -55,7 +55,7 @@
             method: @CalculateCartBrutto(itemValue);
                 @CalculateCartNetto(totalValueBrutto);
                 @GenerateMessageAndDiscount(totalValueNetto, totalValueBrutto);
-         }
+            }
 
         <tr>
             <th colspan="2">Wartość netto zamówienia</th>
@@ -149,24 +149,29 @@
         </table>
     </p>
 
-    <p>
-        <table style="width:700px" cellpadding="2" cellspacing="2" border="1">
-            <tr>
-                <th colspan="2">Uwagi do zamówienia</th>
-            </tr>
-            <tr>
-                <td>
-                    <textarea name="message" rows="14" cols="60">Uwagi do zamówienia, np. zmiana adresu</textarea>
-                </td>
-            </tr>
-        </table>
-    </p>
 
-    <button class="myButton2">
+    <table style="width:700px" cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th colspan="2">Uwagi do zamówienia</th>
+        </tr>
+        <tr>
+            <td>
+                <form action="SaveNewOrder" method="post">
+                    <input name="message" width="100" value="Uwagi do zamówienia, np. zmiana adresu" />
+                    <input type="hidden" name="OrderId" value="@Model.CartToView.OrderDetailList[0].OrderId" />
+                    <input type="hidden" name="OrderId" value="@(valueOrder = totalValueBruttoWithDiscount + shippingCost)" />
+                    <input type="submit" value="Wyślij zamówienie" />
+                </form>
+            </td>
+        </tr>
+    </table>
+
+
+    @*<button class="myButton2">
         @Html.ActionLink("Wyślij zamówienie", "SaveNewOrder", "Cart",
-        new { orderId = @Model.CartToView.OrderDetailList[0].OrderId, valueOrder = valueOrder},
+        new { orderId = @Model.CartToView.OrderDetailList[0].OrderId, valueOrder = valueOrder },
         new { onclick = "return confirm('Na pewno wysłać zamówienie?');" })
-    </button>
+    </button>*@
 </body>
 
 @functions

@@ -9,7 +9,7 @@
 
 <body>
     <div>                    
-        <form action="Home/ShowProductsFromCategory" method="post">
+        <form action="ShowProductsFromCategory" method="get">
             <label class="category">Wybierz producenta:</label>
             <select class="form-control" name="ProductCategory" typeof="text">
                 <option>wszyscy</option>
@@ -46,7 +46,7 @@
                                 <input type="hidden" name="ProductName" value="@product.ProductName">
                                 <input type="hidden" name="Price" value="@product.Price">
                                 <label name="Quantity">Sztuk: </label>
-                                <input size="5" type="number" height="25" name="Quantity" min="1" />
+                                <input size="5" type="number" height="25" name="Quantity" min="1" value="1"/>
                                 <input type="submit" value="Dodaj" />
                             </form>
                         </td>

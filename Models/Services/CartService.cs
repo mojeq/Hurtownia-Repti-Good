@@ -50,7 +50,7 @@ namespace HurtowniaReptiGood.Models.Services
                 OrderId = orderId,
                 Quantity = itemCart.Quantity,
                 Price = itemCart.Price,
-                Value=itemCart.Quantity*itemCart.Price,
+                Value = itemCart.Quantity * itemCart.Price,
             };
             _myContex.OrderDetails.Add(orderDetail);
             _myContex.SaveChanges();
@@ -76,7 +76,7 @@ namespace HurtowniaReptiGood.Models.Services
                 // create object with order details and save in database
                 OrderDetailEntity orderDetail = new OrderDetailEntity()
                 {
-                    ProductId= itemCart.ProductId,
+                    ProductId = itemCart.ProductId,
                     ProductSymbol = itemCart.ProductSymbol,
                     ProductName = itemCart.ProductName,
                     OrderId = orderId,
@@ -106,12 +106,12 @@ namespace HurtowniaReptiGood.Models.Services
                 .Where(c => c.OrderId == orderId)
                 .Select(x => new OrderDetailViewModel
                 {
-                    OrderDetailId=x.OrderDetailId,
-                    OrderId=x.OrderId,
-                    ProductName=x.ProductName,
-                    ProductSymbol=x.ProductSymbol,
-                    Price=x.Price,
-                    Quantity=x.Quantity                
+                    OrderDetailId = x.OrderDetailId,
+                    OrderId = x.OrderId,
+                    ProductName = x.ProductName,
+                    ProductSymbol = x.ProductSymbol,
+                    Price = x.Price,
+                    Quantity = x.Quantity
                 }).ToList();
 
             return cartDetails;
@@ -125,7 +125,7 @@ namespace HurtowniaReptiGood.Models.Services
             var shippingAddress = _myContex.ShippingAddresses
                 .Where(c => c.ShippingAddressId == shippingAddressId)
                 .Select(x => new ShippingAddressViewModel
-                {                    
+                {
                     Street = x.Street,
                     StreetNumber = x.StreetNumber,
                     ZipCode = x.ZipCode,
@@ -156,8 +156,8 @@ namespace HurtowniaReptiGood.Models.Services
                     CompanyName = x.CompanyName,
                     CustomerName = x.CustomerName,
                     CustomerSurname = x.CustomerSurname,
-                    Phone=x.Phone,
-                    NIP=x.NIP                    
+                    Phone = x.Phone,
+                    NIP = x.NIP
                 }).FirstOrDefault();
 
             return invoiceAddress;
@@ -173,7 +173,7 @@ namespace HurtowniaReptiGood.Models.Services
 
         // update quantity of one item from current cart (button quantity in cart) 
         public void UpdateQuantityItemInCart(int orderDetailId, int quantity)
-        {           
+        {
             var orderDetailExist = _myContex.OrderDetails.Find(orderDetailId);
             orderDetailExist.Quantity = quantity;
             _myContex.SaveChanges();
@@ -202,7 +202,7 @@ namespace HurtowniaReptiGood.Models.Services
             var textFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED, 12);
             Font link = FontFactory.GetFont("Arial", 12, Font.UNDERLINE);
 
-            FileStream fs = new FileStream("PDF/Order" + orderId + ".pdf", FileMode.Create);
+            FileStream fs = new FileStream("PDF/Zamowienie" + orderId + ".pdf", FileMode.Create);
             Document orderPdf = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.GetInstance(orderPdf, fs);
             orderPdf.Open();
@@ -242,11 +242,11 @@ namespace HurtowniaReptiGood.Models.Services
             foreach (var orderDetail in orderExistDetailList)
             {
                 table2.AddCell(new Phrase(orderDetail.ProductName, textFont));
-                table2.AddCell(new Phrase(orderDetail.Quantity));
+                table2.AddCell(new Phrase(orderDetail.Quantity.ToString(), textFont));
                 table2.AddCell(new Phrase(orderDetail.Price + "zł", textFont));
             }
             orderPdf.Add(table);
-            orderPdf.Add(table2);            
+            orderPdf.Add(table2);
 
             orderPdf.Close();
             writer.Close();
@@ -256,14 +256,19 @@ namespace HurtowniaReptiGood.Models.Services
         // send mail with pdf attachment to customer
         public void SendMailWithAttachment(int orderId)
         {
-            var customerMail = _myContex.ShippingAddresses.Find(_myContex.Customers.Find(_myContex.Orders.Find(orderId).CustomerId).ShippingAddressId).Email;
+            var order = _myContex.Orders.Find(orderId);
+            var customerMail = _myContex.ShippingAddresses.Find(_myContex.Customers.Find(order.CustomerId).ShippingAddressId).Email;
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Hurtownia TerraHurt", "biuro@reptigood.pl"));
-            message.To.Add(new MailboxAddress("Hurtownia TerraHurt", customerMail));
+            message.To.Add(new MailboxAddress(customerMail));
+            message.Subject = "Potwierdzenie zamówienia nr " + orderId;
             BodyBuilder message_body = new BodyBuilder();
-            //message_body.Attachments.Add("order1.pdf");
-            string textBody = "Zamówienie w załączniku\nPozdrawiam\nPiotr Moj\nreptigood.pl";
-            message_body.TextBody = textBody;
+        
+            message_body.Attachments.Add("PDF/Zamowienie" + orderId + ".pdf");
+            string textBody1 = "Potwierdzenie zamówienia w załączniku\n\nPozdrawiam\nPiotr Moj\nreptigood.pl";
+            string textBody2 = "Uwagi do zamówienia "+ order.Customer;
+            message_body.TextBody = textBody1;
+            message_body.TextBody = textBody2;
             message.Body = message_body.ToMessageBody();
 
             using (var smtpClient = new SmtpClient())

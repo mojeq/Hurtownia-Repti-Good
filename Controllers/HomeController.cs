@@ -48,7 +48,7 @@ namespace HurtowniaReptiGood.Controllers
 
         // view list with products from selected category
         [Authorize(Roles = "user")]
-        [HttpPost]
+        [HttpGet]
         public IActionResult ShowProductsFromCategory(string productCategory)
         {
             var productsList = _appService.GetProductsFromCategory(productCategory);
