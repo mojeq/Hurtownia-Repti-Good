@@ -17,6 +17,8 @@ namespace HurtowniaReptiGood.Models.Entities
         [Required]
         public int Quantity { get; set; }
         [Required]
+        public int CurrentStockInWholesale { get; set; }
+        [Required]
         public double Price { get; set; }
         [Required]
         public double Value { get; set; }

@@ -49,11 +49,16 @@ namespace HurtowniaReptiGood.Models.Services
                 ProductName = itemCart.ProductName,
                 OrderId = orderId,
                 Quantity = itemCart.Quantity,
+                CurrentStockInWholesale = GetCurrentStockInWholesale(itemCart.ProductId),
                 Price = itemCart.Price,
                 Value = itemCart.Quantity * itemCart.Price,
             };
+
             _myContex.OrderDetails.Add(orderDetail);
             _myContex.SaveChanges();
+
+            // decrease current item stock in database 
+            DecreaseStockInWholesale(itemCart);
 
             return orderId;
         }
@@ -81,17 +86,26 @@ namespace HurtowniaReptiGood.Models.Services
                     ProductName = itemCart.ProductName,
                     OrderId = orderId,
                     Quantity = itemCart.Quantity,
+                    CurrentStockInWholesale = GetCurrentStockInWholesale(itemCart.ProductId),
                     Price = itemCart.Price,
                     Value = itemCart.Quantity * itemCart.Price,
                 };
                 _myContex.OrderDetails.Add(orderDetail);
                 _myContex.SaveChanges();
+
+                // decrease current item stock in database 
+                DecreaseStockInWholesale(itemCart);
             }
             else
             {
                 orderDetailExist.Quantity += itemCart.Quantity;
                 _myContex.SaveChanges();
+
+                // decrease current item stock in database 
+                DecreaseStockInWholesale(itemCart);
             }
+
+
 
             // receive items in cart
             var itemsInCart = _myContex.OrderDetails.Where(c => c.OrderId == orderId).ToList();
@@ -111,7 +125,8 @@ namespace HurtowniaReptiGood.Models.Services
                     ProductName = x.ProductName,
                     ProductSymbol = x.ProductSymbol,
                     Price = x.Price,
-                    Quantity = x.Quantity
+                    Quantity = x.Quantity,
+                    CurrentStockInWholesale = x.CurrentStockInWholesale,
                 }).ToList();
 
             return cartDetails;
@@ -166,6 +181,9 @@ namespace HurtowniaReptiGood.Models.Services
         // remowe one item from current cart
         public void RemoveItemFromCart(int orderDetailId)
         {
+            // increase stock in database
+            IncreaseStockInWholesale(orderDetailId);
+
             var orderDetailToRemove = _myContex.OrderDetails.Find(orderDetailId);
             _myContex.OrderDetails.Remove(orderDetailToRemove);
             _myContex.SaveChanges();
@@ -177,16 +195,20 @@ namespace HurtowniaReptiGood.Models.Services
             var orderDetailExist = _myContex.OrderDetails.Find(orderDetailId);
             orderDetailExist.Quantity = quantity;
             _myContex.SaveChanges();
+
+            // increase stock in database
+            IncreaseStockInWholesale(orderDetailId, quantity);
         }
 
         // save new order to database exactly change state of current order and create attachment and sending mail with confirmation order
-        public void SaveNewOrder(int orderId, double valueOrder)
+        public void SaveNewOrder(int orderId, double valueOrder, string orderMessage)
         {
             var orderUpdate = _myContex.Orders.Find(orderId);
             orderUpdate.DateOrder = DateTime.Now;
             orderUpdate.StateOrder = "bought";
             orderUpdate.ValueOrder = valueOrder;
             orderUpdate.StatusOrder = "W realizacji";
+            orderUpdate.OrderMessage = orderMessage;
             _myContex.SaveChanges();
         }
 
@@ -207,11 +229,11 @@ namespace HurtowniaReptiGood.Models.Services
             PdfWriter writer = PdfWriter.GetInstance(orderPdf, fs);
             orderPdf.Open();
 
-            Anchor orderLink = new Anchor("Link do panelu klienta http://www.reptigood.pl/zamowienia/index \n", link);
+            Anchor orderLink = new Anchor("Link do panelu klienta http://www.reptihurt.pl/index \n", link);
             orderPdf.Add(new Paragraph(orderLink));
             String line = "Zamówienie nr " + orderId;
             orderPdf.Add(new Paragraph(line + "\n\n", titleFont14));
-            //orderLink.Reference = "http://www.reptigood.pl/zamowienia/index";           
+            //orderLink.Reference = "http://www.reptihurt.pl/zamowienia/index";           
 
             PdfPTable table = new PdfPTable(2);
             table.AddCell(new Phrase("Numer dokumentu", textFont));
@@ -220,6 +242,8 @@ namespace HurtowniaReptiGood.Models.Services
             table.AddCell(orderExist.DateOrder.ToString());
             table.AddCell(new Phrase("Wartość zamówienia brutto", textFont));
             table.AddCell(new Phrase(orderExist.ValueOrder.ToString() + "zł", textFont));
+            table.AddCell(new Phrase("Uwagi do zamówienia", textFont));
+            table.AddCell(new Phrase(orderExist.OrderMessage, textFont));
 
             PdfPTable table2 = new PdfPTable(3);
             table2.SetWidths(new int[] { 7, 1, 1 });
@@ -263,12 +287,12 @@ namespace HurtowniaReptiGood.Models.Services
             message.To.Add(new MailboxAddress(customerMail));
             message.Subject = "Potwierdzenie zamówienia nr " + orderId;
             BodyBuilder message_body = new BodyBuilder();
-        
+
             message_body.Attachments.Add("PDF/Zamowienie" + orderId + ".pdf");
-            string textBody1 = "Potwierdzenie zamówienia w załączniku\n\nPozdrawiam\nPiotr Moj\nreptigood.pl";
-            string textBody2 = "Uwagi do zamówienia "+ order.Customer;
-            message_body.TextBody = textBody1;
-            message_body.TextBody = textBody2;
+            string textBody = "Potwierdzenie zamówienia w załączniku\n\nUwagi do zamówienia:\n"
+                                + order.OrderMessage + "\n\nPozdrawiam\nPiotr Moj\nreptigood.pl";
+
+            message_body.TextBody = textBody;
             message.Body = message_body.ToMessageBody();
 
             using (var smtpClient = new SmtpClient())
@@ -279,6 +303,41 @@ namespace HurtowniaReptiGood.Models.Services
                 smtpClient.Send(message);
                 smtpClient.Disconnect(true);
             }
+        }
+
+        private void DecreaseStockInWholesale(ItemCartViewModel itemCart)
+        {
+            var productInDatabase = _myContex.Products.Find(itemCart.ProductId);
+            int currentstock = productInDatabase.Stock - itemCart.Quantity;
+            productInDatabase.Stock = currentstock;
+            _myContex.SaveChanges();
+        }
+
+        private int GetCurrentStockInWholesale(int productId)
+        {
+            int currentStockInWholesale = _myContex.Products.Find(productId).Stock;
+
+            return currentStockInWholesale;
+        }
+
+        private void IncreaseStockInWholesale(int orderDetailId)
+        {
+            var orderDetail = _myContex.OrderDetails.Find(orderDetailId);
+            var product = _myContex.Products.Find(orderDetail.ProductId);
+
+            product.Stock = product.Stock + orderDetail.Quantity;
+            _myContex.SaveChanges();
+        }
+
+        private void IncreaseStockInWholesale(int orderDetailId, int quantity)
+        {
+            var orderDetail = _myContex.OrderDetails.Find(orderDetailId);
+            var product = _myContex.Products.Find(orderDetail.ProductId);
+
+            int currentStock = orderDetail.CurrentStockInWholesale - quantity;
+
+            product.Stock = currentStock;
+            _myContex.SaveChanges();
         }
     }
 }

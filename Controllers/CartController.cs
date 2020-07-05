@@ -10,6 +10,7 @@ using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models;
 using HurtowniaReptiGood.Models.ViewModels;
 using HurtowniaReptiGood.Models.Services;
+using FluentAssertions.Common;
 
 namespace HurtowniaReptiGood.Controllers
 {
@@ -57,7 +58,7 @@ namespace HurtowniaReptiGood.Controllers
            
             //preparing addresses and cart to View
             var cartDetails = _cartService.GetCartDetailList(orderId);
-            if (cartDetails == null)
+            if (cartDetails.OrderDetailList.Count == 0)
             {
                 return View("CartEmpty");
             }
@@ -120,11 +121,11 @@ namespace HurtowniaReptiGood.Controllers
 
         // save new order to database exactly change state of current order and create attachment and sending mail with confirmation order
         [Authorize(Roles = "user")]
-        public IActionResult SaveNewOrder(int orderId, double valueOrder)
+        public IActionResult SaveNewOrder(OrderIdValueMessageViewModel order)
         {
-            _cartService.SaveNewOrder(orderId, valueOrder);
-            _cartService.CreatePdfAttachmentWithOrder(orderId);
-            _cartService.SendMailWithAttachment(orderId);
+            _cartService.SaveNewOrder(order.OrderId, order.OrderValue, order.OrderMessage);
+            _cartService.CreatePdfAttachmentWithOrder(order.OrderId);
+            _cartService.SendMailWithAttachment(order.OrderId);
 
             Response.Cookies.Delete("cartStatus");
             Response.Cookies.Delete("orderId");

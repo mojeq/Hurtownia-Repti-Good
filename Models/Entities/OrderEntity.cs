@@ -20,6 +20,7 @@ namespace HurtowniaReptiGood.Models.Entities
         public string TrackingNumber { get; set; }
         [Required]
         public double ValueOrder { get; set; }
+        public string OrderMessage { get; set; }
         [Required]
         public int CustomerId { get; set; }
         public CustomerEntity Customer { get; set; }

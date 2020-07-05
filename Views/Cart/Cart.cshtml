@@ -34,7 +34,7 @@
                 <td>
 
                     <form action="UpdateQuantityInCart" method="post">
-                        <input size="5" height="25" type="number" name="Quantity" min="1" value="@cart.Quantity" />
+                        <input size="5" height="25" type="number" name="Quantity" min="1" max="@cart.CurrentStockInWholesale" value="@cart.Quantity" />
                         <input type="hidden" name="OrderId" value="@cart.OrderId" />
                         <input type="hidden" name="OrderDetailId" value="@cart.OrderDetailId" />
                         <input type="hidden" name="ProductSymbol" value="@cart.ProductId" />
@@ -155,11 +155,13 @@
             <th colspan="2">Uwagi do zamówienia</th>
         </tr>
         <tr>
+            <td><textarea name="OrderMessage" rows="14" cols="35" form="sendOrder">Uwagi do zamówienia, np. zmiana adresu</textarea>
+        </tr>
+        <tr>
             <td>
-                <form action="SaveNewOrder" method="post">
-                    <input name="message" width="100" value="Uwagi do zamówienia, np. zmiana adresu" />
+                <form action="SaveNewOrder" method="post" id="sendOrder">
                     <input type="hidden" name="OrderId" value="@Model.CartToView.OrderDetailList[0].OrderId" />
-                    <input type="hidden" name="OrderId" value="@(valueOrder = totalValueBruttoWithDiscount + shippingCost)" />
+                    <input type="hidden" name="OrderValue" value="@valueOrder" />
                     <input type="submit" value="Wyślij zamówienie" />
                 </form>
             </td>

@@ -13,6 +13,7 @@ namespace HurtowniaReptiGood.Models
         public string ProductSymbol { get; set; }
         public string ProductName { get; set; }
         public int Quantity { get; set; }
+        public int CurrentStockInWholesale { get; set; }
         public double Price { get; set; }
         public double Value { get; set; }
     }
