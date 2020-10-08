@@ -101,6 +101,16 @@ namespace HurtowniaReptiGood.Controllers
             return View(orderDetailsAndTracking);
         }
 
+        // edit item in order
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public IActionResult EditOrderDetail(int orderDetailId)
+        {
+            OrderDetail orderDetail = _adminService.GetOrderDetail(orderDetailId);
+
+            return View(orderDetail);
+        }
+
         // create view with order to edit
         [Authorize(Roles = "admin")]
         [HttpGet]        

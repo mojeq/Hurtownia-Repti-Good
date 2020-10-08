@@ -6,13 +6,13 @@
     <link href="~/Media/fonts.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" media="all" />
     <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
-
+    <meta charset="utf-8" />
 </head>
 <body>
     <div id="header-wrapper">
         <div id="header" class="container">
             <div id="logo">
-                <h1><span class="icon icon-cog"></span><a href="#">Terra Hurt</a></h1>
+                <h1><span class="icon icon-cog"></span><a href="#">ReptiHurt</a></h1>
                 <span>Jesteś zalogowany: @ViewBag.userLogged</span>
                 <button type="button" class="myButton">@Html.ActionLink("Wyloguj", "LogOut", "Home")</button>
                 <button class="myButton">@Html.ActionLink("Koszyk", "Cart", "Cart", new { OrderId = ViewBag.OrderId })</button>

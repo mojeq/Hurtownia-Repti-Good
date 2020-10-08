@@ -1,3 +1,4 @@
+using AutoMapper;
 using HurtowniaReptiGood.Models;
 using HurtowniaReptiGood.Models.Services;
 using Microsoft.AspNetCore.Builder;
@@ -54,6 +55,7 @@ namespace HurtowniaReptiGood
             services.AddTransient<AdminService>();
             services.AddTransient<DpdService>();
             services.AddTransient<SubiektAPIService>();
+            services.AddAutoMapper((typeof(Startup)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

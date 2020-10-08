@@ -186,8 +186,6 @@ C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Hurtownia
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.genruntimeconfig.cache
 C:\Users\mojeq\source\repos\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Admin\UpdateStock.cshtml.g.cs
 D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.csprojAssemblyReference.cache
-D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.csproj.CoreCompileInputs.cache
-D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache
 D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.RazorAssemblyInfo.cache
 D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.RazorAssemblyInfo.cs
 D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.AssemblyInfoInputs.cache
@@ -372,3 +370,8 @@ D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.csproj
 D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\staticwebassets\HurtowniaReptiGood.StaticWebAssets.Manifest.cache
 D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\staticwebassets\HurtowniaReptiGood.StaticWebAssets.xml
 D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.genruntimeconfig.cache
+D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditOrderDetail.cshtml.g.cs
+D:\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\AutoMapper.dll
+D:\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.csproj.CoreCompileInputs.cache
+D:\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache

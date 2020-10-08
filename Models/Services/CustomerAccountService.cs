@@ -63,6 +63,7 @@ namespace HurtowniaReptiGood.Models.Services
                     StatusOrder=x.StatusOrder,
                     DateOrder=x.DateOrder,
                     ValueOrder=x.ValueOrder,
+                    TrackingNumber = x.TrackingNumber,
                 }).FirstOrDefault();
 
             return order;
