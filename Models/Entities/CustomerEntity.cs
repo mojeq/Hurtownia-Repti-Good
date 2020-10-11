@@ -10,7 +10,7 @@ namespace HurtowniaReptiGood.Models.Entities
     {        
         [Key]
         [Required]
-        public int CustomerIdssss { get; set; }
+        public int CustomerId { get; set; }
         [Required]
         public string UserName { get; set; }
         [Required]
