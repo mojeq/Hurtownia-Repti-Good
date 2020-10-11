@@ -52,21 +52,18 @@ namespace HurtowniaReptiGood.Models.Services
         // get list with all orders
         public OrderListViewModel GetOrders()
         {
-            OrderListViewModel orders = new OrderListViewModel();
-            orders.OrdersList = _myContex.Orders
+            var orders = _myContex.Orders
                 .Where(c=>c.StateOrder=="bought")
-                .Select(x => new OrderViewModel
-            {
-                OrderId=x.OrderId,
-                CustomerId=x.CustomerId,
-                DateOrder=x.DateOrder,
-                StateOrder=x.StateOrder,
-                StatusOrder=x.StatusOrder,
-                ValueOrder=x.ValueOrder,
-                TrackingNumber = x.TrackingNumber
-                }).ToList();
+                .ToList();
 
-            return orders;
+            var mapped = _mapper.Map<List<OrderViewModel>>(orders);
+
+            OrderListViewModel orderList = new OrderListViewModel()
+            {
+                OrdersList = mapped,
+            };
+
+            return orderList;
         }
 
         // get content of one order
