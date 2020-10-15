@@ -6,6 +6,8 @@
 
 <h3>Edycja zamówienia</h3>
 
+@model OrderViewModel
+
 <body>
     <div>
         <form action="EditOrder" method="post">
@@ -39,6 +41,7 @@
                 <label>Numer przesyłki</label>
                 <input type="text" class="form-control" name="TrackingNumber" value="@Model.TrackingNumber">
             </div>
+            <input type="hidden" name="StateOrder" value="@Model.StateOrder">
             <input class="myButton4" type="submit" value="Zapisz zmiany" />
         </form>
     </div>

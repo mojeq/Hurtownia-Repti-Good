@@ -53,7 +53,7 @@ namespace HurtowniaReptiGood.Models.Services
         public OrderListViewModel GetOrders()
         {
             var orders = _myContex.Orders
-                .Where(c=>c.StateOrder=="bought")
+                .Where(c => c.StateOrder=="bought")
                 .ToList();
 
             var mapped = _mapper.Map<List<OrderViewModel>>(orders);
@@ -70,19 +70,11 @@ namespace HurtowniaReptiGood.Models.Services
         public OrderDetailListViewModel GetOrderDetails(int orderId)
         {
             OrderDetailListViewModel orderDetails = new OrderDetailListViewModel();
-            orderDetails.OrderDetailList = _myContex.OrderDetails
+            var orderDetailList = _myContex.OrderDetails
                 .Where(c => c.OrderId == orderId)
-                .Select(x => new OrderDetailViewModel
-                {
-                    OrderDetailId=x.OrderDetailId,
-                    OrderId=x.OrderId,
-                    ProductId=x.ProductId,
-                    ProductName=x.ProductName,
-                    ProductSymbol=x.ProductSymbol,
-                    Price=x.Price,
-                    Quantity=x.Quantity,
-                    Value=x.Value
-                }).ToList();
+                .ToList();
+
+            orderDetails.OrderDetailList = _mapper.Map<List<OrderDetailViewModel>>(orderDetailList);
 
             return orderDetails;
         }
@@ -90,30 +82,20 @@ namespace HurtowniaReptiGood.Models.Services
         // save changes in editable order
         public void SaveChangesOrder(Order orderToChange)
         {
-            var order = _myContex.Orders.Find(orderToChange.OrderId);
-            order.StatusOrder = orderToChange.StatusOrder;
-            order.ValueOrder = orderToChange.ValueOrder;
-            order.TrackingNumber = orderToChange.TrackingNumber;
+            var correctedOrder = _mapper.Map<OrderEntity>(orderToChange);
+
+            _myContex.Orders.Update(correctedOrder);
             _myContex.SaveChanges();
         }
 
         // get one order detail
         public OrderDetail GetOrderDetail(int orderDetailId)
         {
-            OrderDetailViewModel orderDetail = new OrderDetailViewModel();
-            orderDetail = _myContex.OrderDetails
+            var order = _myContex.OrderDetails
                 .Where(x=>x.OrderDetailId==orderDetailId)
-                .Select(x => new OrderDetailViewModel
-                {
-                    OrderDetailId = x.OrderDetailId,
-                    OrderId = x.OrderId,
-                    ProductId = x.ProductId,
-                    ProductName = x.ProductName,
-                    ProductSymbol = x.ProductSymbol,
-                    Price = x.Price,
-                    Quantity = x.Quantity,
-                    Value = x.Value
-                }).FirstOrDefault();
+                .FirstOrDefault();
+
+            var orderDetail = _mapper.Map<OrderDetail>(order);
 
             return orderDetail;
         }

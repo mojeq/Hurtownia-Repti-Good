@@ -1,4 +1,5 @@
-﻿using HurtowniaReptiGood.Models.Entities;
+﻿using AutoMapper;
+using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models.ViewModels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -17,9 +18,11 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class CartService
     {
+        private readonly IMapper _mapper;
         private readonly MyContex _myContex;
-        public CartService(MyContex myContex)
+        public CartService(IMapper mapper, MyContex myContex)
         {
+            _mapper = mapper;
             _myContex = myContex;
         }
 
@@ -41,18 +44,9 @@ namespace HurtowniaReptiGood.Models.Services
                                  .Where(o => o.StateOrder == "cart")
                                  .FirstOrDefault().OrderId;
 
-            // create object with order details and save in database
-            OrderDetailEntity orderDetail = new OrderDetailEntity()
-            {
-                ProductId = itemCart.ProductId,
-                ProductSymbol = itemCart.ProductSymbol,
-                ProductName = itemCart.ProductName,
-                OrderId = orderId,
-                Quantity = itemCart.Quantity,
-                CurrentStockInWholesale = GetCurrentStockInWholesale(itemCart.ProductId),
-                Price = itemCart.Price,
-                Value = itemCart.Quantity * itemCart.Price,
-            };
+            var orderDetail = _mapper.Map<OrderDetailEntity>(itemCart);
+
+            orderDetail.CurrentStockInWholesale = GetCurrentStockInWholesale(itemCart.ProductId);
 
             _myContex.OrderDetails.Add(orderDetail);
             _myContex.SaveChanges();
@@ -78,18 +72,10 @@ namespace HurtowniaReptiGood.Models.Services
                                                                   .FirstOrDefault();
             if (orderDetailExist == null)
             {
-                // create object with order details and save in database
-                OrderDetailEntity orderDetail = new OrderDetailEntity()
-                {
-                    ProductId = itemCart.ProductId,
-                    ProductSymbol = itemCart.ProductSymbol,
-                    ProductName = itemCart.ProductName,
-                    OrderId = orderId,
-                    Quantity = itemCart.Quantity,
-                    CurrentStockInWholesale = GetCurrentStockInWholesale(itemCart.ProductId),
-                    Price = itemCart.Price,
-                    Value = itemCart.Quantity * itemCart.Price,
-                };
+                var orderDetail = _mapper.Map<OrderDetailEntity>(itemCart);
+
+                orderDetail.CurrentStockInWholesale = GetCurrentStockInWholesale(itemCart.ProductId);
+
                 _myContex.OrderDetails.Add(orderDetail);
                 _myContex.SaveChanges();
 
@@ -99,16 +85,16 @@ namespace HurtowniaReptiGood.Models.Services
             else
             {
                 orderDetailExist.Quantity += itemCart.Quantity;
+
                 _myContex.SaveChanges();
 
                 // decrease current item stock in database 
                 DecreaseStockInWholesale(itemCart);
             }
 
-
-
             // receive items in cart
             var itemsInCart = _myContex.OrderDetails.Where(c => c.OrderId == orderId).ToList();
+
             return orderId;
         }
 

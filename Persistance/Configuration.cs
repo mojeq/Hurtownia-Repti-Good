@@ -19,6 +19,8 @@ namespace HurtowniaReptiGood.Persistance
                 .ReverseMap();
             CreateMap<OrderEntity, OrderViewModel>()
                 .ReverseMap();
+            CreateMap<OrderDetailEntity, ItemCartViewModel>()
+                .ReverseMap();
         }
     }
 }
