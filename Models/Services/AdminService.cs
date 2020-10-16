@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using HurtowniaReptiGood.Models.Entities;
+using HurtowniaReptiGood.Models.Interfaces;
 using HurtowniaReptiGood.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Math.EC.Rfc7748;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HurtowniaReptiGood.Models.Services
 {
-    public class AdminService
+    public class AdminService : IAdminService
     {
         private readonly IMapper _mapper;
         private readonly MyContex _myContex;
@@ -20,20 +22,21 @@ namespace HurtowniaReptiGood.Models.Services
         }
 
         // adding new product to database
-        public void AddNewProduct(NewProductViewModel newProduct)
+        public async Task AddNewProduct(NewProductViewModel newProduct)
         {
             ProductEntity newProductEntity = _mapper.Map<ProductEntity>(newProduct);
 
-            _myContex.Products.Add(newProductEntity);
-            _myContex.SaveChanges();
+            await _myContex.Products.AddAsync(newProductEntity);
+
+            await _myContex.SaveChangesAsync();
         }
 
         // get one product from database
-        public ProductViewModel GetProduct(int productId)
+        public async Task<ProductViewModel> GetProduct(int productId)
         {
-            var productToEdit = _myContex.Products
-                .Where(c => c.ProductId == productId)            
-                .FirstOrDefault();
+            var productToEdit = await _myContex.Products
+                .Where(c => c.ProductId == productId)
+                .FirstOrDefaultAsync();
 
             var productViewModel = _mapper.Map<ProductViewModel>(productToEdit);
 
@@ -41,20 +44,21 @@ namespace HurtowniaReptiGood.Models.Services
         }
 
         // save edited product to database
-        public void SaveChangesProduct(ProductViewModel productToChange)
+        public async Task SaveChangesProduct(ProductViewModel productToChange)
         {
             var mapped = _mapper.Map<ProductEntity>(productToChange);
 
             _myContex.Products.Update(mapped);
-            _myContex.SaveChanges();
+
+            await _myContex.SaveChangesAsync();
         }
 
         // get list with all orders
-        public OrderListViewModel GetOrders()
+        public async Task<OrderListViewModel> GetOrders()
         {
-            var orders = _myContex.Orders
-                .Where(c => c.StateOrder=="bought")
-                .ToList();
+            var orders = await _myContex.Orders
+                            .Where(c => c.StateOrder=="bought")
+                            .ToListAsync();
 
             var mapped = _mapper.Map<List<OrderViewModel>>(orders);
 
@@ -67,12 +71,12 @@ namespace HurtowniaReptiGood.Models.Services
         }
 
         // get content of one order
-        public OrderDetailListViewModel GetOrderDetails(int orderId)
+        public async Task<OrderDetailListViewModel> GetOrderDetails(int orderId)
         {
             OrderDetailListViewModel orderDetails = new OrderDetailListViewModel();
-            var orderDetailList = _myContex.OrderDetails
-                .Where(c => c.OrderId == orderId)
-                .ToList();
+            var orderDetailList = await _myContex.OrderDetails
+                                        .Where(c => c.OrderId == orderId)
+                                        .ToListAsync();
 
             orderDetails.OrderDetailList = _mapper.Map<List<OrderDetailViewModel>>(orderDetailList);
 
@@ -80,20 +84,21 @@ namespace HurtowniaReptiGood.Models.Services
         }
 
         // save changes in editable order
-        public void SaveChangesOrder(Order orderToChange)
+        public async Task SaveChangesOrder(Order orderToChange)
         {
             var correctedOrder = _mapper.Map<OrderEntity>(orderToChange);
 
             _myContex.Orders.Update(correctedOrder);
-            _myContex.SaveChanges();
+
+            await _myContex.SaveChangesAsync();
         }
 
         // get one order detail
-        public OrderDetail GetOrderDetail(int orderDetailId)
+        public async Task<OrderDetail> GetOrderDetail(int orderDetailId)
         {
-            var order = _myContex.OrderDetails
+            var order = await _myContex.OrderDetails
                 .Where(x=>x.OrderDetailId==orderDetailId)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             var orderDetail = _mapper.Map<OrderDetail>(order);
 

@@ -7,10 +7,11 @@ using HurtowniaReptiGood.Models.Entities;
 using System.Net;
 using System.IO;
 using HurtowniaReptiGood.Models.ViewModels;
+using HurtowniaReptiGood.Models.Interfaces;
 
 namespace HurtowniaReptiGood.Models.Services
 {
-    public class DpdService
+    public class DpdService : IDpdService
     {
         private readonly MyContex _myContex;
         public DpdService(MyContex myContex)
@@ -19,7 +20,7 @@ namespace HurtowniaReptiGood.Models.Services
         }
 
         // achive tracking status from Webservice DPD
-        public DpdTrackingStatusListViewModel GetTrackingStatusFromDPDWebservice(int orderId)
+        public async Task<DpdTrackingStatusListViewModel> GetTrackingStatusFromDPDWebservice(int orderId)
         {
             string trackingNumber = _myContex.Orders.Find(orderId).TrackingNumber;
             string xmlRequest = @"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:even=""http://events.dpdinfoservices.dpd.com.pl/"">
@@ -38,22 +39,22 @@ namespace HurtowniaReptiGood.Models.Services
                  </soapenv:Body>
                </soapenv:Envelope>";
 
-            DpdTrackingStatusListViewModel lastTrackingStatus = DeserializeXmlResponse(SendSoap(xmlRequest, trackingNumber));
+            DpdTrackingStatusListViewModel lastTrackingStatus = await DeserializeXmlResponse(await SendSoap(xmlRequest, trackingNumber));
 
             return lastTrackingStatus;
         }
 
         // get data from xml response
-        static DpdTrackingStatusListViewModel DeserializeXmlResponse(string responseXml)
+        public async Task<DpdTrackingStatusListViewModel> DeserializeXmlResponse(string responseXml)
         {
             XmlDocument xmlDoc = new XmlDocument();
+
             xmlDoc.LoadXml(responseXml);
 
-            //List<string> list = new List<string>();
             List<DpdTrackingStatusViewModel> statusList = new List<DpdTrackingStatusViewModel>();
 
             XmlNodeList eventsList = xmlDoc.SelectNodes("//eventsList");
-            //int events = 
+
             foreach (XmlNode nodeElement in eventsList)
             {
                 if (nodeElement.HasChildNodes)
@@ -69,11 +70,11 @@ namespace HurtowniaReptiGood.Models.Services
                 }
             }
             DpdTrackingStatusListViewModel trackingStatusList = new DpdTrackingStatusListViewModel();
+
             trackingStatusList.TrackingList = statusList;
+
             return trackingStatusList;
-        }
-        
-    
+        }     
 
             //trackingStatusList.TrackingList.Add(status);
             //foreach(XmlNode item in nodeElement.ChildNodes)
@@ -92,9 +93,7 @@ namespace HurtowniaReptiGood.Models.Services
             //    list.Add(item.InnerText);
             //}
             // }                   
-
-
-           
+                       
             //List<string> list2 = new List<string>();
             //list2 = list;
 
@@ -124,7 +123,7 @@ namespace HurtowniaReptiGood.Models.Services
         
 
         // sending soap request to webservice DPD
-        private string SendSoap(string xmlRequest, string trackingNumber)
+        public async Task<string> SendSoap(string xmlRequest, string trackingNumber)
         {
             // get DPD config
             DpdConfigEntity dpdConfig = _myContex.DpdConfigs.First();
@@ -153,8 +152,11 @@ namespace HurtowniaReptiGood.Models.Services
             }
 
             IAsyncResult asyncResult = webRequest.BeginGetResponse(null, null);
+
             asyncResult.AsyncWaitHandle.WaitOne();
+
             string soapResult;
+
             WebResponse webResponse = null;
 
             try
@@ -173,6 +175,7 @@ namespace HurtowniaReptiGood.Models.Services
                 if (e is WebException && ((WebException)e).Status == WebExceptionStatus.ProtocolError)
                 {
                     WebResponse errResp = ((WebException)e).Response;
+
                     using (Stream respStream = errResp.GetResponseStream())
                     {
                         StreamReader reader = new StreamReader(respStream);

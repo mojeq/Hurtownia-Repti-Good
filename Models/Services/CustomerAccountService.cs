@@ -1,70 +1,62 @@
-﻿using HurtowniaReptiGood.Models.Entities;
+﻿using AutoMapper;
+using HurtowniaReptiGood.Models.Entities;
+using HurtowniaReptiGood.Models.Interfaces;
 using HurtowniaReptiGood.Models.ViewModels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace HurtowniaReptiGood.Models.Services
 {
-    public class CustomerAccountService
+    public class CustomerAccountService : ICustomerAccountService
     {
+        private readonly IMapper _mapper;
         private readonly AppService _appService;
         private readonly MyContex _myContex;
-        public CustomerAccountService(
-            MyContex myContex, 
-            AppService appService)
+        public CustomerAccountService(IMapper mapper, MyContex myContex, AppService appService)
         {
+            _mapper = mapper;
             _appService = appService;
             _myContex = myContex;
         }
 
         // get list with all orders from this customer from database
-        public OrderListViewModel GetOrdersHistory(string userLogged)
+        public async Task<OrderListViewModel> GetOrdersHistory(string userLogged)
         {
-            CustomerEntity loggedUser = _appService.GetLoggedCustomer(userLogged);
+            CustomerEntity loggedUser = await _appService.GetLoggedCustomer(userLogged);            
 
-            OrderListViewModel ordersHistory = new OrderListViewModel();
-            ordersHistory.OrdersList = _myContex.Orders
-                .Where(x => x.CustomerId == loggedUser.CustomerId)
-                .Select(x => new OrderViewModel
-                {
-                    OrderId = x.OrderId,
-                    CustomerId=x.CustomerId,
-                    StateOrder=x.StateOrder,
-                    StatusOrder=x.StatusOrder,
-                    DateOrder=x.DateOrder,
-                    ValueOrder=x.ValueOrder,
-                    TrackingNumber = x.TrackingNumber,
-                })
-                .ToList();
+            var orderList = await _myContex.Orders
+                                .Where(x => x.CustomerId == loggedUser.CustomerId) 
+                                .ToListAsync();
+
+            var mapped = _mapper.Map<List<OrderViewModel>>(orderList);
+
+            OrderListViewModel ordersHistory = new OrderListViewModel()
+            {
+                OrdersList = mapped,
+            };
 
             return ordersHistory;
         }
 
         // get one order from database
-        public OrderViewModel GetOrder(int orderId)
-        {
-            OrderViewModel order = new OrderViewModel();
-            order = _myContex.Orders
-                .Where(x => x.OrderId == orderId)
-                .Select(x => new OrderViewModel
-                {
-                    OrderId = x.OrderId,
-                    CustomerId=x.CustomerId,
-                    StateOrder=x.StateOrder,
-                    StatusOrder=x.StatusOrder,
-                    DateOrder=x.DateOrder,
-                    ValueOrder=x.ValueOrder,
-                    TrackingNumber = x.TrackingNumber,
-                }).FirstOrDefault();
+        public async Task<OrderViewModel> GetOrder(int orderId)
+        { 
+            var orderEntity = await _myContex.Orders
+                                    .Where(x => x.OrderId == orderId)
+                                    .FirstOrDefaultAsync();
+
+            var order = _mapper.Map<OrderViewModel>(orderEntity);
 
             return order;
         }

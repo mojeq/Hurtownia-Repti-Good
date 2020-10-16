@@ -39,7 +39,7 @@ namespace HurtowniaReptiGood.Controllers
         // view current cart with added items
         [Authorize (Roles="user")]
         [HttpGet]
-        public ActionResult Cart(int orderId)
+        public async Task<ActionResult> Cart(int orderId)
         {
             if (orderId == 0)
             {
@@ -57,13 +57,13 @@ namespace HurtowniaReptiGood.Controllers
             ViewBag.userLogged = userLogged;
            
             //preparing addresses and cart to View
-            var cartDetails = _cartService.GetCartDetailList(orderId);
+            var cartDetails = await _cartService.GetCartDetailList(orderId);
             if (cartDetails.OrderDetailList.Count == 0)
             {
                 return View("CartEmpty");
             }
-            var invoiceAddress = _cartService.GetInvoiceAddress(orderId);
-            var shippingAddress = _cartService.GetShippingAddress(orderId);            
+            var invoiceAddress = await _cartService.GetInvoiceAddress(orderId);
+            var shippingAddress = await _cartService.GetShippingAddress(orderId);            
             
             var dataToView = new CartAndAddressesViewModel()
             {
@@ -80,19 +80,19 @@ namespace HurtowniaReptiGood.Controllers
 
         // adding next product to cart
         [Authorize(Roles = "user")]
-        public ActionResult AddItemToCart(ItemCartViewModel itemCart)
+        public async Task<ActionResult> AddItemToCart(ItemCartViewModel itemCart)
         {
             string userLogged = _userManager.GetUserName(HttpContext.User);
-            CustomerEntity loggedUser = _appService.GetLoggedCustomer(userLogged);
+            CustomerEntity loggedUser = await _appService.GetLoggedCustomer(userLogged);
 
             int orderId;
             if (String.IsNullOrEmpty(Request.Cookies["cartStatus"]))
             {
-                orderId=_cartService.CreateNewCartOrder(loggedUser, itemCart);
+                orderId = await _cartService.CreateNewCartOrder(loggedUser, itemCart);
             }
             else
             {
-                orderId=_cartService.AddItemToExistCart(loggedUser, itemCart);
+                orderId = await _cartService.AddItemToExistCart(loggedUser, itemCart);
             }
 
             Response.Cookies.Append("cartStatus", "tempCart");        
@@ -104,30 +104,34 @@ namespace HurtowniaReptiGood.Controllers
         // update quantity of item in cart
         [Authorize(Roles = "user")]
         [HttpPost]
-        public ActionResult UpdateQuantityInCart(OrderDetailViewModel orderDetail)
+        public async Task<ActionResult> UpdateQuantityInCart(OrderDetailViewModel orderDetail)
         {
-            _cartService.UpdateQuantityItemInCart(orderDetail.OrderDetailId, orderDetail.Quantity);
+            await _cartService.UpdateQuantityItemInCart(orderDetail.OrderDetailId, orderDetail.Quantity);
 
             return RedirectToAction("Cart", orderDetail.OrderId);
         }
 
         // deleting one item from current cart
         [Authorize(Roles = "user")]
-        public IActionResult RemoveItemFromCart(int orderId, int orderDetailId)
+        public async Task<IActionResult> RemoveItemFromCart(int orderId, int orderDetailId)
         {
-            _cartService.RemoveItemFromCart(orderDetailId);
+            await _cartService.RemoveItemFromCart(orderDetailId);
+
             return RedirectToAction("Cart", orderId);
         }
 
         // save new order to database exactly change state of current order and create attachment and sending mail with confirmation order
         [Authorize(Roles = "user")]
-        public IActionResult SaveNewOrder(OrderIdValueMessageViewModel order)
+        public async Task<IActionResult> SaveNewOrder(OrderIdValueMessageViewModel order)
         {
-            _cartService.SaveNewOrder(order.OrderId, order.OrderValue, order.OrderMessage);
-            _cartService.CreatePdfAttachmentWithOrder(order.OrderId);
-            _cartService.SendMailWithAttachment(order.OrderId);
+            await _cartService.SaveNewOrder(order.OrderId, order.OrderValue, order.OrderMessage);
+
+            await _cartService.CreatePdfAttachmentWithOrder(order.OrderId);
+
+            await _cartService.SendMailWithAttachment(order.OrderId);
 
             Response.Cookies.Delete("cartStatus");
+
             Response.Cookies.Delete("orderId");
 
             return View();

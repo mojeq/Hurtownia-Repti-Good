@@ -10,6 +10,7 @@ using HurtowniaReptiGood.Models;
 
 namespace HurtowniaReptiGood.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly AdminService _adminService;
@@ -39,6 +40,7 @@ namespace HurtowniaReptiGood.Controllers
         public IActionResult AddNewProduct(NewProductViewModel newProduct)
         {
             _adminService.AddNewProduct(newProduct);
+
             return View();
         }
 
@@ -51,18 +53,19 @@ namespace HurtowniaReptiGood.Controllers
         // view list with all products
         [Authorize(Roles = "admin")]
         [HttpGet]
-        public IActionResult Products()
+        public async Task<IActionResult> Products()
         {
-            var productsList = _appService.GetAllProducts();
+            var productsList = await _appService.GetAllProducts();
+
             return View(productsList);
         }
 
         // view details of one product
         [Authorize(Roles = "admin")]
         [HttpGet]
-        public IActionResult ProductDetails(int productId)
+        public async Task<IActionResult> ProductDetails(int productId)
         {
-            ProductViewModel productToEdit = _adminService.GetProduct(productId);
+            ProductViewModel productToEdit = await _adminService.GetProduct(productId);
 
             return View("EditProduct", productToEdit);
         }
@@ -80,9 +83,9 @@ namespace HurtowniaReptiGood.Controllers
         // view list with all orders
         [Authorize(Roles ="admin")]
         [HttpGet]
-        public IActionResult Orders()
+        public async Task<IActionResult> Orders()
         {
-            var orders = _adminService.GetOrders();
+            var orders = await _adminService.GetOrders();
 
             return View(orders);
         }
@@ -90,12 +93,12 @@ namespace HurtowniaReptiGood.Controllers
         // view details of one order
         [Authorize(Roles ="admin")]
         [HttpGet]
-        public IActionResult OrderDetails(int orderId)
+        public async Task<IActionResult> OrderDetails(int orderId)
         {
             OrderDetailsAndDpdTrackingStatusViewModel orderDetailsAndTracking = new OrderDetailsAndDpdTrackingStatusViewModel()
             {
-                DpdTrackingStatusList = _dpdService.GetTrackingStatusFromDPDWebservice(orderId),
-                OrderDetails = _adminService.GetOrderDetails(orderId),
+                DpdTrackingStatusList = await _dpdService.GetTrackingStatusFromDPDWebservice(orderId),
+                OrderDetails = await _adminService.GetOrderDetails(orderId),
             };
 
             return View(orderDetailsAndTracking);
@@ -104,9 +107,9 @@ namespace HurtowniaReptiGood.Controllers
         // edit item in order
         [Authorize(Roles = "admin")]
         [HttpGet]
-        public IActionResult EditOrderDetail(int orderDetailId)
+        public async Task<IActionResult> EditOrderDetail(int orderDetailId)
         {
-            OrderDetail orderDetail = _adminService.GetOrderDetail(orderDetailId);
+            OrderDetail orderDetail = await _adminService.GetOrderDetail(orderDetailId);
 
             return View(orderDetail);
         }
@@ -114,9 +117,9 @@ namespace HurtowniaReptiGood.Controllers
         // create view with order to edit
         [Authorize(Roles = "admin")]
         [HttpGet]        
-        public IActionResult EditOrder(int orderId)
+        public async Task<IActionResult> EditOrder(int orderId)
         {
-            OrderViewModel orderToEdit = _customerAccountService.GetOrder(orderId);
+            OrderViewModel orderToEdit = await _customerAccountService.GetOrder(orderId);
 
             return View(orderToEdit);
         }
@@ -141,7 +144,9 @@ namespace HurtowniaReptiGood.Controllers
             try
             {
                 var productsListFromSubiektAPI = await _subiektAPIService.DownloadProductsStockFromSubiektGT();
-                 _subiektAPIService.UpdateStockInDatabase(productsListFromSubiektAPI);
+
+                 await _subiektAPIService.UpdateStockInDatabase(productsListFromSubiektAPI);
+
                 status.UpdateStatus = "Import stanu magazynowego powiódł się.";
             }
             catch
@@ -156,7 +161,9 @@ namespace HurtowniaReptiGood.Controllers
         public IActionResult UpdateStock()
         {
             UpdateProductsStockStatusViewModel status = new UpdateProductsStockStatusViewModel();
+
             status.UpdateStatus = "";
+
             return View(status);
         }
     }

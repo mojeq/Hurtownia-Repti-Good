@@ -44,7 +44,7 @@ namespace HurtowniaReptiGood.Controllers
         // view with orders list from logged customer
         [Authorize(Roles = "user")]
         [HttpGet]
-        public IActionResult OrdersHistory()
+        public async Task<IActionResult> OrdersHistory()
         {
             string userLogged = _userManager.GetUserName(HttpContext.User);
 
@@ -52,7 +52,7 @@ namespace HurtowniaReptiGood.Controllers
 
             try
             {
-                ordersHistory = _customerAccountService.GetOrdersHistory(userLogged);
+                ordersHistory = await _customerAccountService.GetOrdersHistory(userLogged);
             }
             catch
             {
@@ -65,14 +65,14 @@ namespace HurtowniaReptiGood.Controllers
         // view with one order details
         [Authorize(Roles = "user")]
         [HttpGet]
-        public IActionResult OrderHistoryDetails(int orderId)
+        public async Task<IActionResult> OrderHistoryDetails(int orderId)
         {
             DpdTrackingStatusListViewModel dpdTrackingStatusViewModel;
             OrderAndOrderDetailListViewModel orderAndOrderDetails;
 
             try
             {
-                dpdTrackingStatusViewModel = _dpdService.GetTrackingStatusFromDPDWebservice(orderId);
+                dpdTrackingStatusViewModel = await _dpdService.GetTrackingStatusFromDPDWebservice(orderId);
             }
             catch
             {
@@ -83,8 +83,8 @@ namespace HurtowniaReptiGood.Controllers
             {
                 orderAndOrderDetails = new OrderAndOrderDetailListViewModel()
                 {
-                    OrderDetails = _cartService.GetCartDetailList(orderId),
-                    Order = _customerAccountService.GetOrder(orderId),
+                    OrderDetails = await _cartService.GetCartDetailList(orderId),
+                    Order = await _customerAccountService.GetOrder(orderId),
                 };
             }
             catch

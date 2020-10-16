@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using HurtowniaReptiGood.Models.Entities;
+using HurtowniaReptiGood.Models.Interfaces;
 using HurtowniaReptiGood.Models.ViewModels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace HurtowniaReptiGood.Models.Services
 {
-    public class CartService
+    public class CartService : ICartService
     {
         private readonly IMapper _mapper;
         private readonly MyContex _myContex;
@@ -27,38 +29,42 @@ namespace HurtowniaReptiGood.Models.Services
         }
 
         // creating new cart and saving that to database with state "cart"
-        public int CreateNewCartOrder(CustomerEntity loggedUser, ItemCartViewModel itemCart)
+        public async Task<int> CreateNewCartOrder(CustomerEntity loggedUser, ItemCartViewModel itemCart)
         {
-            OrderEntity order = new OrderEntity()
+            OrderEntity orderNew = new OrderEntity()
             {
                 CustomerId = loggedUser.CustomerId,
                 StateOrder = "cart",
                 DateOrder = DateTime.Now,
                 StatusOrder = "W realizacji",
             };
-            _myContex.Orders.Add(order);
-            _myContex.SaveChanges();
+            await _myContex.Orders.AddAsync(orderNew);
 
-            int orderId = _myContex.Orders.OrderByDescending(s => s.OrderId)
+            await _myContex.SaveChangesAsync();
+
+            var order = await _myContex.Orders.OrderByDescending(s => s.OrderId)
                                  .Where(o => o.CustomerId == loggedUser.CustomerId)
                                  .Where(o => o.StateOrder == "cart")
-                                 .FirstOrDefault().OrderId;
+                                 .FirstOrDefaultAsync();
 
             var orderDetail = _mapper.Map<OrderDetailEntity>(itemCart);
 
-            orderDetail.CurrentStockInWholesale = GetCurrentStockInWholesale(itemCart.ProductId);
+            orderDetail.OrderId = order.OrderId;
 
-            _myContex.OrderDetails.Add(orderDetail);
-            _myContex.SaveChanges();
+            orderDetail.CurrentStockInWholesale = await GetCurrentStockInWholesale(itemCart.ProductId);
+
+            await _myContex.OrderDetails.AddAsync(orderDetail);
+
+            await _myContex.SaveChangesAsync();
 
             // decrease current item stock in database 
-            DecreaseStockInWholesale(itemCart);
+            await DecreaseStockInWholesale(itemCart);
 
-            return orderId;
+            return order.OrderId;
         }
 
         // adding next product to current cart or increase quantity
-        public int AddItemToExistCart(CustomerEntity loggedUser, ItemCartViewModel itemCart)
+        public async Task<int> AddItemToExistCart(CustomerEntity loggedUser, ItemCartViewModel itemCart)
         {
             // finding last order ID
             int orderId = _myContex.Orders.OrderByDescending(s => s.OrderId)
@@ -67,139 +73,128 @@ namespace HurtowniaReptiGood.Models.Services
                                              .FirstOrDefault().OrderId;
 
             // checking it is this item in cart if yes increase quantity if no, add new position OrderDetail
-            OrderDetailEntity orderDetailExist = _myContex.OrderDetails.Where(a => a.OrderId == orderId)
-                                                                  .Where(a => a.ProductSymbol == itemCart.ProductSymbol)
-                                                                  .FirstOrDefault();
+            OrderDetailEntity orderDetailExist = await _myContex.OrderDetails
+                                                            .Where(a => a.OrderId == orderId)
+                                                            .Where(a => a.ProductSymbol == itemCart.ProductSymbol)
+                                                            .FirstOrDefaultAsync();
             if (orderDetailExist == null)
             {
                 var orderDetail = _mapper.Map<OrderDetailEntity>(itemCart);
 
-                orderDetail.CurrentStockInWholesale = GetCurrentStockInWholesale(itemCart.ProductId);
+                orderDetail.OrderId = orderId;
 
-                _myContex.OrderDetails.Add(orderDetail);
-                _myContex.SaveChanges();
+                orderDetail.CurrentStockInWholesale = await GetCurrentStockInWholesale(itemCart.ProductId);
+
+                await _myContex.OrderDetails.AddAsync(orderDetail);
+
+                await _myContex.SaveChangesAsync();
 
                 // decrease current item stock in database 
-                DecreaseStockInWholesale(itemCart);
+                await DecreaseStockInWholesale(itemCart);
             }
             else
             {
                 orderDetailExist.Quantity += itemCart.Quantity;
 
-                _myContex.SaveChanges();
+                await _myContex.SaveChangesAsync();
 
                 // decrease current item stock in database 
-                DecreaseStockInWholesale(itemCart);
+                await DecreaseStockInWholesale(itemCart);
             }
 
             // receive items in cart
-            var itemsInCart = _myContex.OrderDetails.Where(c => c.OrderId == orderId).ToList();
+            var itemsInCart = await _myContex.OrderDetails.Where(c => c.OrderId == orderId).ToListAsync();
 
             return orderId;
         }
 
         // get content of current cart/order
-        public OrderDetailListViewModel GetCartDetailList(int orderId)
+        public async Task<OrderDetailListViewModel> GetCartDetailList(int orderId)
         {
-            OrderDetailListViewModel cartDetails = new OrderDetailListViewModel();
-            cartDetails.OrderDetailList = _myContex.OrderDetails
+            var orderDetailList = await _myContex.OrderDetails
                 .Where(c => c.OrderId == orderId)
-                .Select(x => new OrderDetailViewModel
-                {
-                    OrderDetailId = x.OrderDetailId,
-                    OrderId = x.OrderId,
-                    ProductName = x.ProductName,
-                    ProductSymbol = x.ProductSymbol,
-                    Price = x.Price,
-                    Quantity = x.Quantity,
-                    CurrentStockInWholesale = x.CurrentStockInWholesale,
-                }).ToList();
+                .ToListAsync();
+
+            var mapped = _mapper.Map<List<OrderDetailViewModel>>(orderDetailList);
+
+            OrderDetailListViewModel cartDetails = new OrderDetailListViewModel()
+            {
+                OrderDetailList = mapped,
+            };
 
             return cartDetails;
         }
 
         // get shipping address of customer who make purchase 
-        public ShippingAddressViewModel GetShippingAddress(int orderId)
+        public async Task<ShippingAddressViewModel> GetShippingAddress(int orderId)
         {
-            var customerId = _myContex.Orders.Find(orderId).CustomerId;
-            int shippingAddressId = _myContex.Customers.Find(customerId).ShippingAddressId;
-            var shippingAddress = _myContex.ShippingAddresses
-                .Where(c => c.ShippingAddressId == shippingAddressId)
-                .Select(x => new ShippingAddressViewModel
-                {
-                    Street = x.Street,
-                    StreetNumber = x.StreetNumber,
-                    ZipCode = x.ZipCode,
-                    City = x.City,
-                    Phone = x.Phone,
-                    CompanyName = x.CompanyName,
-                    CustomerName = x.CustomerName,
-                    CustomerSurname = x.CustomerSurname,
-                    Email = x.Email,
-                }).FirstOrDefault();
+            var orderWithCustomerAndShippingAddress = await _myContex.Orders
+                .Include(p => p.Customer)
+                    .ThenInclude(c => c.ShippingAddress)
+                .Where(x => x.OrderId == orderId)
+                .FirstOrDefaultAsync();
+
+            var shippingAddress = _mapper.Map<ShippingAddressViewModel>(orderWithCustomerAndShippingAddress);
 
             return shippingAddress;
         }
 
         // get shipping address of customer who make purchase  
-        public InvoiceAddressViewModel GetInvoiceAddress(int orderId)
+        public async Task<InvoiceAddressViewModel> GetInvoiceAddress(int orderId)
         {
-            var customerId = _myContex.Orders.Find(orderId).CustomerId;
-            int invoiceAddressId = _myContex.Customers.Find(customerId).InvoiceAddressId;
-            var invoiceAddress = _myContex.InvoiceAddresses
-                .Where(c => c.InvoiceAddressId == invoiceAddressId)
-                .Select(x => new InvoiceAddressViewModel
-                {
-                    Street = x.Street,
-                    StreetNumber = x.StreetNumber,
-                    ZipCode = x.ZipCode,
-                    City = x.City,
-                    CompanyName = x.CompanyName,
-                    CustomerName = x.CustomerName,
-                    CustomerSurname = x.CustomerSurname,
-                    Phone = x.Phone,
-                    NIP = x.NIP
-                }).FirstOrDefault();
+            var orderWithCustomerAndInvoiceAddress = await _myContex.Orders
+                .Include(x => x.Customer)
+                    .ThenInclude(x => x.InvoiceAddress)
+                .Where(x => x.OrderId == orderId)
+                .FirstOrDefaultAsync();
+
+            var invoiceAddress = _mapper.Map<InvoiceAddressViewModel>(orderWithCustomerAndInvoiceAddress);
 
             return invoiceAddress;
         }
 
         // remowe one item from current cart
-        public void RemoveItemFromCart(int orderDetailId)
+        public async Task RemoveItemFromCart(int orderDetailId)
         {
             // increase stock in database
-            IncreaseStockInWholesale(orderDetailId);
+            await IncreaseStockInWholesale(orderDetailId);
 
-            var orderDetailToRemove = _myContex.OrderDetails.Find(orderDetailId);
+            var orderDetailToRemove = await _myContex.OrderDetails.FindAsync(orderDetailId);
+
             _myContex.OrderDetails.Remove(orderDetailToRemove);
-            _myContex.SaveChanges();
+
+            await _myContex.SaveChangesAsync();
         }
 
         // update quantity of one item from current cart (button quantity in cart) 
-        public void UpdateQuantityItemInCart(int orderDetailId, int quantity)
+        public async Task UpdateQuantityItemInCart(int orderDetailId, int quantity)
         {
-            var orderDetailExist = _myContex.OrderDetails.Find(orderDetailId);
+            var orderDetailExist = await _myContex.OrderDetails.FindAsync(orderDetailId);
+
             orderDetailExist.Quantity = quantity;
-            _myContex.SaveChanges();
+
+            await _myContex.SaveChangesAsync();
 
             // increase stock in database
-            IncreaseStockInWholesale(orderDetailId, quantity);
+            await IncreaseStockInWholesale(orderDetailId, quantity);
         }
 
         // save new order to database exactly change state of current order and create attachment and sending mail with confirmation order
-        public void SaveNewOrder(int orderId, double valueOrder, string orderMessage)
+        public async Task SaveNewOrder(int orderId, double valueOrder, string orderMessage)
         {
-            var orderUpdate = _myContex.Orders.Find(orderId);
+            var orderUpdate = await _myContex.Orders.FindAsync(orderId);
+
             orderUpdate.DateOrder = DateTime.Now;
             orderUpdate.StateOrder = "bought";
             orderUpdate.ValueOrder = valueOrder;
             orderUpdate.StatusOrder = "W realizacji";
             orderUpdate.OrderMessage = orderMessage;
-            _myContex.SaveChanges();
+
+            await _myContex.SaveChangesAsync();
         }
 
         // create pdf with order 
-        public void CreatePdfAttachmentWithOrder(int orderId)
+        public async Task CreatePdfAttachmentWithOrder(int orderId)
         {
             var orderExist = _myContex.Orders.Find(orderId);
             var orderExistDetailList = _myContex.OrderDetails.Where(x => x.OrderId == orderId).ToList();
@@ -264,7 +259,7 @@ namespace HurtowniaReptiGood.Models.Services
         }
 
         // send mail with pdf attachment to customer
-        public void SendMailWithAttachment(int orderId)
+        public async Task SendMailWithAttachment(int orderId)
         {
             var order = _myContex.Orders.Find(orderId);
             var customerMail = _myContex.ShippingAddresses.Find(_myContex.Customers.Find(order.CustomerId).ShippingAddressId).Email;
@@ -290,40 +285,41 @@ namespace HurtowniaReptiGood.Models.Services
                 smtpClient.Disconnect(true);
             }
         }
-
-        private void DecreaseStockInWholesale(ItemCartViewModel itemCart)
+        public async Task DecreaseStockInWholesale(ItemCartViewModel itemCart)
         {
             var productInDatabase = _myContex.Products.Find(itemCart.ProductId);
-            int currentstock = productInDatabase.Stock - itemCart.Quantity;
-            productInDatabase.Stock = currentstock;
-            _myContex.SaveChanges();
+
+            productInDatabase.Stock = productInDatabase.Stock - itemCart.Quantity;
+
+            await _myContex.SaveChangesAsync();
         }
-
-        private int GetCurrentStockInWholesale(int productId)
+        public async Task<int> GetCurrentStockInWholesale(int productId)
         {
-            int currentStockInWholesale = _myContex.Products.Find(productId).Stock;
+            var product = await _myContex.Products.FindAsync(productId);
 
-            return currentStockInWholesale;
+            return product.Stock;
         }
-
-        private void IncreaseStockInWholesale(int orderDetailId)
+        public async Task IncreaseStockInWholesale(int orderDetailId)
         {
-            var orderDetail = _myContex.OrderDetails.Find(orderDetailId);
-            var product = _myContex.Products.Find(orderDetail.ProductId);
+            var productWithOrderDeail = await _myContex.OrderDetails
+                                                    .Include(x => x.Product)
+                                                    .Where(x => x.OrderDetailId == orderDetailId)
+                                                    .FirstOrDefaultAsync();
 
-            product.Stock = product.Stock + orderDetail.Quantity;
-            _myContex.SaveChanges();
+            productWithOrderDeail.Product.Stock = productWithOrderDeail.Product.Stock + productWithOrderDeail.Quantity; 
+
+            await _myContex.SaveChangesAsync();
         }
-
-        private void IncreaseStockInWholesale(int orderDetailId, int quantity)
+        public async Task IncreaseStockInWholesale(int orderDetailId, int quantity)
         {
-            var orderDetail = _myContex.OrderDetails.Find(orderDetailId);
-            var product = _myContex.Products.Find(orderDetail.ProductId);
+            var productWithOrderDetail = await _myContex.OrderDetails
+                                                    .Include(x => x.Product)
+                                                    .Where(x => x.OrderDetailId == orderDetailId)
+                                                    .FirstOrDefaultAsync();
 
-            int currentStock = orderDetail.CurrentStockInWholesale - quantity;
+            productWithOrderDetail.Product.Stock = productWithOrderDetail.Product.Stock + quantity;
 
-            product.Stock = currentStock;
-            _myContex.SaveChanges();
+            await _myContex.SaveChangesAsync();
         }
     }
 }

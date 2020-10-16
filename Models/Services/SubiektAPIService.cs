@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 using HurtowniaReptiGood.Models;
 using Newtonsoft.Json;
 using HurtowniaReptiGood.Models.Entities;
+using Microsoft.EntityFrameworkCore;
+using HurtowniaReptiGood.Models.Interfaces;
 
 namespace HurtowniaReptiGood.Models.Services
 {
-    public class SubiektAPIService
+    public class SubiektAPIService : ISubiektAPIService
     {
         private readonly MyContex _myContex;
         public SubiektAPIService(MyContex myContex)
@@ -23,9 +25,13 @@ namespace HurtowniaReptiGood.Models.Services
         public async Task<List<ProductAPI>> DownloadProductsStockFromSubiektGT()
         {
             List<ProductAPI> productsListFromSubiektAPI = new List<ProductAPI>();
+
             SubiektAPI subiektAPI = new SubiektAPI();
-            HttpClient client = subiektAPI.InitAPI();
+
+            HttpClient client = await subiektAPI.InitAPI();
+
             HttpResponseMessage response = await client.GetAsync("api/Product");
+
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
@@ -36,17 +42,19 @@ namespace HurtowniaReptiGood.Models.Services
         }
 
         // update products stock in database
-        public void UpdateStockInDatabase(List<ProductAPI> productsListFromSubiektAPI)
+        public async Task UpdateStockInDatabase(List<ProductAPI> productsListFromSubiektAPI)
         {
             foreach (ProductAPI product in productsListFromSubiektAPI)
             {
-                ProductEntity productFromDatabase = _myContex.Products.Where(x => x.IdSubiekt == product.IdSubiekt).FirstOrDefault();
+                ProductEntity productFromDatabase = await _myContex.Products.Where(x => x.IdSubiekt == product.IdSubiekt).FirstOrDefaultAsync();
+
                 if(productFromDatabase is null)
                 {
                     continue;
                 }
                 productFromDatabase.Stock = product.Stock;
-                _myContex.SaveChanges();        
+
+                await _myContex.SaveChangesAsync();        
             }
         }
     }

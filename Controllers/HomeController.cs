@@ -37,21 +37,21 @@ namespace HurtowniaReptiGood.Controllers
         // view list with all products from database 
         [Authorize (Roles ="user")]
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             string userLogged = _userManager.GetUserName(HttpContext.User);
             ViewBag.userLogged = userLogged;
 
-            var productsList = _appService.GetAllProducts();            
+            var productsList = await _appService.GetAllProducts();            
             return View(productsList);
         }
 
         // view list with products from selected category
         [Authorize(Roles = "user")]
         [HttpGet]
-        public IActionResult ShowProductsFromCategory(string productCategory)
+        public async Task<IActionResult> ShowProductsFromCategory(string productCategory)
         {
-            var productsList = _appService.GetProductsFromCategory(productCategory);
+            var productsList = await _appService.GetProductsFromCategory(productCategory);
 
             return View("Index", productsList);
         }
