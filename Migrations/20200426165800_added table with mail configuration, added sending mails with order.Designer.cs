@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HurtowniaReptiGood.Migrations
 {
-    [DbContext(typeof(MyContex))]
+    [DbContext(typeof(MyContext))]
     [Migration("20200426165800_added table with mail configuration, added sending mails with order")]
     partial class addedtablewithmailconfigurationaddedsendingmailswithorder
     {

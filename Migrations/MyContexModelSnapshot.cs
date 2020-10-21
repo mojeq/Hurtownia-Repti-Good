@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HurtowniaReptiGood.Migrations
 {
-    [DbContext(typeof(MyContex))]
+    [DbContext(typeof(MyContext))]
     partial class MyContexModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

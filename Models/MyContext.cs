@@ -9,10 +9,14 @@ using System.Threading.Tasks;
 
 namespace HurtowniaReptiGood.Models
 {
-    public class MyContex: IdentityDbContext<IdentityUser>
-    {    
-        public MyContex(DbContextOptions<MyContex> options)
+    public class MyContext: IdentityDbContext<IdentityUser>
+    {
+        public MyContext(DbContextOptions<MyContext> options)
             :base(options)
+        {
+        }
+
+        public MyContext()
         {
         }
 
@@ -20,10 +24,11 @@ namespace HurtowniaReptiGood.Models
         public DbSet<ShippingAddressEntity> ShippingAddresses { get; set; }
         public DbSet<CustomerEntity> Customers { get; set; }
         public DbSet<OrderDetailEntity> OrderDetails { get; set; }
-        public DbSet<OrderEntity> Orders { get; set; }
+        //public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
         public DbSet<MailDataEntity> Mails { get; set; }
         public DbSet<DpdConfigEntity> DpdConfigs { get; set; }
+        public DbSet<OrderEntity> Orders => Set<OrderEntity>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

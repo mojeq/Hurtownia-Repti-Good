@@ -1,5 +1,7 @@
 using AutoMapper;
 using HurtowniaReptiGood.Models;
+using HurtowniaReptiGood.Models.Interfaces.Repositories;
+using HurtowniaReptiGood.Models.Repositories;
 using HurtowniaReptiGood.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,9 +25,15 @@ namespace HurtowniaReptiGood
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddDbContext<MyContex>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<MyContext>(options =>
+            { 
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+            sqlServerOptionsAction: sqlOptions =>
+            {
+                sqlOptions.EnableRetryOnFailure();
+            });
+            });
 
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
             {
@@ -35,7 +43,7 @@ namespace HurtowniaReptiGood
                 config.Password.RequireUppercase = false;
             })
             .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<MyContex>()
+            .AddEntityFrameworkStores<MyContext>()
             .AddDefaultTokenProviders()
             
             .AddRoleManager<RoleManager<IdentityRole>>();
@@ -55,6 +63,11 @@ namespace HurtowniaReptiGood
             services.AddTransient<AdminService>();
             services.AddTransient<DpdService>();
             services.AddTransient<SubiektAPIService>();
+            services.AddTransient<OrderRepository>();
+            services.AddTransient<OrderDetailRepository>();
+            services.AddTransient<ProductRepository>();
+            services.AddTransient<CustomerRepository>();
+
             services.AddAutoMapper((typeof(Startup)));
         }
 

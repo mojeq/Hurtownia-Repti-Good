@@ -13,8 +13,8 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class DpdService : IDpdService
     {
-        private readonly MyContex _myContex;
-        public DpdService(MyContex myContex)
+        private readonly MyContext _myContex;
+        public DpdService(MyContext myContex)
         {
             _myContex = myContex;
         }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models.Interfaces;
+using HurtowniaReptiGood.Models.Repositories;
 using HurtowniaReptiGood.Models.ViewModels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -20,10 +21,16 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class CartService : ICartService
     {
+        private readonly ProductRepository _productRepository;
+        private readonly OrderDetailRepository _orderDetailRepository;
+        private readonly OrderRepository _orderRepository;
         private readonly IMapper _mapper;
-        private readonly MyContex _myContex;
-        public CartService(IMapper mapper, MyContex myContex)
+        private readonly MyContext _myContex;
+        public CartService(ProductRepository productRepository, OrderDetailRepository orderDetailRepository, OrderRepository orderRepository, IMapper mapper, MyContext myContex)
         {
+            _productRepository = productRepository;
+            _orderDetailRepository = orderDetailRepository;
+            _orderRepository = orderRepository;
             _mapper = mapper;
             _myContex = myContex;
         }
@@ -38,14 +45,10 @@ namespace HurtowniaReptiGood.Models.Services
                 DateOrder = DateTime.Now,
                 StatusOrder = "W realizacji",
             };
-            await _myContex.Orders.AddAsync(orderNew);
 
-            await _myContex.SaveChangesAsync();
+            await _orderRepository.AddAsync(orderNew);
 
-            var order = await _myContex.Orders.OrderByDescending(s => s.OrderId)
-                                 .Where(o => o.CustomerId == loggedUser.CustomerId)
-                                 .Where(o => o.StateOrder == "cart")
-                                 .FirstOrDefaultAsync();
+            var order = await _orderRepository.GetByFieldAsync(predicate: o => (o.CustomerId == loggedUser.CustomerId) && (o.StateOrder == "cart"));
 
             var orderDetail = _mapper.Map<OrderDetailEntity>(itemCart);
 
@@ -53,9 +56,7 @@ namespace HurtowniaReptiGood.Models.Services
 
             orderDetail.CurrentStockInWholesale = await GetCurrentStockInWholesale(itemCart.ProductId);
 
-            await _myContex.OrderDetails.AddAsync(orderDetail);
-
-            await _myContex.SaveChangesAsync();
+            await _orderDetailRepository.AddAsync(orderDetail);
 
             // decrease current item stock in database 
             await DecreaseStockInWholesale(itemCart);

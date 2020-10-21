@@ -22,8 +22,8 @@ namespace HurtowniaReptiGood.Models.Services
     {
         private readonly IMapper _mapper;
         private readonly AppService _appService;
-        private readonly MyContex _myContex;
-        public CustomerAccountService(IMapper mapper, MyContex myContex, AppService appService)
+        private readonly MyContext _myContex;
+        public CustomerAccountService(IMapper mapper, MyContext myContex, AppService appService)
         {
             _mapper = mapper;
             _appService = appService;

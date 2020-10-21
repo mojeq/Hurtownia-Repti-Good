@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HurtowniaReptiGood.Migrations
 {
-    [DbContext(typeof(MyContex))]
+    [DbContext(typeof(MyContext))]
     [Migration("20200514183443_Added DPD class and tracking number to order class")]
     partial class AddedDPDclassandtrackingnumbertoorderclass
     {

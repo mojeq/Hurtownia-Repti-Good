@@ -17,7 +17,7 @@ namespace HurtowniaReptiGood.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly MyContex _myContex;
+        private readonly MyContext _myContex;
         private readonly AppService _appService;
         private readonly CartService _cartService;
         private readonly CustomerAccountService _customerAccountService;
@@ -26,7 +26,7 @@ namespace HurtowniaReptiGood.Controllers
         public CustomerAccountController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            MyContex myContex,
+            MyContext myContex,
             AppService appService,
             CartService cartService,
             CustomerAccountService customerAccountService,

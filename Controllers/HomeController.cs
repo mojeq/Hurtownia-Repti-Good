@@ -17,14 +17,14 @@ namespace HurtowniaReptiGood.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly MyContex _myContex;
+        private readonly MyContext _myContex;
         private readonly AppService _appService;
 
         public HomeController(
             RoleManager<IdentityRole> roleManager,
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            MyContex myContex,
+            MyContext myContex,
             AppService appService)
         {
             _roleManager = roleManager;

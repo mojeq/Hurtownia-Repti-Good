@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HurtowniaReptiGood.Migrations
 {
-    [DbContext(typeof(MyContex))]
+    [DbContext(typeof(MyContext))]
     [Migration("20200526202122_added field IdSubiekt and IdGroupSubiekt in Products table")]
     partial class addedfieldIdSubiektandIdGroupSubiektinProductstable
     {

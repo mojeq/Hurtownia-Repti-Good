@@ -37,9 +37,9 @@ namespace HurtowniaReptiGood.Controllers
         //adding new product to database
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public IActionResult AddNewProduct(NewProductViewModel newProduct)
+        public async Task<IActionResult> AddNewProduct(NewProductViewModel newProduct)
         {
-            _adminService.AddNewProduct(newProduct);
+            await _adminService.AddNewProduct(newProduct);
 
             return View();
         }
@@ -73,9 +73,9 @@ namespace HurtowniaReptiGood.Controllers
         // saving edited product and return to view with all products
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public IActionResult EditProduct(ProductViewModel productToChange)
+        public async Task<IActionResult> EditProduct(ProductViewModel productToChange)
         {
-            _adminService.SaveChangesProduct(productToChange);
+            await _adminService.SaveChangesProduct(productToChange);
 
             return RedirectToAction("Products");
         }
@@ -127,9 +127,9 @@ namespace HurtowniaReptiGood.Controllers
         // edit order, change status, add tracking number etc
         [Authorize(Roles = "admin")]
         [HttpPost]        
-        public IActionResult EditOrder(OrderViewModel order)
+        public async Task<IActionResult> EditOrder(OrderViewModel order)
         {
-            _adminService.SaveChangesOrder(order);
+            await _adminService.SaveChangesOrder(order);
 
             return RedirectToAction("Orders");         
         }
