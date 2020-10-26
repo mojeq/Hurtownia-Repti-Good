@@ -10,7 +10,7 @@ namespace HurtowniaReptiGood.Models.Interfaces
     public interface ICartService
     {
         Task<int> CreateNewCartOrder(CustomerEntity loggedUser, ItemCartViewModel itemCart);
-        Task<int> AddItemToExistCart(CustomerEntity loggedUser, ItemCartViewModel itemCart);
+        Task<int> AddItemToExistCart(int orderId, ItemCartViewModel itemCart);
         Task<OrderDetailListViewModel> GetCartDetailList(int orderId);
         Task<ShippingAddressViewModel> GetShippingAddress(int orderId);
         Task<InvoiceAddressViewModel> GetInvoiceAddress(int orderId);

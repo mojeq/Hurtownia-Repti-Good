@@ -1,5 +1,6 @@
 ﻿using HurtowniaReptiGood.Models.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace HurtowniaReptiGood.Models.Repositories
 
             return list;
         }
+
         public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate)
         {
             if (predicate == null) throw new NullReferenceException($"Parameter {nameof(predicate)} cannot be null.");
@@ -31,16 +33,50 @@ namespace HurtowniaReptiGood.Models.Repositories
 
             return list;
         }
-        public virtual async Task<TEntity> GetByFieldAsync(Expression<Func<TEntity, bool>> predicate)
+
+        public virtual async Task<TEntity> GetByFieldAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
             if (predicate == null) throw new NullReferenceException($"Parameter {nameof(predicate)} cannot be null.");
 
             var query = _context.Set<TEntity>().AsNoTracking();
 
-            var result = await query.Where(predicate).FirstOrDefaultAsync();
+            query = include?.Invoke(query) ?? query;
+
+            query.Where(predicate);
+
+            var result = await query.FirstOrDefaultAsync();
 
             return result;
         }
+        public virtual async Task<TEntity> GetSingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
+        {
+            if (predicate == null) throw new NullReferenceException($"Parameter {nameof(predicate)} cannot be null.");
+
+            var query = _context.Set<TEntity>().AsNoTracking();
+
+            query = include?.Invoke(query) ?? query;
+
+            var result = await query.SingleOrDefaultAsync(predicate);
+
+            return result;
+        }
+
+
+        public virtual async Task<TEntity> GetByIdAsync<TId>(TId id, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
+        {
+            if (id == null) throw new NullReferenceException($"Parameter {nameof(id)} cannot be null.");
+
+            var query = _context.Set<TEntity>().AsNoTracking();
+
+            query = include?.Invoke(query) ?? query;
+
+            var lambda = CreateFindByPrimaryKeyLambda(id);
+
+            var result = await query.SingleOrDefaultAsync(lambda);
+
+            return result;
+        }
+
         public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
             if (entity == null) throw new NullReferenceException($"Parameter {nameof(entity)} cannot be null.");
@@ -73,6 +109,44 @@ namespace HurtowniaReptiGood.Models.Repositories
             {
                 throw new Exception();
             }
+        }
+
+        public virtual async Task DeleteAsync(TEntity entity)
+        {
+            if (entity == null) throw new NullReferenceException($"Parameter {nameof(entity)} cannot be null.");
+
+            _context.Remove(entity);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public virtual async Task DeleteByIdAsync<TId>(TId id)
+        {
+            if (id == null) throw new NullReferenceException($"Parameter {nameof(id)} cannot be null.");
+
+            var entity = GetByIdAsync(id);
+
+           // await DeleteAsync(entity);
+
+            _context.Remove(entity);
+
+            await _context.SaveChangesAsync();
+        }
+
+        protected Expression<Func<TEntity, bool>> CreateFindByPrimaryKeyLambda<TId>(TId id)
+        {
+            var pkPropertyName = _context.Model.FindEntityType(typeof(TEntity)).FindPrimaryKey().Properties
+                .Select(x => x.Name).Single();
+            var propertyInfo = typeof(TEntity).GetProperty(pkPropertyName);
+
+            if (propertyInfo?.PropertyType != typeof(TId)) throw new Exception( $"Invalid type of {nameof(id)} argument.");
+
+            var parameter = Expression.Parameter(typeof(TEntity), "x");
+            var member = Expression.MakeMemberAccess(parameter, propertyInfo);
+            var constant = Expression.Constant(id, id.GetType());
+            var equation = Expression.Equal(member, constant);
+
+            return Expression.Lambda<Func<TEntity, bool>>(equation, parameter);
         }
     }
 }

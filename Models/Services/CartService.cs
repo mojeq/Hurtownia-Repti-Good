@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 
@@ -46,9 +47,7 @@ namespace HurtowniaReptiGood.Models.Services
                 StatusOrder = "W realizacji",
             };
 
-            await _orderRepository.AddAsync(orderNew);
-
-            var order = await _orderRepository.GetByFieldAsync(predicate: o => (o.CustomerId == loggedUser.CustomerId) && (o.StateOrder == "cart"));
+            var order = await _orderRepository.AddAsync(orderNew);
 
             var orderDetail = _mapper.Map<OrderDetailEntity>(itemCart);
 
@@ -65,19 +64,10 @@ namespace HurtowniaReptiGood.Models.Services
         }
 
         // adding next product to current cart or increase quantity
-        public async Task<int> AddItemToExistCart(CustomerEntity loggedUser, ItemCartViewModel itemCart)
+        public async Task<int> AddItemToExistCart(int orderId, ItemCartViewModel itemCart)
         {
-            // finding last order ID
-            int orderId = _myContex.Orders.OrderByDescending(s => s.OrderId)
-                                             .Where(o => o.CustomerId == loggedUser.CustomerId)
-                                             .Where(o => o.StateOrder == "cart")
-                                             .FirstOrDefault().OrderId;
+            var orderDetailExist = await _orderDetailRepository.GetSingleOrDefaultAsync(predicate: a => a.OrderId == orderId);
 
-            // checking it is this item in cart if yes increase quantity if no, add new position OrderDetail
-            OrderDetailEntity orderDetailExist = await _myContex.OrderDetails
-                                                            .Where(a => a.OrderId == orderId)
-                                                            .Where(a => a.ProductSymbol == itemCart.ProductSymbol)
-                                                            .FirstOrDefaultAsync();
             if (orderDetailExist == null)
             {
                 var orderDetail = _mapper.Map<OrderDetailEntity>(itemCart);
@@ -86,9 +76,7 @@ namespace HurtowniaReptiGood.Models.Services
 
                 orderDetail.CurrentStockInWholesale = await GetCurrentStockInWholesale(itemCart.ProductId);
 
-                await _myContex.OrderDetails.AddAsync(orderDetail);
-
-                await _myContex.SaveChangesAsync();
+                await _orderDetailRepository.AddAsync(orderDetail);
 
                 // decrease current item stock in database 
                 await DecreaseStockInWholesale(itemCart);
@@ -97,14 +85,11 @@ namespace HurtowniaReptiGood.Models.Services
             {
                 orderDetailExist.Quantity += itemCart.Quantity;
 
-                await _myContex.SaveChangesAsync();
+                await _orderDetailRepository.Update(orderDetailExist);
 
                 // decrease current item stock in database 
                 await DecreaseStockInWholesale(itemCart);
             }
-
-            // receive items in cart
-            var itemsInCart = await _myContex.OrderDetails.Where(c => c.OrderId == orderId).ToListAsync();
 
             return orderId;
         }
@@ -112,9 +97,7 @@ namespace HurtowniaReptiGood.Models.Services
         // get content of current cart/order
         public async Task<OrderDetailListViewModel> GetCartDetailList(int orderId)
         {
-            var orderDetailList = await _myContex.OrderDetails
-                .Where(c => c.OrderId == orderId)
-                .ToListAsync();
+            var orderDetailList = await _orderDetailRepository.GetAsync(predicate: c => c.OrderId == orderId);
 
             var mapped = _mapper.Map<List<OrderDetailViewModel>>(orderDetailList);
 
@@ -129,11 +112,10 @@ namespace HurtowniaReptiGood.Models.Services
         // get shipping address of customer who make purchase 
         public async Task<ShippingAddressViewModel> GetShippingAddress(int orderId)
         {
-            var orderWithCustomerAndShippingAddress = await _myContex.Orders
+            var orderWithCustomerAndShippingAddress = await _orderRepository.GetByIdAsync(orderId,
+                include: source => source
                 .Include(p => p.Customer)
-                    .ThenInclude(c => c.ShippingAddress)
-                .Where(x => x.OrderId == orderId)
-                .FirstOrDefaultAsync();
+                    .ThenInclude(c => c.ShippingAddress));
 
             var shippingAddress = _mapper.Map<ShippingAddressViewModel>(orderWithCustomerAndShippingAddress);
 
@@ -143,11 +125,10 @@ namespace HurtowniaReptiGood.Models.Services
         // get shipping address of customer who make purchase  
         public async Task<InvoiceAddressViewModel> GetInvoiceAddress(int orderId)
         {
-            var orderWithCustomerAndInvoiceAddress = await _myContex.Orders
+            var orderWithCustomerAndInvoiceAddress = await _orderRepository.GetByIdAsync(orderId,
+                include: source => source
                 .Include(x => x.Customer)
-                    .ThenInclude(x => x.InvoiceAddress)
-                .Where(x => x.OrderId == orderId)
-                .FirstOrDefaultAsync();
+                    .ThenInclude(x => x.InvoiceAddress));
 
             var invoiceAddress = _mapper.Map<InvoiceAddressViewModel>(orderWithCustomerAndInvoiceAddress);
 
@@ -170,20 +151,23 @@ namespace HurtowniaReptiGood.Models.Services
         // update quantity of one item from current cart (button quantity in cart) 
         public async Task UpdateQuantityItemInCart(int orderDetailId, int quantity)
         {
-            var orderDetailExist = await _myContex.OrderDetails.FindAsync(orderDetailId);
+            var orderDetailExist = await _orderDetailRepository.GetByIdAsync(orderDetailId,
+                include: source => source
+                .Include(x => x.Product));
+
+            orderDetailExist.Product.Stock = orderDetailExist.Product.Stock + (orderDetailExist.Quantity - quantity);
 
             orderDetailExist.Quantity = quantity;
 
-            await _myContex.SaveChangesAsync();
+            await _orderDetailRepository.Update(orderDetailExist);
 
-            // increase stock in database
-            await IncreaseStockInWholesale(orderDetailId, quantity);
+            await _productRepository.Update(orderDetailExist.Product);
         }
 
         // save new order to database exactly change state of current order and create attachment and sending mail with confirmation order
         public async Task SaveNewOrder(int orderId, double valueOrder, string orderMessage)
         {
-            var orderUpdate = await _myContex.Orders.FindAsync(orderId);
+            var orderUpdate = await _orderRepository.GetByIdAsync(orderId);
 
             orderUpdate.DateOrder = DateTime.Now;
             orderUpdate.StateOrder = "bought";
@@ -191,14 +175,15 @@ namespace HurtowniaReptiGood.Models.Services
             orderUpdate.StatusOrder = "W realizacji";
             orderUpdate.OrderMessage = orderMessage;
 
-            await _myContex.SaveChangesAsync();
+            await _orderRepository.Update(orderUpdate);
         }
 
         // create pdf with order 
         public async Task CreatePdfAttachmentWithOrder(int orderId)
         {
-            var orderExist = _myContex.Orders.Find(orderId);
-            var orderExistDetailList = _myContex.OrderDetails.Where(x => x.OrderId == orderId).ToList();
+            var order = await _orderRepository.GetByIdAsync(orderId,
+                include: source => source
+                .Include(x => x.OrderDetails));
 
             FontFactory.RegisterDirectory("C:WINDOWSFonts"); //add polish signs
             var titleFont18 = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED, 18, Font.BOLD);
@@ -221,11 +206,11 @@ namespace HurtowniaReptiGood.Models.Services
             table.AddCell(new Phrase("Numer dokumentu", textFont));
             table.AddCell(orderId.ToString());
             table.AddCell(new Phrase("Data i godzina przyjęcia zamówienia", textFont));
-            table.AddCell(orderExist.DateOrder.ToString());
+            table.AddCell(order.DateOrder.ToString());
             table.AddCell(new Phrase("Wartość zamówienia brutto", textFont));
-            table.AddCell(new Phrase(orderExist.ValueOrder.ToString() + "zł", textFont));
+            table.AddCell(new Phrase(order.ValueOrder.ToString() + "zł", textFont));
             table.AddCell(new Phrase("Uwagi do zamówienia", textFont));
-            table.AddCell(new Phrase(orderExist.OrderMessage, textFont));
+            table.AddCell(new Phrase(order.OrderMessage, textFont));
 
             PdfPTable table2 = new PdfPTable(3);
             table2.SetWidths(new int[] { 7, 1, 1 });
@@ -245,7 +230,7 @@ namespace HurtowniaReptiGood.Models.Services
             cell3.HorizontalAlignment = 1;
             table2.AddCell(cell5);
 
-            foreach (var orderDetail in orderExistDetailList)
+            foreach (var orderDetail in order.OrderDetails)
             {
                 table2.AddCell(new Phrase(orderDetail.ProductName, textFont));
                 table2.AddCell(new Phrase(orderDetail.Quantity.ToString(), textFont));
@@ -262,11 +247,14 @@ namespace HurtowniaReptiGood.Models.Services
         // send mail with pdf attachment to customer
         public async Task SendMailWithAttachment(int orderId)
         {
-            var order = _myContex.Orders.Find(orderId);
-            var customerMail = _myContex.ShippingAddresses.Find(_myContex.Customers.Find(order.CustomerId).ShippingAddressId).Email;
+            var order = await _orderRepository.GetByIdAsync(orderId,
+                include: source => source
+                .Include(x => x.Customer)
+                    .ThenInclude(x => x.ShippingAddress));
+
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Hurtownia TerraHurt", "biuro@reptigood.pl"));
-            message.To.Add(new MailboxAddress(customerMail));
+            message.To.Add(new MailboxAddress(order.Customer.ShippingAddress.Email));
             message.Subject = "Potwierdzenie zamówienia nr " + orderId;
             BodyBuilder message_body = new BodyBuilder();
 
@@ -288,39 +276,37 @@ namespace HurtowniaReptiGood.Models.Services
         }
         public async Task DecreaseStockInWholesale(ItemCartViewModel itemCart)
         {
-            var productInDatabase = _myContex.Products.Find(itemCart.ProductId);
+            var productInDatabase = await _productRepository.GetByIdAsync(itemCart.ProductId);
 
             productInDatabase.Stock = productInDatabase.Stock - itemCart.Quantity;
 
-            await _myContex.SaveChangesAsync();
+            await _productRepository.Update(productInDatabase);
         }
         public async Task<int> GetCurrentStockInWholesale(int productId)
         {
-            var product = await _myContex.Products.FindAsync(productId);
+            var product = await _productRepository.GetByIdAsync(productId);
 
             return product.Stock;
         }
         public async Task IncreaseStockInWholesale(int orderDetailId)
         {
-            var productWithOrderDeail = await _myContex.OrderDetails
-                                                    .Include(x => x.Product)
-                                                    .Where(x => x.OrderDetailId == orderDetailId)
-                                                    .FirstOrDefaultAsync();
+            var productWithOrderDetail = await _orderDetailRepository.GetByIdAsync(orderDetailId,
+                include: source => source
+                .Include(x => x.Product));
 
-            productWithOrderDeail.Product.Stock = productWithOrderDeail.Product.Stock + productWithOrderDeail.Quantity; 
+            productWithOrderDetail.Product.Stock = productWithOrderDetail.Product.Stock + productWithOrderDetail.Quantity;
 
-            await _myContex.SaveChangesAsync();
+            await _orderDetailRepository.Update(productWithOrderDetail);
         }
         public async Task IncreaseStockInWholesale(int orderDetailId, int quantity)
         {
-            var productWithOrderDetail = await _myContex.OrderDetails
-                                                    .Include(x => x.Product)
-                                                    .Where(x => x.OrderDetailId == orderDetailId)
-                                                    .FirstOrDefaultAsync();
+            var productWithOrderDetail = await _orderDetailRepository.GetByIdAsync(orderDetailId,
+                include: source => source
+                .Include(x => x.Product));
 
             productWithOrderDetail.Product.Stock = productWithOrderDetail.Product.Stock + quantity;
 
-            await _myContex.SaveChangesAsync();
+            await _orderDetailRepository.Update(productWithOrderDetail);
         }
     }
 }

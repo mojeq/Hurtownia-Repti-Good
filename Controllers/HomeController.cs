@@ -40,9 +40,11 @@ namespace HurtowniaReptiGood.Controllers
         public async Task<IActionResult> Index()
         {
             string userLogged = _userManager.GetUserName(HttpContext.User);
+
             ViewBag.userLogged = userLogged;
 
-            var productsList = await _appService.GetAllProducts();            
+            var productsList = await _appService.GetAllProducts();     
+            
             return View(productsList);
         }
 
@@ -73,9 +75,11 @@ namespace HurtowniaReptiGood.Controllers
             {
                 //Sign in
                 var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
+
                 if (signInResult.Succeeded)
                 {                    
                     var roleType = await _userManager.GetRolesAsync(user);
+
                     if (roleType[0] == "admin")
                     {
                         return RedirectToAction("Orders", "Admin");
@@ -88,7 +92,6 @@ namespace HurtowniaReptiGood.Controllers
             }
             return RedirectToAction("Login");
         }
-
         public IActionResult Login()
         {
             return View();
@@ -106,10 +109,12 @@ namespace HurtowniaReptiGood.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, password);
+
             if (result.Succeeded)
             {
                 //Sign in
                 var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
+
                 if (signInResult.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -128,8 +133,11 @@ namespace HurtowniaReptiGood.Controllers
         public async Task<IActionResult> LogOut()
         {
             Response.Cookies.Delete("cartStatus");
+
             Response.Cookies.Delete("orderId");
+
             await _signInManager.SignOutAsync();
+
             return RedirectToAction("Login");
         }
     }

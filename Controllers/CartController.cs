@@ -89,14 +89,20 @@ namespace HurtowniaReptiGood.Controllers
             if (String.IsNullOrEmpty(Request.Cookies["cartStatus"]))
             {
                 orderId = await _cartService.CreateNewCartOrder(loggedUser, itemCart);
+
+                Response.Cookies.Append("orderId", orderId.ToString());
+
+                Response.Cookies.Append("cartStatus", "tempCart");
             }
             else
             {
-                orderId = await _cartService.AddItemToExistCart(loggedUser, itemCart);
-            }
+                string orderIdCookie = Request.Cookies["orderId"];
 
-            Response.Cookies.Append("cartStatus", "tempCart");        
-            Response.Cookies.Append("orderId", orderId.ToString());    
+                orderId = Int16.Parse(orderIdCookie);
+                await _cartService.AddItemToExistCart(orderId, itemCart);
+            }
+       
+            //Response.Cookies.Append("orderId", orderId.ToString());    
           
             return RedirectToAction("Cart", orderId);
         }
