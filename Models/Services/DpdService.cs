@@ -8,21 +8,26 @@ using System.Net;
 using System.IO;
 using HurtowniaReptiGood.Models.ViewModels;
 using HurtowniaReptiGood.Models.Interfaces;
+using HurtowniaReptiGood.Models.Repositories;
 
 namespace HurtowniaReptiGood.Models.Services
 {
     public class DpdService : IDpdService
     {
+        private readonly OrderRepository _orderRepository;
         private readonly MyContext _myContex;
-        public DpdService(MyContext myContex)
+        public DpdService(OrderRepository orderRepository, MyContext myContex)
         {
+            _orderRepository = orderRepository;
             _myContex = myContex;
         }
 
         // achive tracking status from Webservice DPD
         public async Task<DpdTrackingStatusListViewModel> GetTrackingStatusFromDPDWebservice(int orderId)
         {
-            string trackingNumber = _myContex.Orders.Find(orderId).TrackingNumber;
+            var order = await _orderRepository.GetByIdAsync(orderId);
+
+            //string trackingNumber = _myContex.Orders.Find(orderId).TrackingNumber;
             string xmlRequest = @"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:even=""http://events.dpdinfoservices.dpd.com.pl/"">
             <soapenv:Header/> 
             <soapenv:Body>  
@@ -39,7 +44,7 @@ namespace HurtowniaReptiGood.Models.Services
                  </soapenv:Body>
                </soapenv:Envelope>";
 
-            DpdTrackingStatusListViewModel lastTrackingStatus = await DeserializeXmlResponse(await SendSoap(xmlRequest, trackingNumber));
+            DpdTrackingStatusListViewModel lastTrackingStatus = await DeserializeXmlResponse(await SendSoap(xmlRequest, order.TrackingNumber));
 
             return lastTrackingStatus;
         }

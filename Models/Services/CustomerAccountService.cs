@@ -24,13 +24,11 @@ namespace HurtowniaReptiGood.Models.Services
         private readonly OrderRepository _orderRepository;
         private readonly IMapper _mapper;
         private readonly AppService _appService;
-        private readonly MyContext _myContex;
-        public CustomerAccountService(OrderRepository orderRepository, IMapper mapper, MyContext myContex, AppService appService)
+        public CustomerAccountService(OrderRepository orderRepository, IMapper mapper, AppService appService)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
             _appService = appService;
-            _myContex = myContex;
         }
 
         // get list with all orders from this customer from database
