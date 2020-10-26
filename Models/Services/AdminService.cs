@@ -38,7 +38,7 @@ namespace HurtowniaReptiGood.Models.Services
         // get one product from database
         public async Task<ProductViewModel> GetProduct(int productId)
         {
-            var productToEdit = await _productRepository.GetByFieldAsync(predicate: x => x.ProductId == productId);
+            var productToEdit = await _productRepository.GetByIdAsync(productId);
 
             var productViewModel = _mapper.Map<ProductViewModel>(productToEdit);
 
