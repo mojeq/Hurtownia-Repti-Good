@@ -126,8 +126,6 @@ namespace HurtowniaReptiGood.Models.Repositories
 
             var entity = GetByIdAsync(id);
 
-           // await DeleteAsync(entity);
-
             _context.Remove(entity);
 
             await _context.SaveChangesAsync();

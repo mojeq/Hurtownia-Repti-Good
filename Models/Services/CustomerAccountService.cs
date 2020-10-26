@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models.Interfaces;
+using HurtowniaReptiGood.Models.Repositories;
 using HurtowniaReptiGood.Models.ViewModels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -20,11 +21,13 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class CustomerAccountService : ICustomerAccountService
     {
+        private readonly OrderRepository _orderRepository;
         private readonly IMapper _mapper;
         private readonly AppService _appService;
         private readonly MyContext _myContex;
-        public CustomerAccountService(IMapper mapper, MyContext myContex, AppService appService)
+        public CustomerAccountService(OrderRepository orderRepository, IMapper mapper, MyContext myContex, AppService appService)
         {
+            _orderRepository = orderRepository;
             _mapper = mapper;
             _appService = appService;
             _myContex = myContex;
@@ -33,11 +36,9 @@ namespace HurtowniaReptiGood.Models.Services
         // get list with all orders from this customer from database
         public async Task<OrderListViewModel> GetOrdersHistory(string userLogged)
         {
-            CustomerEntity loggedUser = await _appService.GetLoggedCustomer(userLogged);            
+            CustomerEntity loggedUser = await _appService.GetLoggedCustomer(userLogged);
 
-            var orderList = await _myContex.Orders
-                                .Where(x => x.CustomerId == loggedUser.CustomerId) 
-                                .ToListAsync();
+            var orderList = await _orderRepository.GetAsync(predicate: x => x.CustomerId == loggedUser.CustomerId);
 
             var mapped = _mapper.Map<List<OrderViewModel>>(orderList);
 
@@ -51,10 +52,8 @@ namespace HurtowniaReptiGood.Models.Services
 
         // get one order from database
         public async Task<OrderViewModel> GetOrder(int orderId)
-        { 
-            var orderEntity = await _myContex.Orders
-                                    .Where(x => x.OrderId == orderId)
-                                    .FirstOrDefaultAsync();
+        {
+            var orderEntity = await _orderRepository.GetByIdAsync(orderId);
 
             var order = _mapper.Map<OrderViewModel>(orderEntity);
 
