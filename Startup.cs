@@ -1,4 +1,5 @@
 using AutoMapper;
+using Hangfire;
 using HurtowniaReptiGood.Models;
 using HurtowniaReptiGood.Models.Interfaces.Repositories;
 using HurtowniaReptiGood.Models.Repositories;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace HurtowniaReptiGood
 {
@@ -25,14 +27,16 @@ namespace HurtowniaReptiGood
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddHangfireServer();
 
             services.AddDbContext<MyContext>(options =>
-            { 
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-            sqlServerOptionsAction: sqlOptions =>
             {
-                sqlOptions.EnableRetryOnFailure();
-            });
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure();
+                });
             });
 
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
@@ -45,7 +49,7 @@ namespace HurtowniaReptiGood
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<MyContext>()
             .AddDefaultTokenProviders()
-            
+
             .AddRoleManager<RoleManager<IdentityRole>>();
 
             services.ConfigureApplicationCookie(config =>
@@ -72,7 +76,7 @@ namespace HurtowniaReptiGood
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IBackgroundJobClient backgroundJobClient)
         {
             if (env.IsDevelopment())
             {
@@ -85,6 +89,8 @@ namespace HurtowniaReptiGood
                 app.UseHsts();
             }
 
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -92,7 +98,7 @@ namespace HurtowniaReptiGood
             app.UseSession();
             app.UseCookiePolicy();
 
-            app.UseHttpsRedirection();     
+            app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {
@@ -100,6 +106,8 @@ namespace HurtowniaReptiGood
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            RecurringJob.AddOrUpdate<SubiektAPIService>((x => x.DownloadAndUpdateProductsStockFromSubiektGT()), Cron.Hourly);
         }
     }
 }

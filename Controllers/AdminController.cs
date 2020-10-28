@@ -143,9 +143,7 @@ namespace HurtowniaReptiGood.Controllers
 
             try
             {
-                var productsListFromSubiektAPI = await _subiektAPIService.DownloadProductsStockFromSubiektGT();
-
-                 await _subiektAPIService.UpdateStockInDatabase(productsListFromSubiektAPI);
+                await _subiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT();                
 
                 status.UpdateStatus = "Import stanu magazynowego powiódł się.";
             }

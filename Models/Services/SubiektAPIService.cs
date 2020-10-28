@@ -10,19 +10,22 @@ using Newtonsoft.Json;
 using HurtowniaReptiGood.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using HurtowniaReptiGood.Models.Interfaces;
+using HurtowniaReptiGood.Models.Repositories;
 
 namespace HurtowniaReptiGood.Models.Services
 {
     public class SubiektAPIService : ISubiektAPIService
     {
+        private readonly ProductRepository _productRepository;
         private readonly MyContext _myContex;
-        public SubiektAPIService(MyContext myContex)
+        public SubiektAPIService(ProductRepository productRepository, MyContext myContex)
         {
+            _productRepository = productRepository;
             _myContex = myContex;
         }
 
         // download products list from API SubiektGT
-        public async Task<List<ProductAPI>> DownloadProductsStockFromSubiektGT()
+        public async Task DownloadAndUpdateProductsStockFromSubiektGT()
         {
             List<ProductAPI> productsListFromSubiektAPI = new List<ProductAPI>();
 
@@ -38,24 +41,35 @@ namespace HurtowniaReptiGood.Models.Services
                 productsListFromSubiektAPI = JsonConvert.DeserializeObject<List<ProductAPI>>(result);
             }
 
-            return productsListFromSubiektAPI;
-        }
-
-        // update products stock in database
-        public async Task UpdateStockInDatabase(List<ProductAPI> productsListFromSubiektAPI)
-        {
             foreach (ProductAPI product in productsListFromSubiektAPI)
             {
-                ProductEntity productFromDatabase = await _myContex.Products.Where(x => x.IdSubiekt == product.IdSubiekt).FirstOrDefaultAsync();
+                ProductEntity productFromDatabase = await _productRepository.GetByIdAsync(product.IdSubiekt);
 
-                if(productFromDatabase is null)
+                if (productFromDatabase is null)
                 {
                     continue;
                 }
                 productFromDatabase.Stock = product.Stock;
 
-                await _myContex.SaveChangesAsync();        
+                await _productRepository.Update(productFromDatabase);
             }
         }
+
+        // update products stock in database
+        //public async Task UpdateStockInDatabase(List<ProductAPI> productsListFromSubiektAPI)
+        //{
+        //    foreach (ProductAPI product in productsListFromSubiektAPI)
+        //    {
+        //        ProductEntity productFromDatabase = await _myContex.Products.Where(x => x.IdSubiekt == product.IdSubiekt).FirstOrDefaultAsync();
+
+        //        if(productFromDatabase is null)
+        //        {
+        //            continue;
+        //        }
+        //        productFromDatabase.Stock = product.Stock;
+
+        //        await _myContex.SaveChangesAsync();        
+        //    }
+        //}
     }
 }
