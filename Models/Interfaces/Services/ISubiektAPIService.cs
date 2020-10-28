@@ -7,7 +7,7 @@ namespace HurtowniaReptiGood.Models.Interfaces
 {
     public interface ISubiektAPIService
     {
-        Task<List<ProductAPI>> DownloadProductsStockFromSubiektGT();
-        Task UpdateStockInDatabase(List<ProductAPI> productsListFromSubiektAPI);
+        Task DownloadAndUpdateProductsStockFromSubiektGT();
+        //Task UpdateStockInDatabase(List<ProductAPI> productsListFromSubiektAPI);
     }
 }

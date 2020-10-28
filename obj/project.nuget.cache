@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xkyvaM1W8spQE2gni1qWiSH2xhcmUYbS7fooOdWODIOBaggrg8KNb3Z6ztjqBr65k5DyruVdyuu0uvFGaXlJ9w==",
+  "dgSpecHash": "dZcK3iGT9if+pT6pk3qa9U+qrzCiWndDwTRRnWbwinujuHk92Coq4UaXYygxFC2EJDuNIcmD35VL52WhvbdTMA==",
   "success": true,
   "projectFilePath": "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,11 @@
     "C:\\Users\\mojeq\\.nuget\\packages\\grpc.net.clientfactory\\2.23.2\\grpc.net.clientfactory.2.23.2.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\grpc.net.common\\2.23.2\\grpc.net.common.2.23.2.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\grpc.tools\\2.23.0\\grpc.tools.2.23.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\hangfire\\1.7.17\\hangfire.1.7.17.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\hangfire.aspnetcore\\1.7.17\\hangfire.aspnetcore.1.7.17.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\hangfire.core\\1.7.17\\hangfire.core.1.7.17.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\hangfire.memorystorage\\1.7.0\\hangfire.memorystorage.1.7.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\hangfire.sqlserver\\1.7.17\\hangfire.sqlserver.1.7.17.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\itextsharp.lgplv2.core\\1.6.6\\itextsharp.lgplv2.core.1.6.6.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\jquery\\3.0.0\\jquery.3.0.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\mailkit\\2.6.0\\mailkit.2.6.0.nupkg.sha512",
@@ -146,6 +151,7 @@
     "C:\\Users\\mojeq\\.nuget\\packages\\system.composition.typedparts\\1.0.31\\system.composition.typedparts.1.0.31.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.configuration.configurationmanager\\4.5.0\\system.configuration.configurationmanager.4.5.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.data.common\\4.3.0\\system.data.common.4.3.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\system.data.sqlclient\\4.4.0\\system.data.sqlclient.4.4.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.0\\system.diagnostics.diagnosticsource.4.7.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.diagnostics.process\\4.3.0\\system.diagnostics.process.4.3.0.nupkg.sha512",
