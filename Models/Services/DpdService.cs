@@ -27,7 +27,6 @@ namespace HurtowniaReptiGood.Models.Services
         {
             var order = await _orderRepository.GetByIdAsync(orderId);
 
-            //string trackingNumber = _myContex.Orders.Find(orderId).TrackingNumber;
             string xmlRequest = @"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:even=""http://events.dpdinfoservices.dpd.com.pl/"">
             <soapenv:Header/> 
             <soapenv:Body>  
