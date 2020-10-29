@@ -14,6 +14,7 @@ namespace HurtowniaReptiGood.Models.Interfaces.Repositories
         Task<TEntity> GetByFieldAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
         Task<TEntity> AddAsync(TEntity entity);
         Task Update(TEntity entity);
+        Task UpdateRange(IEnumerable<TEntity> entities);
         Task<TEntity> GetSingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
         Task<TEntity> GetByIdAsync<TId>(TId id, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
         Task DeleteAsync(TEntity entity);

@@ -11,6 +11,7 @@ using HurtowniaReptiGood.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using HurtowniaReptiGood.Models.Interfaces;
 using HurtowniaReptiGood.Models.Repositories;
+using MimeKit.Encodings;
 
 namespace HurtowniaReptiGood.Models.Services
 {
@@ -41,35 +42,25 @@ namespace HurtowniaReptiGood.Models.Services
                 productsListFromSubiektAPI = JsonConvert.DeserializeObject<List<ProductAPI>>(result);
             }
 
-            foreach (ProductAPI product in productsListFromSubiektAPI)
-            {
-                ProductEntity productFromDatabase = await _productRepository.GetByIdAsync(product.IdSubiekt);
+            var productListToUpdate = await _productRepository.GetAllAsync();
 
-                if (productFromDatabase is null)
-                {
-                    continue;
-                }
-                productFromDatabase.Stock = product.Stock;
+            var resultList = from product1 in productsListFromSubiektAPI
+                             join product2 in productListToUpdate
+                             on product1.IdSubiekt equals product2.IdSubiekt
+                             select new ProductEntity
+                             {
+                                 IdGroupSubiekt = product2.IdGroupSubiekt,
+                                 IdSubiekt = product2.IdSubiekt,
+                                 ProductId = product2.ProductId,
+                                 ProductSymbol = product2.ProductSymbol,
+                                 ProductName = product2.ProductName,
+                                 Manufacturer = product2.Manufacturer,
+                                 Price = product2.Price,
+                                 Photo = product2.Photo,
+                                 Stock = product1.Stock
+                             };
 
-                await _productRepository.Update(productFromDatabase);
-            }
+            await _productRepository.UpdateRange(resultList);
         }
-
-        // update products stock in database
-        //public async Task UpdateStockInDatabase(List<ProductAPI> productsListFromSubiektAPI)
-        //{
-        //    foreach (ProductAPI product in productsListFromSubiektAPI)
-        //    {
-        //        ProductEntity productFromDatabase = await _myContex.Products.Where(x => x.IdSubiekt == product.IdSubiekt).FirstOrDefaultAsync();
-
-        //        if(productFromDatabase is null)
-        //        {
-        //            continue;
-        //        }
-        //        productFromDatabase.Stock = product.Stock;
-
-        //        await _myContex.SaveChangesAsync();        
-        //    }
-        //}
     }
 }

@@ -111,6 +111,22 @@ namespace HurtowniaReptiGood.Models.Repositories
             }
         }
 
+        public virtual async Task UpdateRange(IEnumerable<TEntity> entities)
+        {
+            if (entities == null) throw new NullReferenceException($"Parameter {nameof(entities)} cannot be null.");
+
+            try
+            {
+                _context.Set<TEntity>().UpdateRange(entities);
+
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception();
+            }
+        }
+
         public virtual async Task DeleteAsync(TEntity entity)
         {
             if (entity == null) throw new NullReferenceException($"Parameter {nameof(entity)} cannot be null.");
