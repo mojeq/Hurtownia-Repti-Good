@@ -12,10 +12,12 @@ Project is created with:
 * Razor Page
 * MSSQL 2017
 * Entity Framework Core
+* EFCoreSecondLevelCacheInterceptor
 * SOAP
 * Identity
 * MailKit
 * iTextSharp
+* Hangfire
 
 ## Status
 Project in commercial using.
