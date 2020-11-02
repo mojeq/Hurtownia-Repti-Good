@@ -36,6 +36,9 @@
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="bootstrap" Version="4.4.1" />
+    <PackageReference Include="EFCoreSecondLevelCacheInterceptor" Version="2.0.0" />
+    <PackageReference Include="EntityFramework.Extended" Version="6.1.0.168" />
+    <PackageReference Include="EntityFrameworkCore.Cacheable" Version="2.0.1" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.23.2" />
     <PackageReference Include="HangFire" Version="1.7.17" />
@@ -61,6 +64,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="client.ncconf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="config.ncconf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 

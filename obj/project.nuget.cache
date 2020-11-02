@@ -1,12 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "dZcK3iGT9if+pT6pk3qa9U+qrzCiWndDwTRRnWbwinujuHk92Coq4UaXYygxFC2EJDuNIcmD35VL52WhvbdTMA==",
+  "dgSpecHash": "fYggmox7uzYVguMnpb3Tn+48ABQ9mIIUA71T5eZGinocw3HPcBvhwWpS35usknMoBKbk0GGg9n9FjimC4+aPbg==",
   "success": true,
-  "projectFilePath": "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
+  "projectFilePath": "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mojeq\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.0.1\\automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\bootstrap\\4.4.1\\bootstrap.4.4.1.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\cachemanager.core\\1.2.0\\cachemanager.core.1.2.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\easycaching.core\\0.9.0\\easycaching.core.0.9.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\efcoresecondlevelcacheinterceptor\\2.0.0\\efcoresecondlevelcacheinterceptor.2.0.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\entityframework.extended\\6.1.0.168\\entityframework.extended.6.1.0.168.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\entityframeworkcore.cacheable\\2.0.1\\entityframeworkcore.cacheable.2.0.1.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\fluentassertions\\5.10.3\\fluentassertions.5.10.3.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\google.protobuf\\3.9.1\\google.protobuf.3.9.1.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\grpc.aspnetcore\\2.23.2\\grpc.aspnetcore.2.23.2.nupkg.sha512",
@@ -80,6 +86,7 @@
     "C:\\Users\\mojeq\\.nuget\\packages\\microsoft.extensions.logging.debug\\3.1.0-preview1.19506.1\\microsoft.extensions.logging.debug.3.1.0-preview1.19506.1.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\microsoft.extensions.objectpool\\2.2.0\\microsoft.extensions.objectpool.2.2.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\microsoft.extensions.options\\5.0.0-preview.2.20160.3\\microsoft.extensions.options.5.0.0-preview.2.20160.3.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\3.1.0\\microsoft.extensions.options.configurationextensions.3.1.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0-preview.2.20160.3\\microsoft.extensions.primitives.5.0.0-preview.2.20160.3.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\microsoft.extensions.webencoders\\2.2.0\\microsoft.extensions.webencoders.2.2.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\microsoft.identity.client\\3.0.8\\microsoft.identity.client.3.0.8.nupkg.sha512",
@@ -151,6 +158,9 @@
     "C:\\Users\\mojeq\\.nuget\\packages\\system.composition.typedparts\\1.0.31\\system.composition.typedparts.1.0.31.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.configuration.configurationmanager\\4.5.0\\system.configuration.configurationmanager.4.5.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.data.common\\4.3.0\\system.data.common.4.3.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\system.data.hashfunction.core\\2.0.0\\system.data.hashfunction.core.2.0.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\system.data.hashfunction.interfaces\\2.0.0\\system.data.hashfunction.interfaces.2.0.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\system.data.hashfunction.xxhash\\2.0.0\\system.data.hashfunction.xxhash.2.0.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.data.sqlclient\\4.4.0\\system.data.sqlclient.4.4.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.0\\system.diagnostics.diagnosticsource.4.7.0.nupkg.sha512",
@@ -230,5 +240,26 @@
     "C:\\Users\\mojeq\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EntityFramework 6.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "EntityFramework",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EntityFramework.Extended 6.1.0.168' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "EntityFramework.Extended",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

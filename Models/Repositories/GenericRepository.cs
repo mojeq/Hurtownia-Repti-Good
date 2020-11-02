@@ -1,4 +1,5 @@
-﻿using HurtowniaReptiGood.Models.Interfaces.Repositories;
+﻿using EFCoreSecondLevelCacheInterceptor;
+using HurtowniaReptiGood.Models.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -16,7 +17,7 @@ namespace HurtowniaReptiGood.Models.Repositories
         {
             var query = _context.Set<TEntity>().AsNoTracking();
 
-            var list = await query.ToListAsync();
+            var list = await query.Cacheable().ToListAsync();
 
             return list;
         }
@@ -29,7 +30,7 @@ namespace HurtowniaReptiGood.Models.Repositories
 
             var result = query.Where(predicate);
 
-            var list = await result.ToListAsync();
+            var list = await result.Cacheable().ToListAsync();
 
             return list;
         }
@@ -44,10 +45,11 @@ namespace HurtowniaReptiGood.Models.Repositories
 
             query.Where(predicate);
 
-            var result = await query.FirstOrDefaultAsync();
+            var result = await query.Cacheable().FirstOrDefaultAsync();
 
             return result;
         }
+
         public virtual async Task<TEntity> GetSingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
             if (predicate == null) throw new NullReferenceException($"Parameter {nameof(predicate)} cannot be null.");
@@ -56,11 +58,10 @@ namespace HurtowniaReptiGood.Models.Repositories
 
             query = include?.Invoke(query) ?? query;
 
-            var result = await query.SingleOrDefaultAsync(predicate);
+            var result = await query.Cacheable().SingleOrDefaultAsync(predicate);
 
             return result;
         }
-
 
         public virtual async Task<TEntity> GetByIdAsync<TId>(TId id, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
@@ -72,7 +73,7 @@ namespace HurtowniaReptiGood.Models.Repositories
 
             var lambda = CreateFindByPrimaryKeyLambda(id);
 
-            var result = await query.SingleOrDefaultAsync(lambda);
+            var result = await query.Cacheable().SingleOrDefaultAsync(lambda);
 
             return result;
         }

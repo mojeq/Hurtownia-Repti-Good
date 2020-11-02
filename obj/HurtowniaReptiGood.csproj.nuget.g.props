@@ -30,5 +30,6 @@
     <PkgjQuery Condition=" '$(PkgjQuery)' == '' ">C:\Users\mojeq\.nuget\packages\jquery\3.0.0</PkgjQuery>
     <PkgHangfire_SqlServer Condition=" '$(PkgHangfire_SqlServer)' == '' ">C:\Users\mojeq\.nuget\packages\hangfire.sqlserver\1.7.17</PkgHangfire_SqlServer>
     <PkgGrpc_Tools Condition=" '$(PkgGrpc_Tools)' == '' ">C:\Users\mojeq\.nuget\packages\grpc.tools\2.23.0</PkgGrpc_Tools>
+    <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\mojeq\.nuget\packages\entityframework\6.1.0</PkgEntityFramework>
   </PropertyGroup>
 </Project>
