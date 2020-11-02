@@ -36,6 +36,82 @@
           "popper.js": "[1.16.0, 2.0.0)"
         }
       },
+      "CacheManager.Core/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/CacheManager.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/CacheManager.Core.dll": {}
+        }
+      },
+      "EasyCaching.Core/0.9.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "3.1.0",
+          "Microsoft.Extensions.Logging": "3.1.0",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "3.1.0",
+          "System.Diagnostics.DiagnosticSource": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/EasyCaching.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/EasyCaching.Core.dll": {}
+        }
+      },
+      "EFCoreSecondLevelCacheInterceptor/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "CacheManager.Core": "1.2.0",
+          "EasyCaching.Core": "0.9.0",
+          "Microsoft.EntityFrameworkCore": "3.1.6",
+          "Microsoft.EntityFrameworkCore.Relational": "3.1.6"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/EFCoreSecondLevelCacheInterceptor.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/EFCoreSecondLevelCacheInterceptor.dll": {}
+        }
+      },
+      "EntityFramework/6.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {},
+          "lib/net45/EntityFramework.dll": {}
+        }
+      },
+      "EntityFramework.Extended/6.1.0.168": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework": "6.1.0"
+        },
+        "compile": {
+          "lib/net45/EntityFramework.Extended.dll": {}
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.Extended.dll": {}
+        }
+      },
+      "EntityFrameworkCore.Cacheable/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.2.0",
+          "Microsoft.Extensions.Caching.Memory": "2.2.0",
+          "System.Data.HashFunction.xxHash": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/EntityFrameworkCore.Cacheable.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/EntityFrameworkCore.Cacheable.dll": {}
+        }
+      },
       "FluentAssertions/5.10.3": {
         "type": "package",
         "dependencies": {
@@ -1182,6 +1258,21 @@
           "lib/netstandard2.0/Microsoft.Extensions.Options.dll": {}
         }
       },
+      "Microsoft.Extensions.Options.ConfigurationExtensions/3.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Configuration.Binder": "3.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Options": "3.1.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {}
+        }
+      },
       "Microsoft.Extensions.Primitives/5.0.0-preview.2.20160.3": {
         "type": "package",
         "dependencies": {
@@ -2108,6 +2199,45 @@
           "lib/netstandard1.2/System.Data.Common.dll": {}
         }
       },
+      "System.Data.HashFunction.Core/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Data.HashFunction.Interfaces": "2.0.0",
+          "System.Runtime.Numerics": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.1/System.Data.HashFunction.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/System.Data.HashFunction.Core.dll": {}
+        }
+      },
+      "System.Data.HashFunction.Interfaces/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/System.Data.HashFunction.Interfaces.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/System.Data.HashFunction.Interfaces.dll": {}
+        }
+      },
+      "System.Data.HashFunction.xxHash/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Data.HashFunction.Core": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard1.1/System.Data.HashFunction.xxHash.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/System.Data.HashFunction.xxHash.dll": {}
+        }
+      },
       "System.Data.SqlClient/4.4.0": {
         "type": "package",
         "dependencies": {
@@ -2862,7 +2992,7 @@
           "System.Runtime.Extensions": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.1/_._": {}
+          "ref/netstandard1.1/System.Runtime.Numerics.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Runtime.Numerics.dll": {}
@@ -3610,6 +3740,120 @@
         "contentFiles/Scripts/bootstrap.js.map",
         "contentFiles/Scripts/bootstrap.min.js",
         "contentFiles/Scripts/bootstrap.min.js.map"
+      ]
+    },
+    "CacheManager.Core/1.2.0": {
+      "sha512": "tmgwGDJlPNdSTb94Bx/0D3fDlkP+HIa80d1nCrXs+NjTgZR8JaQcslH+PHP2ebxPkM4CnijQVEMD+Dk8CvR41w==",
+      "type": "package",
+      "path": "cachemanager.core/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "cachemanager.core.1.2.0.nupkg.sha512",
+        "cachemanager.core.nuspec",
+        "lib/net40/CacheManager.Core.dll",
+        "lib/net40/CacheManager.Core.xml",
+        "lib/net45/CacheManager.Core.dll",
+        "lib/net45/CacheManager.Core.xml",
+        "lib/netstandard1.2/CacheManager.Core.dll",
+        "lib/netstandard1.2/CacheManager.Core.xml",
+        "lib/netstandard2.0/CacheManager.Core.dll",
+        "lib/netstandard2.0/CacheManager.Core.xml"
+      ]
+    },
+    "EasyCaching.Core/0.9.0": {
+      "sha512": "SSmgF9TPQi7JFwy5ugJCh9mDu0MZzGPqm8/z5gFf1+iyy0MHffQir1SelS60VyJ+mFnAG9Bquddcx018kq0+GQ==",
+      "type": "package",
+      "path": "easycaching.core/0.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "easycaching.core.0.9.0.nupkg.sha512",
+        "easycaching.core.nuspec",
+        "lib/netstandard2.0/EasyCaching.Core.dll",
+        "lib/netstandard2.0/EasyCaching.Core.xml",
+        "nuget-icon.png"
+      ]
+    },
+    "EFCoreSecondLevelCacheInterceptor/2.0.0": {
+      "sha512": "6zIfdHEjsIlL3BRg/R6+si6DLYaDFz44Qt2stkSUZHXvF/lEOR/g/FxPAbEbFPFygdI8CD7qD1ftbwKDNknx4A==",
+      "type": "package",
+      "path": "efcoresecondlevelcacheinterceptor/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "efcoresecondlevelcacheinterceptor.2.0.0.nupkg.sha512",
+        "efcoresecondlevelcacheinterceptor.nuspec",
+        "lib/net461/EFCoreSecondLevelCacheInterceptor.dll",
+        "lib/net461/EFCoreSecondLevelCacheInterceptor.xml",
+        "lib/net5.0/EFCoreSecondLevelCacheInterceptor.dll",
+        "lib/net5.0/EFCoreSecondLevelCacheInterceptor.xml",
+        "lib/netcoreapp3.1/EFCoreSecondLevelCacheInterceptor.dll",
+        "lib/netcoreapp3.1/EFCoreSecondLevelCacheInterceptor.xml",
+        "lib/netstandard2.0/EFCoreSecondLevelCacheInterceptor.dll",
+        "lib/netstandard2.0/EFCoreSecondLevelCacheInterceptor.xml",
+        "lib/netstandard2.1/EFCoreSecondLevelCacheInterceptor.dll",
+        "lib/netstandard2.1/EFCoreSecondLevelCacheInterceptor.xml"
+      ]
+    },
+    "EntityFramework/6.1.0": {
+      "sha512": "u/M0OEfqxTUsL5BwzD66eBGm278/ozqdLK3JvMO6QwUxxc+z7ZUkTYm4suDhWRqzkc6mOhvXDQY5dZUwbldxyQ==",
+      "type": "package",
+      "path": "entityframework/6.1.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/App.config.transform",
+        "content/Web.config.transform",
+        "entityframework.6.1.0.nupkg.sha512",
+        "entityframework.nuspec",
+        "lib/net40/EntityFramework.SqlServer.dll",
+        "lib/net40/EntityFramework.SqlServer.xml",
+        "lib/net40/EntityFramework.dll",
+        "lib/net40/EntityFramework.xml",
+        "lib/net45/EntityFramework.SqlServer.dll",
+        "lib/net45/EntityFramework.SqlServer.xml",
+        "lib/net45/EntityFramework.dll",
+        "lib/net45/EntityFramework.xml",
+        "tools/EntityFramework.PowerShell.Utility.dll",
+        "tools/EntityFramework.PowerShell.dll",
+        "tools/EntityFramework.psd1",
+        "tools/EntityFramework.psm1",
+        "tools/about_EntityFramework.help.txt",
+        "tools/init.ps1",
+        "tools/install.ps1",
+        "tools/migrate.exe"
+      ]
+    },
+    "EntityFramework.Extended/6.1.0.168": {
+      "sha512": "+dYz77dWB0WgyfhDC0uQS4SpDSMNTEn2HKd5aUnhaLO/gq9XhiMkYZuzwCMwGIXtLOV7ASqBGIrvxIl4Dq5Eug==",
+      "type": "package",
+      "path": "entityframework.extended/6.1.0.168",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "entityframework.extended.6.1.0.168.nupkg.sha512",
+        "entityframework.extended.nuspec",
+        "lib/net40/EntityFramework.Extended.dll",
+        "lib/net40/EntityFramework.Extended.dll.config",
+        "lib/net40/EntityFramework.Extended.xml",
+        "lib/net45/EntityFramework.Extended.dll",
+        "lib/net45/EntityFramework.Extended.dll.config",
+        "lib/net45/EntityFramework.Extended.xml"
+      ]
+    },
+    "EntityFrameworkCore.Cacheable/2.0.1": {
+      "sha512": "+wvhGrc/15+oN5TieiBEyrz7RTWScPC+fAWVv6+biy4U8/13YbahohFHW0b9flUEM3JvY54l0zPxJeG2FhOdww==",
+      "type": "package",
+      "path": "entityframeworkcore.cacheable/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "entityframeworkcore.cacheable.2.0.1.nupkg.sha512",
+        "entityframeworkcore.cacheable.nuspec",
+        "lib/netstandard2.0/EntityFrameworkCore.Cacheable.dll"
       ]
     },
     "FluentAssertions/5.10.3": {
@@ -5095,6 +5339,22 @@
         "lib/netstandard2.0/Microsoft.Extensions.Options.xml",
         "microsoft.extensions.options.5.0.0-preview.2.20160.3.nupkg.sha512",
         "microsoft.extensions.options.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Options.ConfigurationExtensions/3.1.0": {
+      "sha512": "tx6gMKE3rDspA1YZT8SlQJmyt1BaBSl6mNjB3g0ZO6m3NnoavCifXkGeBuDk9Ae4XjW8C+dty52p+0u38jPRIQ==",
+      "type": "package",
+      "path": "microsoft.extensions.options.configurationextensions/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "microsoft.extensions.options.configurationextensions.3.1.0.nupkg.sha512",
+        "microsoft.extensions.options.configurationextensions.nuspec",
+        "packageIcon.png"
       ]
     },
     "Microsoft.Extensions.Primitives/5.0.0-preview.2.20160.3": {
@@ -7351,6 +7611,51 @@
         "ref/xamarinwatchos10/_._",
         "system.data.common.4.3.0.nupkg.sha512",
         "system.data.common.nuspec"
+      ]
+    },
+    "System.Data.HashFunction.Core/2.0.0": {
+      "sha512": "EOb5GB6QTumYBvl0P/uL1m8hVkUwdwnIiwYPzfRKn+zZPtVkruyOrl/cMnNOGRny68xkswvOSo9NytWoR/6ABw==",
+      "type": "package",
+      "path": "system.data.hashfunction.core/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/System.Data.HashFunction.Core.dll",
+        "lib/net45/System.Data.HashFunction.Core.xml",
+        "lib/netstandard1.1/System.Data.HashFunction.Core.dll",
+        "lib/netstandard1.1/System.Data.HashFunction.Core.xml",
+        "system.data.hashfunction.core.2.0.0.nupkg.sha512",
+        "system.data.hashfunction.core.nuspec"
+      ]
+    },
+    "System.Data.HashFunction.Interfaces/2.0.0": {
+      "sha512": "ESxg15JHcRWXfRgzVUF8FhRZ1xAuXo6zgaL4kCdB9DV2cnrAwRGiycCMlMsfOLXOMrkHZZbcBuKlO8pyxDCCOg==",
+      "type": "package",
+      "path": "system.data.hashfunction.interfaces/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/System.Data.HashFunction.Interfaces.dll",
+        "lib/net45/System.Data.HashFunction.Interfaces.xml",
+        "lib/netstandard1.1/System.Data.HashFunction.Interfaces.dll",
+        "lib/netstandard1.1/System.Data.HashFunction.Interfaces.xml",
+        "system.data.hashfunction.interfaces.2.0.0.nupkg.sha512",
+        "system.data.hashfunction.interfaces.nuspec"
+      ]
+    },
+    "System.Data.HashFunction.xxHash/2.0.0": {
+      "sha512": "i1lanZeN7x1vIo9b8YCEKfF3iCr+uz66e/dmudfv88UEU2VBWthxpPvZNIZo4+Wx4hYpvbvYACWRCPyeCuYwiA==",
+      "type": "package",
+      "path": "system.data.hashfunction.xxhash/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/System.Data.HashFunction.xxHash.dll",
+        "lib/net45/System.Data.HashFunction.xxHash.xml",
+        "lib/netstandard1.1/System.Data.HashFunction.xxHash.dll",
+        "lib/netstandard1.1/System.Data.HashFunction.xxHash.xml",
+        "system.data.hashfunction.xxhash.2.0.0.nupkg.sha512",
+        "system.data.hashfunction.xxhash.nuspec"
       ]
     },
     "System.Data.SqlClient/4.4.0": {
@@ -11331,6 +11636,9 @@
     ".NETCoreApp,Version=v3.1": [
       "AutoMapper >= 10.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.0.1",
+      "EFCoreSecondLevelCacheInterceptor >= 2.0.0",
+      "EntityFramework.Extended >= 6.1.0.168",
+      "EntityFrameworkCore.Cacheable >= 2.0.1",
       "FluentAssertions >= 5.10.3",
       "Grpc.AspNetCore >= 2.23.2",
       "HangFire >= 1.7.17",
@@ -11359,11 +11667,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
+      "projectUniqueName": "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
       "projectName": "HurtowniaReptiGood",
-      "projectPath": "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
+      "projectPath": "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
       "packagesPath": "C:\\Users\\mojeq\\.nuget\\packages\\",
-      "outputPath": "D:\\projects\\HurtowniaReptiGood\\obj\\",
+      "outputPath": "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mojeq\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -11397,6 +11705,18 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[8.0.1, )"
+          },
+          "EFCoreSecondLevelCacheInterceptor": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          },
+          "EntityFramework.Extended": {
+            "target": "Package",
+            "version": "[6.1.0.168, )"
+          },
+          "EntityFrameworkCore.Cacheable": {
+            "target": "Package",
+            "version": "[2.0.1, )"
           },
           "FluentAssertions": {
             "target": "Package",
@@ -11501,8 +11821,30 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EntityFramework 6.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "EntityFramework",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EntityFramework.Extended 6.1.0.168' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "EntityFramework.Extended",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

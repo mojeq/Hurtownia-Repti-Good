@@ -1,4 +1,6 @@
 using AutoMapper;
+using EFCoreSecondLevelCacheInterceptor;
+using EntityFramework.Caching;
 using Hangfire;
 using HurtowniaReptiGood.Models;
 using HurtowniaReptiGood.Models.Interfaces.Repositories;
@@ -39,18 +41,25 @@ namespace HurtowniaReptiGood
                 });
             });
 
+            services.AddEFSecondLevelCache(options =>
+            {
+                options.UseMemoryCacheProvider(EFCoreSecondLevelCacheInterceptor.CacheExpirationMode.Absolute, TimeSpan.FromMinutes(30))
+                    .DisableLogging(false)
+                    .CacheAllQueries(EFCoreSecondLevelCacheInterceptor.CacheExpirationMode.Absolute, TimeSpan.FromMinutes(30));
+            });
+
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
             {
-                config.Password.RequiredLength = 4;
-                config.Password.RequireDigit = false;
-                config.Password.RequireNonAlphanumeric = false;
-                config.Password.RequireUppercase = false;
+                    config.Password.RequiredLength = 4;
+                    config.Password.RequireDigit = false;
+                    config.Password.RequireNonAlphanumeric = false;
+                    config.Password.RequireUppercase = false;
             })
-            .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<MyContext>()
-            .AddDefaultTokenProviders()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<MyContext>()
+                .AddDefaultTokenProviders()
 
-            .AddRoleManager<RoleManager<IdentityRole>>();
+                .AddRoleManager<RoleManager<IdentityRole>>();
 
             services.ConfigureApplicationCookie(config =>
             {
@@ -109,5 +118,6 @@ namespace HurtowniaReptiGood
 
             RecurringJob.AddOrUpdate<SubiektAPIService>((x => x.DownloadAndUpdateProductsStockFromSubiektGT()), Cron.Hourly);
         }
+
     }
 }

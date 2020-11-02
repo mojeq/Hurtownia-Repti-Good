@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj": {}
+    "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj": {}
   },
   "projects": {
-    "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj": {
+    "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
+        "projectUniqueName": "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
         "projectName": "HurtowniaReptiGood",
-        "projectPath": "D:\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
+        "projectPath": "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
         "packagesPath": "C:\\Users\\mojeq\\.nuget\\packages\\",
-        "outputPath": "D:\\projects\\HurtowniaReptiGood\\obj\\",
+        "outputPath": "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mojeq\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -45,6 +45,18 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "EFCoreSecondLevelCacheInterceptor": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "EntityFramework.Extended": {
+              "target": "Package",
+              "version": "[6.1.0.168, )"
+            },
+            "EntityFrameworkCore.Cacheable": {
+              "target": "Package",
+              "version": "[2.0.1, )"
             },
             "FluentAssertions": {
               "target": "Package",
@@ -149,7 +161,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
