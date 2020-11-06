@@ -12,6 +12,7 @@ Project is created with:
 * Razor Page
 * MSSQL 2017
 * Entity Framework Core
+* AutoMapper
 * EFCoreSecondLevelCacheInterceptor
 * SOAP
 * Identity
