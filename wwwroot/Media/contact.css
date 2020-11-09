@@ -1,0 +1,48 @@
+﻿.contact-form {
+    margin-top: 15px;
+    margin-left: 20px;
+}
+    .contact-form .textarea {
+        min-height: 220px;
+        resize: none;
+    }
+
+.form-control {
+    box-shadow: inherit;
+    border-color: #a3e5dd;
+    border-width: thin;
+    height: 49px;
+    min-width: 300px;
+    font-size: small;
+    font-family: 'Times New Roman', Times, serif
+}
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #00b09c;
+        border-width: medium;
+    }
+
+.col-md-12 {
+    font-family: 'Times New Roman', Times, serif
+}
+
+.form-control-feedback {
+    line-height: 50px;
+}
+
+.main-btn {
+    background: #00b09c;
+    border-color: #00b09c;
+    color: #fff;
+}
+
+    .main-btn:hover {
+        background: #00a491;
+        color: #fff;
+    }
+
+.form-control-feedback {
+    line-height: 50px;
+    top: 0px;
+}

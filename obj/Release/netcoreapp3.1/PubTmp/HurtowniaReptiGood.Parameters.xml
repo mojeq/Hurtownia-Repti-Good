@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="IIS Web Application Name" description="" value="reptihurt.pl" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\projects\\HurtowniaReptiGood\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\Kodowanie\\projects\\HurtowniaReptiGood\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>

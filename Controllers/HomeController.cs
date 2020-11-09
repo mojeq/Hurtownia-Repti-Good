@@ -41,8 +41,6 @@ namespace HurtowniaReptiGood.Controllers
         {
             string userLogged = _userManager.GetUserName(HttpContext.User);
 
-            ViewBag.userLogged = userLogged;
-
             var productsList = await _appService.GetAllProducts();     
             
             return View(productsList);
@@ -66,11 +64,21 @@ namespace HurtowniaReptiGood.Controllers
             return View();
         }
 
+        [Authorize (Roles = "user")]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+
         // logging to app
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
             var user = await _userManager.FindByNameAsync(username);
+
+            Response.Cookies.Append("userLogged", user.UserName);
+
             if (user != null)
             {
                 //Sign in

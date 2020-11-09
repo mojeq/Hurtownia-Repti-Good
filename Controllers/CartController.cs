@@ -128,13 +128,16 @@ namespace HurtowniaReptiGood.Controllers
 
         // save new order to database exactly change state of current order and create attachment and sending mail with confirmation order
         [Authorize(Roles = "user")]
-        public async Task<IActionResult> SaveNewOrder(OrderIdValueMessageViewModel order)
+        [HttpPost]
+        public async Task<IActionResult> SaveNewOrder(int orderId, double valueOrder)
+        //public async Task<IActionResult> SaveNewOrder(OrderIdValueMessageViewModel order)
+        //public async Task<IActionResult> SaveNewOrder()
         {
-            await _cartService.SaveNewOrder(order.OrderId, order.OrderValue, order.OrderMessage);
+            await _cartService.SaveNewOrder(orderId, valueOrder, "erer");
 
-            await _cartService.CreatePdfAttachmentWithOrder(order.OrderId);
+            //await _cartService.CreatePdfAttachmentWithOrder(orderId);
 
-            await _cartService.SendMailWithAttachment(order.OrderId);
+            //await _cartService.SendMailWithAttachment(orderId);
 
             Response.Cookies.Delete("cartStatus");
 

@@ -50,10 +50,10 @@ namespace HurtowniaReptiGood
 
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
             {
-                    config.Password.RequiredLength = 4;
-                    config.Password.RequireDigit = false;
-                    config.Password.RequireNonAlphanumeric = false;
-                    config.Password.RequireUppercase = false;
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
             })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MyContext>()
@@ -109,11 +109,13 @@ namespace HurtowniaReptiGood
 
             app.UseHttpsRedirection();
 
+            //app.UseEndpoints();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=CustomerAccount}/{action=OrdersHistory}/{id?}");
             });
 
             RecurringJob.AddOrUpdate<SubiektAPIService>((x => x.DownloadAndUpdateProductsStockFromSubiektGT()), Cron.Hourly);

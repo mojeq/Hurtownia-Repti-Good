@@ -1,10 +1,13 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link href="~/Media/Style.css" rel="stylesheet" type="text/css" />
     <link href="~/Media/default.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/Media/fonts.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />  
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
     <meta charset="utf-8" />
 </head>
@@ -13,7 +16,7 @@
         <div id="header" class="container">
             <div id="logo">
                 <h1><span class="icon icon-cog"></span><a href="#">ReptiHurt</a></h1>
-                <span>Jesteś zalogowany: @ViewBag.userLogged</span>
+                <span>Jesteś zalogowany: @Html.Raw(HttpContextAccessor.HttpContext.Request.Cookies["userLogged"])</span>
                 <button class="myButton">@Html.ActionLink("Wyloguj", "LogOut", "Home")</button>
                 <nav>
                     <ul>
@@ -45,7 +48,7 @@
         <p>&copy; HURTOWNIA ZOOLOGICZNO-TERRARYSTYCZNA</p>
         <a href="www.reptigood.pl">reptigood.pl</a>
         <ul class="contact">
-            <li><p>Polub nas na FB</p><a href="#" class="icon icon-facebook"><span></span></a></li>
+            <li><p>Polub nas na FB</p><a href="https://www.facebook.com/reptigood" class="icon icon-facebook"><span></span></a></li>
         </ul>
     </div>
 </body>

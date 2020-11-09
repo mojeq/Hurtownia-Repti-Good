@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="~/Media/Style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Media/default.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Media/fonts.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="header-wrapper">
+        <div id="header" class="container">
+            <div id="logo">
+                <h1><span class="icon icon-cog"></span><a href="#">ReptiHurt</a></h1>
+                <span>Jesteś zalogowany: @Html.Raw(HttpContextAccessor.HttpContext.Request.Cookies["userLogged"])</span>
+                <button type="button" class="myButton">@Html.ActionLink("Wyloguj", "LogOut", "Home")</button>
+                <button class="myButton">@Html.ActionLink("Koszyk", "Cart", "Cart", new { OrderId = ViewBag.OrderId })</button>
+                <nav>
+                    <ul>
+                        <li>
+                            @Html.ActionLink("Zamów", "Index", "Home")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Warunki", "TermsAndConditions", "Home")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Historia zamówień", "OrdersHistory", "CustomerAccount")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Kontakt", "Contact", "Home")
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div style="padding-top:10px" class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+    <div id="copyright" class="container">
+        <p>&copy; HURTOWNIA ZOOLOGICZNO-TERRARYSTYCZNA</p>
+        <a href="www.reptigood.pl">reptigood.pl</a>
+        <ul class="contact">
+            <li><p>Polub nas na FB</p><a href="https://www.facebook.com/reptigood" class="icon icon-facebook"><span></span></a></li>
+        </ul>
+    </div>
+</body>
+</html>
+
+

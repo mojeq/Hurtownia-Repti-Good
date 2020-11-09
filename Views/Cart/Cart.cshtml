@@ -27,31 +27,31 @@
         </tr>
         @foreach (OrderDetailViewModel cart in Model.CartToView.OrderDetailList)
         {
-            <tr text-align="center">
-                <td>@cart.ProductSymbol</td>
-                <td>@cart.ProductName</td>
-                <td>@cart.Price</td>
-                <td>
+        <tr text-align="center">
+            <td>@cart.ProductSymbol</td>
+            <td>@cart.ProductName</td>
+            <td>@cart.Price</td>
+            <td>
 
-                    <form action="UpdateQuantityInCart" method="post">
-                        <input size="5" height="25" type="number" name="Quantity" min="1" max="@cart.CurrentStockInWholesale" value="@cart.Quantity" />
-                        <input type="hidden" name="OrderId" value="@cart.OrderId" />
-                        <input type="hidden" name="OrderDetailId" value="@cart.OrderDetailId" />
-                        <input type="hidden" name="ProductSymbol" value="@cart.ProductId" />
-                        <input type="submit" value="Odśwież" />
-                    </form>
-                </td>
+                <form action="UpdateQuantityInCart" method="post">
+                    <input size="5" height="25" type="number" name="Quantity" min="1" max="@cart.CurrentStockInWholesale" value="@cart.Quantity" />
+                    <input type="hidden" name="OrderId" value="@cart.OrderId" />
+                    <input type="hidden" name="OrderDetailId" value="@cart.OrderDetailId" />
+                    <input type="hidden" name="ProductSymbol" value="@cart.ProductId" />
+                    <input type="submit" value="Odśwież" />
+                </form>
+            </td>
 
-                <td>@(itemValue = cart.Price * (Convert.ToDouble(cart.Quantity)))zł</td>
-                <td>
-                    <button class="myButton3">
-                        @Html.ActionLink("Usuń", "RemoveItemFromCart", "Cart",
-                        new { orderDetailId = cart.OrderDetailId, orderId = cart.OrderId },
-                        new { onclick = "return confirm('Na pewno usunąć pozycję?');" })
-                    </button>
-                </td>
+            <td>@(itemValue = cart.Price * (Convert.ToDouble(cart.Quantity)))zł</td>
+            <td>
+                <button class="myButton3">
+                    @Html.ActionLink("Usuń", "RemoveItemFromCart", "Cart",
+                    new { orderDetailId = cart.OrderDetailId, orderId = cart.OrderId },
+                    new { onclick = "return confirm('Na pewno usunąć pozycję?');" })
+                </button>
+            </td>
 
-            </tr>
+        </tr>
             method: @CalculateCartBrutto(itemValue);
                 @CalculateCartNetto(totalValueBrutto);
                 @GenerateMessageAndDiscount(totalValueNetto, totalValueBrutto);
@@ -160,8 +160,8 @@
         <tr>
             <td>
                 <form action="SaveNewOrder" method="post" id="sendOrder">
-                    <input type="hidden" name="OrderId" value="@Model.CartToView.OrderDetailList[0].OrderId" />
-                    <input type="hidden" name="OrderValue" value="@valueOrder" />
+                    <input type="hidden" name="orderId" value="@Model.CartToView.OrderDetailList[0].OrderId" />
+                        <input type="hidden" name="valueOrder" value="@valueOrder" />
                     <input type="submit" value="Wyślij zamówienie" />
                 </form>
             </td>
@@ -169,11 +169,16 @@
     </table>
 
 
-    @*<button class="myButton2">
-        @Html.ActionLink("Wyślij zamówienie", "SaveNewOrder", "Cart",
+  *@*@<button class="myButton2">
+        @Html.ActionLink("Wyślij zamówienie", "SaveNewOrder",
         new { orderId = @Model.CartToView.OrderDetailList[0].OrderId, valueOrder = valueOrder },
         new { onclick = "return confirm('Na pewno wysłać zamówienie?');" })
-    </button>*@
+    </button>
+ 
+        <button class="myButton2">
+            <form action="@Url.Action("Cart", "SaveNewOrder")" method="post"></form>
+
+        </button>*@
 </body>
 
 @functions

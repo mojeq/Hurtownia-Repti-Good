@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_LayoutContact.cshtml";
+}
+
+<link href="~/Media/contact.css" rel="stylesheet" />
+<link href="~/Media/default.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row">
+        <form role="form" id="contact-form" class="contact-form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="Name" autocomplete="off" id="Name" placeholder="Imię">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" autocomplete="off" id="email" placeholder="E-mail">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea class="form-control textarea" rows="3" name="Message" id="Message" placeholder="Wiadomość"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn main-btn pull-right">Wyślij wiadomość</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="wrapper3">
+        <p>Repti Good</p>
+        <p>Bzinica Stara Miarki 1</p>
+        <p>46-380 Dobrodzień</p>
+        <p>NIP 5761491830</p>
+        <p>biuro@reptigood.pl</p>
+        <p>tel. 504 249 886</p>
+    </div>
+</div>
