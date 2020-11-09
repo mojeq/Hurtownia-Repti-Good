@@ -2,7 +2,7 @@
 # Hurtownia-Repti-Good
 
 ## General info
-Web application for placing orders in pet wholesale www.reptigood.pl. Project was created by using MVC pattern. Customers have accounts, after logging can search products and make order. 
+Web application for placing orders in pet wholesale www.reptihurt.pl. Project was created by using MVC pattern. Customers have accounts, after logging can search products and make order. 
 The application sets the appropriate discounts, has a products warehouse and orders history in the MSSQL database , send confirmation mails with order in pdf attachments and connecting with DPD web services via SOAP. 
 I made the project myself. Application is using https://github.com/mojeq/SubiektGT-API for updating products current stock from SubiektGT via API.
 
@@ -12,6 +12,7 @@ Project is created with:
 * Razor Page
 * MSSQL 2017
 * Entity Framework Core
+* AutoMapper
 * EFCoreSecondLevelCacheInterceptor
 * SOAP
 * Identity
