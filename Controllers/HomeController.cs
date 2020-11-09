@@ -51,6 +51,11 @@ namespace HurtowniaReptiGood.Controllers
         [HttpGet]
         public async Task<IActionResult> ShowProductsFromCategory(string productCategory)
         {
+            if(productCategory == "wszyscy")
+            {
+                return RedirectToAction("Index");
+            }
+
             var productsList = await _appService.GetProductsFromCategory(productCategory);
 
             return View("Index", productsList);
