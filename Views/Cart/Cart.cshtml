@@ -6,12 +6,6 @@
 @using HurtowniaReptiGood.Models.ViewModels
 
 @model CartAndAddressesViewModel
-@*@section extraMenu
-    {
-        <li>
-            @Html.ActionLink("Kontakt", "Contact", "Contact")
-        </li>
-    }*@
 
 <body>
     <h3>Zawartość koszyka:</h3>
@@ -27,31 +21,29 @@
         </tr>
         @foreach (OrderDetailViewModel cart in Model.CartToView.OrderDetailList)
         {
-        <tr text-align="center">
-            <td>@cart.ProductSymbol</td>
-            <td>@cart.ProductName</td>
-            <td>@cart.Price</td>
-            <td>
+            <tr text-align="center">
+                <td>@cart.ProductSymbol</td>
+                <td>@cart.ProductName</td>
+                <td>@cart.Price zł</td>
+                <td>
 
-                <form action="UpdateQuantityInCart" method="post">
-                    <input size="5" height="25" type="number" name="Quantity" min="1" max="@cart.CurrentStockInWholesale" value="@cart.Quantity" />
-                    <input type="hidden" name="OrderId" value="@cart.OrderId" />
-                    <input type="hidden" name="OrderDetailId" value="@cart.OrderDetailId" />
-                    <input type="hidden" name="ProductSymbol" value="@cart.ProductId" />
-                    <input type="submit" value="Odśwież" />
-                </form>
-            </td>
+                    <form action="UpdateQuantityInCart" method="post">
+                        <input size="5" height="25" type="number" name="Quantity" min="1" max="@cart.CurrentStockInWholesale" value="@cart.Quantity" />
+                        <input type="hidden" name="OrderId" value="@cart.OrderId" />
+                        <input type="hidden" name="OrderDetailId" value="@cart.OrderDetailId" />
+                        <input type="hidden" name="ProductSymbol" value="@cart.ProductId" />
+                        <input type="submit" value="Odśwież" />
+                    </form>
+                </td>
+                <td>
+                    @(itemValue = cart.Price * (Convert.ToDouble(cart.Quantity)))zł
+                </td>
+                <td>
+                    @using (Html.BeginForm("RemoveItemFromCart", "Cart", new { orderDetailId = cart.OrderDetailId, orderId = cart.OrderId }))
+                    {<input type="submit" value="Usuń" />}
+                </td>
 
-            <td>@(itemValue = cart.Price * (Convert.ToDouble(cart.Quantity)))zł</td>
-            <td>
-                <button class="myButton3">
-                    @Html.ActionLink("Usuń", "RemoveItemFromCart", "Cart",
-                    new { orderDetailId = cart.OrderDetailId, orderId = cart.OrderId },
-                    new { onclick = "return confirm('Na pewno usunąć pozycję?');" })
-                </button>
-            </td>
-
-        </tr>
+            </tr>
             method: @CalculateCartBrutto(itemValue);
                 @CalculateCartNetto(totalValueBrutto);
                 @GenerateMessageAndDiscount(totalValueNetto, totalValueBrutto);
@@ -81,104 +73,102 @@
             <th colspan="6">@message</th>
         </tr>
         <tr>
-            <td colspan="6"><button class="myButton">@Html.ActionLink("Dodaj kolejny produkt", "Index", "Home")</button></td>
+            <td colspan="6">
+                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                {<input type="submit" value="Dodaj kolejny produkt" />}
+        </td>
+    </tr>
+</table>
+
+<p>
+    <table style="width:70%" cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th colspan="2">Dane do wysyłki</th>
+        </tr>
+        <tr>
+            <td style="width:30%">Nazwa firmy</td>
+            <td>@Model.ShippingAddress.CompanyName @Model.ShippingAddress.CustomerName @Model.ShippingAddress.CustomerSurname</td>
+        </tr>
+        <tr>
+            <td>Ulica</td>
+            <td>@Model.ShippingAddress.Street</td>
+        </tr>
+        <tr>
+            <td>Numer</td>
+            <td>@Model.ShippingAddress.StreetNumber</td>
+        </tr>
+        <tr>
+            <td>Miasto</td>
+            <td>@Model.ShippingAddress.City</td>
+        </tr>
+        <tr>
+            <td>Kod pocztowy</td>
+            <td>@Model.ShippingAddress.ZipCode</td>
+        </tr>
+        <tr>
+            <td>Telefon</td>
+            <td>@Model.ShippingAddress.Phone</td>
+        </tr>
+        <tr>
+            <td>E-mail</td>
+            <td>@Model.ShippingAddress.Email</td>
         </tr>
     </table>
+</p>
 
-    <p>
-        <table style="width:700px" cellpadding="2" cellspacing="2" border="1">
-            <tr>
-                <th colspan="2">Dane do faktury</th>
-            </tr>
-            <tr>
-                <td>Nazwa firmy</td>
-                <td>@Model.InvoiceAddress.CompanyName</td>
-            </tr>
-            <tr>
-                <td>NIP</td>
-                <td>@Model.InvoiceAddress.NIP</td>
-            </tr>
-            <tr>
-                <td>Ulica</td>
-                <td>@Model.InvoiceAddress.Street</td>
-            </tr>
-            <tr>
-                <td>Miasto</td>
-                <td>@Model.InvoiceAddress.City</td>
-            </tr>
-            <tr>
-                <td>Kod pocztowy</td>
-                <td>@Model.InvoiceAddress.ZipCode</td>
-            </tr>
-            <tr>
-                <td>Telefon</td>
-                <td>@Model.InvoiceAddress.Phone</td>
-            </tr>
-        </table>
-    </p>
-
-    <p>
-        <table style="width:700px" cellpadding="2" cellspacing="2" border="1">
-            <tr>
-                <th colspan="2">Dane do wysyłki</th>
-            </tr>
-            <tr>
-                <td>Nazwa firmy</td>
-                <td>@Model.ShippingAddress.CompanyName @Model.ShippingAddress.CustomerName @Model.ShippingAddress.CustomerSurname</td>
-            </tr>
-            <tr>
-                <td>Ulica</td>
-                <td>@Model.ShippingAddress.Street</td>
-            </tr>
-            <tr>
-                <td>Miasto</td>
-                <td>@Model.ShippingAddress.City</td>
-            </tr>
-            <tr>
-                <td>Kod pocztowy</td>
-                <td>@Model.ShippingAddress.ZipCode</td>
-            </tr>
-            <tr>
-                <td>Telefon</td>
-                <td>@Model.ShippingAddress.Phone</td>
-            </tr>
-            <tr>
-                <td>E-mail</td>
-                <td>@Model.ShippingAddress.Email</td>
-            </tr>
-        </table>
-    </p>
-
-
-    <table style="width:700px" cellpadding="2" cellspacing="2" border="1">
+<p>
+    <table style="width:70%" cellpadding="2" cellspacing="2" border="1">
         <tr>
-            <th colspan="2">Uwagi do zamówienia</th>
+            <th colspan="2">Dane do faktury</th>
         </tr>
         <tr>
-            <td><textarea name="OrderMessage" rows="14" cols="35" form="sendOrder">Uwagi do zamówienia, np. zmiana adresu</textarea>
+            <td style="width:30%">Nazwa firmy</td>
+            <td>@Model.InvoiceAddress.CompanyName </td>
         </tr>
         <tr>
-            <td>
-                <form action="SaveNewOrder" method="post" id="sendOrder">
-                    <input type="hidden" name="orderId" value="@Model.CartToView.OrderDetailList[0].OrderId" />
-                        <input type="hidden" name="valueOrder" value="@valueOrder" />
-                    <input type="submit" value="Wyślij zamówienie" />
-                </form>
-            </td>
+            <td>NIP</td>
+            <td>@Model.InvoiceAddress.NIP</td>
+        </tr>
+        <tr>
+            <td>Ulica</td>
+            <td>@Model.InvoiceAddress.Street</td>
+        </tr>
+        <tr>
+            <td>Numer</td>
+            <td>@Model.InvoiceAddress.StreetNumber</td>
+        </tr>
+        <tr>
+            <td>Miasto</td>
+            <td>@Model.InvoiceAddress.City</td>
+        </tr>
+        <tr>
+            <td>Kod pocztowy</td>
+            <td>@Model.InvoiceAddress.ZipCode</td>
+        </tr>
+        <tr>
+            <td>Telefon</td>
+            <td>@Model.InvoiceAddress.Phone</td>
         </tr>
     </table>
+</p>
 
-
-  *@*@<button class="myButton2">
-        @Html.ActionLink("Wyślij zamówienie", "SaveNewOrder",
-        new { orderId = @Model.CartToView.OrderDetailList[0].OrderId, valueOrder = valueOrder },
-        new { onclick = "return confirm('Na pewno wysłać zamówienie?');" })
-    </button>
- 
-        <button class="myButton2">
-            <form action="@Url.Action("Cart", "SaveNewOrder")" method="post"></form>
-
-        </button>*@
+<table style="width:70%" cellpadding="2" cellspacing="2" border="1">
+    <tr>
+        <th colspan="2">Uwagi do zamówienia</th>
+    </tr>
+    <tr>
+        <td><textarea name="OrderMessage" rows="14" cols="65" form="sendOrder" placeholder="Uwagi do zamówienia, np. zmiana adresu"></textarea></td>
+    </tr>
+    <tr>
+        <td>
+            <form action="SaveNewOrder" method="post" id="sendOrder">
+                <input type="hidden" name="orderId" value="@Model.CartToView.OrderDetailList[0].OrderId" />
+                <input type="hidden" name="valueOrder" value="@valueOrder" />
+                <input type="submit" value="Wyślij zamówienie" />
+            </form>
+        </td>
+    </tr>
+</table>
 </body>
 
 @functions
