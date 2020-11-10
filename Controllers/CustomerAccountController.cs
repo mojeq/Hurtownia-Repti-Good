@@ -64,7 +64,7 @@ namespace HurtowniaReptiGood.Controllers
 
         // view with one order details
         [Authorize(Roles = "user")]
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> OrderHistoryDetails(int orderId)
         {
             DpdTrackingStatusListViewModel dpdTrackingStatusViewModel;

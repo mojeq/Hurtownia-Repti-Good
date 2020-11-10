@@ -77,6 +77,18 @@ namespace HurtowniaReptiGood.Models.Services
 
             trackingStatusList.TrackingList = statusList;
 
+            if (!trackingStatusList.TrackingList.Any())
+            {
+                var emptyRow = new DpdTrackingStatusViewModel()
+                {
+                    TrackingNumber = "brak danych",
+                    Event = "brak danych",
+                    EventDateTime = "brak danych",
+                    EventPlace = "brak danych"
+                };
+                trackingStatusList.TrackingList.Add(emptyRow);
+            }
+
             return trackingStatusList;
         }     
 
