@@ -404,3 +404,5 @@ D:\Kodowanie\projects\HurtowniaReptiGood\obj\Release\netcoreapp3.1\staticwebasse
 D:\Kodowanie\projects\HurtowniaReptiGood\obj\Release\netcoreapp3.1\HurtowniaReptiGood.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\obj\Release\netcoreapp3.1\HurtowniaReptiGood.pdb
 D:\Kodowanie\projects\HurtowniaReptiGood\obj\Release\netcoreapp3.1\HurtowniaReptiGood.genruntimeconfig.cache
+D:\Kodowanie\projects\HurtowniaReptiGood\obj\Release\netcoreapp3.1\Razor\Views\Home\Contact.cshtml.g.cs
+D:\Kodowanie\projects\HurtowniaReptiGood\obj\Release\netcoreapp3.1\Razor\Views\Shared\_LayoutContact.cshtml.g.cs
