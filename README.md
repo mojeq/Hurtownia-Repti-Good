@@ -19,6 +19,7 @@ Project is created with:
 * MailKit
 * iTextSharp
 * Hangfire
+* Logging Serilog
 
 ## Status
 Project in commercial using.
