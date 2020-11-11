@@ -609,3 +609,10 @@ D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Sha
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.File.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Formatting.Compact.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Sinks.Async.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Sinks.File.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Sinks.RollingFile.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.csproj.CoreCompileInputs.cache
+D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache

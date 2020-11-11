@@ -1,0 +1,168 @@
+2020-11-11T15:04:50.2275716+01:00  [INF] Starting Hangfire Server using job storage: 'SQL Server: LAPTOP-6BMBVA7S\SQLEXPRESS@HurtowniaRG' (3b5ca34b)
+2020-11-11T15:04:50.2417266+01:00  [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:15. (3b5ca34b)
+2020-11-11T15:04:50.2438723+01:00  [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 (3b5ca34b)
+2020-11-11T15:04:50.4017389+01:00  [INF] Server laptop-6bmbva7s:24096:d47fd605 successfully announced in 147,1161 ms (3b5ca34b)
+2020-11-11T15:04:50.4025719+01:00  [INF] Server laptop-6bmbva7s:24096:c726af09 successfully announced in 513,9486 ms (3b5ca34b)
+2020-11-11T15:04:50.4163244+01:00  [INF] Server laptop-6bmbva7s:24096:c726af09 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler... (3b5ca34b)
+2020-11-11T15:04:50.4170637+01:00  [INF] Server laptop-6bmbva7s:24096:d47fd605 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler... (3b5ca34b)
+2020-11-11T15:04:50.4661593+01:00  [INF] 6 servers were removed due to timeout (3b5ca34b)
+2020-11-11T15:04:50.6646684+01:00  [INF] Server laptop-6bmbva7s:24096:d47fd605 all the dispatchers started (3b5ca34b)
+2020-11-11T15:04:50.6874136+01:00  [INF] Server laptop-6bmbva7s:24096:c726af09 all the dispatchers started (3b5ca34b)
+2020-11-11T15:04:50.8323585+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-11-11T15:04:50.8355084+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-11-11T15:04:50.8376464+01:00  [INF] Content root path: "D:\Kodowanie\projects\HurtowniaReptiGood" (b5d60022)
+2020-11-11T15:04:56.0190337+01:00  [WRN] Failed to process the job '46': an exception occurred. Retry attempt 7 of 10 will be performed in 00:22:47. (3b5ca34b)
+System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 37
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2020-11-11T15:04:56.0192853+01:00  [WRN] Failed to process the job '44': an exception occurred. Retry attempt 10 of 10 will be performed in 01:52:36. (3b5ca34b)
+System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 37
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2020-11-11T15:04:56.0192852+01:00  [ERR] Failed to process the job '42': an exception occurred. (3b5ca34b)
+System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 37
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2020-11-11T15:04:56.0193832+01:00  [ERR] Failed to process the job '43': an exception occurred. (3b5ca34b)
+System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 37
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2020-11-11T15:04:56.0200217+01:00  [WRN] Failed to process the job '45': an exception occurred. Retry attempt 7 of 10 will be performed in 00:21:51. (3b5ca34b)
+System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 37
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2020-11-11T15:04:56.0202315+01:00  [WRN] Failed to process the job '47': an exception occurred. Retry attempt 1 of 10 will be performed in 00:00:19. (3b5ca34b)
+System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 37
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2020-11-11T15:04:56.8473047+01:00 80000037-0004-f800-b63f-84710c7967bb [ERR] An unhandled exception has occurred while executing the request. (48a46595)
+System.InvalidOperationException: Unable to resolve service for type 'CacheManager.Core.Logging.ILogger' while attempting to activate 'HurtowniaReptiGood.Controllers.HomeController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass4_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass5_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Builder.Extensions.MapMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-11-11T15:05:25.0580137+01:00  [WRN] Failed to process the job '47': an exception occurred. Retry attempt 2 of 10 will be performed in 00:01:10. (3b5ca34b)
+System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 37
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2020-11-11T15:08:59.6346490+01:00  [INF] Starting Hangfire Server using job storage: 'SQL Server: LAPTOP-6BMBVA7S\SQLEXPRESS@HurtowniaRG' (3b5ca34b)
+2020-11-11T15:08:59.6448599+01:00  [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:15. (3b5ca34b)
+2020-11-11T15:08:59.6465824+01:00  [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 (3b5ca34b)
+2020-11-11T15:08:59.8229988+01:00  [INF] Server laptop-6bmbva7s:21168:8b2ff127 successfully announced in 600,2595 ms (3b5ca34b)
+2020-11-11T15:08:59.8241125+01:00  [INF] Server laptop-6bmbva7s:21168:a97b18cf successfully announced in 166,2374 ms (3b5ca34b)
+2020-11-11T15:08:59.8433611+01:00  [INF] Server laptop-6bmbva7s:21168:a97b18cf is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler... (3b5ca34b)
+2020-11-11T15:08:59.8450631+01:00  [INF] Server laptop-6bmbva7s:21168:8b2ff127 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler... (3b5ca34b)
+2020-11-11T15:09:00.1712757+01:00  [INF] Server laptop-6bmbva7s:21168:a97b18cf all the dispatchers started (3b5ca34b)
+2020-11-11T15:09:00.1911405+01:00  [INF] Server laptop-6bmbva7s:21168:8b2ff127 all the dispatchers started (3b5ca34b)
+2020-11-11T15:09:00.3943742+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-11-11T15:09:00.3984570+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-11-11T15:09:00.4013491+01:00  [INF] Content root path: "D:\Kodowanie\projects\HurtowniaReptiGood" (b5d60022)
+2020-11-11T15:09:05.0172159+01:00  [WRN] Failed to process the job '47': an exception occurred. Retry attempt 3 of 10 will be performed in 00:00:43. (3b5ca34b)
+System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 37
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2020-11-11T15:09:09.8766273+01:00 800000f0-0003-ff00-b63f-84710c7967bb [INF] Zalogowano do systemu: System.Collections.Generic.List`1[System.String], AKVA (d1a8a5d4)

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 
 namespace HurtowniaReptiGood.Controllers
 {
@@ -19,19 +20,22 @@ namespace HurtowniaReptiGood.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly MyContext _myContex;
         private readonly AppService _appService;
+        private ILogger _logger;
 
         public HomeController(
             RoleManager<IdentityRole> roleManager,
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             MyContext myContex,
-            AppService appService)
+            AppService appService,
+            ILogger<HomeController> logger)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _myContex = myContex;
             _appService = appService;
+            _logger = logger;
         }
 
         // view list with all products from database 
@@ -92,6 +96,8 @@ namespace HurtowniaReptiGood.Controllers
                 if (signInResult.Succeeded)
                 {                    
                     var roleType = await _userManager.GetRolesAsync(user);
+
+                    _logger.LogInformation("Zalogowano do systemu: " + roleType[0] + ", " + username);
 
                     if (roleType[0] == "admin")
                     {
