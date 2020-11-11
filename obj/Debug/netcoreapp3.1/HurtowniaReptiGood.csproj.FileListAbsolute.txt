@@ -449,9 +449,6 @@ D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Entit
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
-D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
-D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
@@ -479,7 +476,6 @@ D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Newtonsoft.Json
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\nunit.framework.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
-D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Composition.AttributedModel.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Composition.Convention.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Composition.Hosting.dll
@@ -489,7 +485,6 @@ D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Configur
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
-D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\ca\Hangfire.Core.resources.dll
@@ -604,8 +599,6 @@ D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Data.Has
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\EntityFramework.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\EntityFramework.Extended.dll
-D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.csproj.CoreCompileInputs.cache
-D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\CacheManager.Core.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\EasyCaching.Core.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\EFCoreSecondLevelCacheInterceptor.dll
@@ -613,3 +606,6 @@ D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\runtimes\unix\l
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Data.SqlClient.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contact.cshtml.g.cs
 D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutContact.cshtml.g.cs
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.dll

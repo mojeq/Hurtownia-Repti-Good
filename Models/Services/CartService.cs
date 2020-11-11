@@ -66,7 +66,8 @@ namespace HurtowniaReptiGood.Models.Services
         // adding next product to current cart or increase quantity
         public async Task<int> AddItemToExistCart(int orderId, ItemCartViewModel itemCart)
         {
-            var orderDetailExist = await _orderDetailRepository.GetSingleOrDefaultAsync(predicate: a => a.OrderId == orderId);
+            var orderDetailExist = await _orderDetailRepository
+                .GetSingleOrDefaultAsync(predicate: a => a.OrderId == orderId && a.ProductId == itemCart.ProductId);
 
             if (orderDetailExist == null)
             {
