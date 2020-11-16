@@ -614,5 +614,9 @@ D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Formatt
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Sinks.Async.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Sinks.File.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\Serilog.Sinks.RollingFile.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\FluentValidation.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\FluentValidation.AspNetCore.dll
+D:\Kodowanie\projects\HurtowniaReptiGood\bin\Debug\netcoreapp3.1\FluentValidation.DependencyInjectionExtensions.dll
 D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.csproj.CoreCompileInputs.cache
+D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cs
 D:\Kodowanie\projects\HurtowniaReptiGood\obj\Debug\netcoreapp3.1\HurtowniaReptiGood.MvcApplicationPartsAssemblyInfo.cache

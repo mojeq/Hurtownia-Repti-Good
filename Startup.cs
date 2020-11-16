@@ -1,7 +1,7 @@
 using AutoMapper;
 using EFCoreSecondLevelCacheInterceptor;
-using EntityFramework.Caching;
 using Hangfire;
+using FluentValidation.AspNetCore;
 using HurtowniaReptiGood.Models;
 using HurtowniaReptiGood.Models.Interfaces.Repositories;
 using HurtowniaReptiGood.Models.Repositories;
@@ -70,7 +70,8 @@ namespace HurtowniaReptiGood
 
             services.AddSession();
             services.AddDistributedMemoryCache();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddTransient<AppService>();
             services.AddTransient<CartService>();
             services.AddTransient<CustomerAccountService>();
