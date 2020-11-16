@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7sj4weAV/HUOv2kpCpQD9aOfO2P+N8LEroHTZ6Z/ck8M+GNq82pp3o695eo369siJ/2IaTjrhA4BevvKPNJmCw==",
+  "dgSpecHash": "zhrBGbZ5O8vCSHX8mRTjWFUCtDYBjunKLO3d+40sTyuaHAwfN6s+/qdAwgx1GT+9T+5ohNGEinWSXxXZfGQqhA==",
   "success": true,
   "projectFilePath": "D:\\Kodowanie\\projects\\HurtowniaReptiGood\\HurtowniaReptiGood.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,9 @@
     "C:\\Users\\mojeq\\.nuget\\packages\\entityframework.extended\\6.1.0.168\\entityframework.extended.6.1.0.168.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\entityframeworkcore.cacheable\\2.0.1\\entityframeworkcore.cacheable.2.0.1.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\fluentassertions\\5.10.3\\fluentassertions.5.10.3.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.3.0\\fluentvalidation.aspnetcore.9.3.0.nupkg.sha512",
+    "C:\\Users\\mojeq\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\9.3.0\\fluentvalidation.dependencyinjectionextensions.9.3.0.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\google.protobuf\\3.9.1\\google.protobuf.3.9.1.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\grpc.aspnetcore\\2.23.2\\grpc.aspnetcore.2.23.2.nupkg.sha512",
     "C:\\Users\\mojeq\\.nuget\\packages\\grpc.aspnetcore.server\\2.23.2\\grpc.aspnetcore.server.2.23.2.nupkg.sha512",
