@@ -341,3 +341,34 @@ System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, poniew
    at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
    at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 38
    at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+2020-11-18T12:55:25.9058669+01:00  [INF] Starting Hangfire Server using job storage: 'SQL Server: LAPTOP-6BMBVA7S\SQLEXPRESS@HurtowniaRG' (3b5ca34b)
+2020-11-18T12:55:25.9282291+01:00  [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:15. (3b5ca34b)
+2020-11-18T12:55:25.9310476+01:00  [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 (3b5ca34b)
+2020-11-18T12:55:26.1352437+01:00  [INF] Server laptop-6bmbva7s:19392:8b23522f successfully announced in 587,6893 ms (3b5ca34b)
+2020-11-18T12:55:26.1365961+01:00  [INF] Server laptop-6bmbva7s:19392:f290de1f successfully announced in 189,5387 ms (3b5ca34b)
+2020-11-18T12:55:26.1577234+01:00  [INF] Server laptop-6bmbva7s:19392:8b23522f is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler... (3b5ca34b)
+2020-11-18T12:55:26.1590233+01:00  [INF] Server laptop-6bmbva7s:19392:f290de1f is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler... (3b5ca34b)
+2020-11-18T12:55:26.2203368+01:00  [INF] 2 servers were removed due to timeout (3b5ca34b)
+2020-11-18T12:55:26.5347431+01:00  [INF] Server laptop-6bmbva7s:19392:f290de1f all the dispatchers started (3b5ca34b)
+2020-11-18T12:55:26.5442999+01:00  [INF] Server laptop-6bmbva7s:19392:8b23522f all the dispatchers started (3b5ca34b)
+2020-11-18T12:55:26.7938014+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-11-18T12:55:26.7979768+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-11-18T12:55:26.8009239+01:00  [INF] Content root path: "D:\Kodowanie\projects\HurtowniaReptiGood" (b5d60022)
+2020-11-18T12:55:31.4833637+01:00  [WRN] Failed to process the job '54': an exception occurred. Retry attempt 2 of 10 will be performed in 00:00:50. (3b5ca34b)
+System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at HurtowniaReptiGood.Models.Services.SubiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT() in D:\Kodowanie\projects\HurtowniaReptiGood\Models\Services\SubiektAPIService.cs:line 38
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
