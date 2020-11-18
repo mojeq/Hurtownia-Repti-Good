@@ -84,9 +84,7 @@ namespace HurtowniaReptiGood
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IMailRepository, MailRepository>();
             services.AddScoped<IAppService, AppService>();
-            services.AddScoped(typeof(IAppService), typeof(AppService));
             services.AddScoped<ICartService, CartService>();
-            services.AddScoped(typeof(ICartService), typeof(CartService));
 
             services.AddAutoMapper((typeof(Startup)));
         }
