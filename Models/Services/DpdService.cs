@@ -9,14 +9,15 @@ using System.IO;
 using HurtowniaReptiGood.Models.ViewModels;
 using HurtowniaReptiGood.Models.Interfaces;
 using HurtowniaReptiGood.Models.Repositories;
+using HurtowniaReptiGood.Models.Interfaces.Repositories;
 
 namespace HurtowniaReptiGood.Models.Services
 {
     public class DpdService : IDpdService
     {
-        private readonly OrderRepository _orderRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly MyContext _myContex;
-        public DpdService(OrderRepository orderRepository, MyContext myContex)
+        public DpdService(IOrderRepository orderRepository, MyContext myContex)
         {
             _orderRepository = orderRepository;
             _myContex = myContex;

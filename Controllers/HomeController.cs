@@ -10,6 +10,7 @@ using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
+using HurtowniaReptiGood.Models.Interfaces;
 
 namespace HurtowniaReptiGood.Controllers
 {
@@ -19,7 +20,7 @@ namespace HurtowniaReptiGood.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly MyContext _myContex;
-        private readonly AppService _appService;
+        private readonly IAppService _appService;
         private ILogger _logger;
 
         public HomeController(
@@ -27,7 +28,7 @@ namespace HurtowniaReptiGood.Controllers
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             MyContext myContex,
-            AppService appService,
+            IAppService appService,
             ILogger<HomeController> logger)
         {
             _roleManager = roleManager;

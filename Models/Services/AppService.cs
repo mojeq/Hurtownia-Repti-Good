@@ -12,21 +12,20 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using HurtowniaReptiGood.Models.Interfaces;
 using HurtowniaReptiGood.Models.Repositories;
+using HurtowniaReptiGood.Models.Interfaces.Repositories;
 
 namespace HurtowniaReptiGood.Models
 {
     public class AppService : IAppService
     {
-        private readonly CustomerRepository _customerRepository;
-        private readonly ProductRepository _productRepository;
-        private readonly IMapper _mapper;
-        private readonly MyContext _myContex;    
-        public AppService(CustomerRepository customerRepository, ProductRepository productRepository, IMapper mapper, MyContext myContex)
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;   
+        public AppService(ICustomerRepository customerRepository, IProductRepository productRepository, IMapper mapper)
         {
             _customerRepository = customerRepository;
             _productRepository = productRepository;
             _mapper = mapper;
-            _myContex = myContex;
         }
 
         // get current logged user

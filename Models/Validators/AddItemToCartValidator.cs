@@ -17,13 +17,6 @@ namespace HurtowniaReptiGood.Models.Validators
                     throw new Exception($"Parameter {nameof(x.Quantity)} can't be 0.");
                 });
 
-            RuleFor(x => x.Value)
-                .GreaterThan(0)
-                .OnAnyFailure(x =>
-                {
-                    throw new Exception($"Parameter {nameof(x.Value)} can't be 0.");
-                });
-
             RuleFor(x => x.ProductId)
                 .NotNull()
                 .OnAnyFailure(x =>

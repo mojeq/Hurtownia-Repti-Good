@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models.Interfaces;
+using HurtowniaReptiGood.Models.Interfaces.Repositories;
 using HurtowniaReptiGood.Models.Repositories;
 using HurtowniaReptiGood.Models.ViewModels;
 using iTextSharp.text;
@@ -21,10 +22,10 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class CustomerAccountService : ICustomerAccountService
     {
-        private readonly OrderRepository _orderRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
-        private readonly AppService _appService;
-        public CustomerAccountService(OrderRepository orderRepository, IMapper mapper, AppService appService)
+        private readonly IAppService _appService;
+        public CustomerAccountService(IOrderRepository orderRepository, IMapper mapper, IAppService appService)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;

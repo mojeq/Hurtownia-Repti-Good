@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models.Interfaces;
+using HurtowniaReptiGood.Models.Interfaces.Repositories;
 using HurtowniaReptiGood.Models.Repositories;
 using HurtowniaReptiGood.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +16,11 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class AdminService : IAdminService
     {
-        private readonly ProductRepository _productRepository;
-        private readonly OrderDetailRepository _orderDetailRepository;
-        private readonly OrderRepository _orderRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IOrderDetailRepository _orderDetailRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
-        public AdminService(ProductRepository productRepository, OrderDetailRepository orderDetailRepository, OrderRepository orderRepository, IMapper mapper)
+        public AdminService(IProductRepository productRepository, IOrderDetailRepository orderDetailRepository, IOrderRepository orderRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _orderDetailRepository = orderDetailRepository;

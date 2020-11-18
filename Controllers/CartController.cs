@@ -11,6 +11,7 @@ using HurtowniaReptiGood.Models;
 using HurtowniaReptiGood.Models.ViewModels;
 using HurtowniaReptiGood.Models.Services;
 using FluentAssertions.Common;
+using HurtowniaReptiGood.Models.Interfaces;
 
 namespace HurtowniaReptiGood.Controllers
 {
@@ -19,15 +20,15 @@ namespace HurtowniaReptiGood.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly MyContext _myContex;
-        private readonly AppService _appService;
-        private readonly CartService _cartService;
+        private readonly IAppService _appService;
+        private readonly ICartService _cartService;
 
         public CartController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             MyContext myContex,
-            AppService appService,
-            CartService cartService)
+            IAppService appService,
+            ICartService cartService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -130,14 +131,12 @@ namespace HurtowniaReptiGood.Controllers
         [Authorize(Roles = "user")]
         [HttpPost]
         public async Task<IActionResult> SaveNewOrder(int orderId, double valueOrder)
-        //public async Task<IActionResult> SaveNewOrder(OrderIdValueMessageViewModel order)
-        //public async Task<IActionResult> SaveNewOrder()
         {
             await _cartService.SaveNewOrder(orderId, valueOrder, "erer");
 
-            //await _cartService.CreatePdfAttachmentWithOrder(orderId);
+            await _cartService.CreatePdfAttachmentWithOrder(orderId);
 
-            //await _cartService.SendMailWithAttachment(orderId);
+            await _cartService.SendMailWithAttachment(orderId);
 
             Response.Cookies.Delete("cartStatus");
 
