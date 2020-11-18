@@ -10,6 +10,7 @@ using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models;
 using HurtowniaReptiGood.Models.ViewModels;
 using HurtowniaReptiGood.Models.Services;
+using HurtowniaReptiGood.Models.Interfaces;
 
 namespace HurtowniaReptiGood.Controllers
 {
@@ -18,19 +19,19 @@ namespace HurtowniaReptiGood.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly MyContext _myContex;
-        private readonly AppService _appService;
-        private readonly CartService _cartService;
-        private readonly CustomerAccountService _customerAccountService;
-        private readonly DpdService _dpdService;
+        private readonly IAppService _appService;
+        private readonly ICartService _cartService;
+        private readonly ICustomerAccountService _customerAccountService;
+        private readonly IDpdService _dpdService;
 
         public CustomerAccountController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             MyContext myContex,
-            AppService appService,
-            CartService cartService,
-            CustomerAccountService customerAccountService,
-            DpdService dpdService)
+            IAppService appService,
+            ICartService cartService,
+            ICustomerAccountService customerAccountService,
+            IDpdService dpdService)
         {
             _userManager = userManager;
             _signInManager = signInManager;

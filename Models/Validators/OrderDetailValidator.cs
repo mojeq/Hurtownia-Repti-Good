@@ -23,20 +23,6 @@ namespace HurtowniaReptiGood.Models.Validators
                 {
                     throw new Exception($"Parameter {nameof(x.Quantity)} is invalid.");
                 });
-
-            RuleFor(x => x.Price)
-                .GreaterThan(0)
-                .OnAnyFailure(x =>
-                {
-                    throw new Exception($"Parameter {nameof(x.Price)} is invalid.");
-                });
-
-            RuleFor(x => x.Value)
-                .GreaterThan(0)
-                .OnAnyFailure(x =>
-                {
-                    throw new Exception($"Parameter {nameof(x.Value)} is invalid.");
-                });
         }
     }
 }

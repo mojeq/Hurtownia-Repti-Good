@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using HurtowniaReptiGood.Models.Interfaces;
 
 namespace HurtowniaReptiGood
 {
@@ -72,16 +73,20 @@ namespace HurtowniaReptiGood
             services.AddDistributedMemoryCache();
             services.AddControllersWithViews()
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
-            services.AddTransient<AppService>();
-            services.AddTransient<CartService>();
-            services.AddTransient<CustomerAccountService>();
-            services.AddTransient<AdminService>();
-            services.AddTransient<DpdService>();
-            services.AddTransient<SubiektAPIService>();
-            services.AddTransient<OrderRepository>();
-            services.AddTransient<OrderDetailRepository>();
-            services.AddTransient<ProductRepository>();
-            services.AddTransient<CustomerRepository>();
+
+            services.AddScoped<ICustomerAccountService, CustomerAccountService>();
+            services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IDpdService, DpdService>();
+            services.AddScoped<ISubiektAPIService, SubiektAPIService>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IMailRepository, MailRepository>();
+            services.AddScoped<IAppService, AppService>();
+            services.AddScoped(typeof(IAppService), typeof(AppService));
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped(typeof(ICartService), typeof(CartService));
 
             services.AddAutoMapper((typeof(Startup)));
         }
@@ -110,10 +115,7 @@ namespace HurtowniaReptiGood
             app.UseStaticFiles();
             app.UseSession();
             app.UseCookiePolicy();
-
             app.UseHttpsRedirection();
-
-            //app.UseEndpoints();
 
             app.UseEndpoints(endpoints =>
             {
@@ -124,6 +126,5 @@ namespace HurtowniaReptiGood
 
             RecurringJob.AddOrUpdate<SubiektAPIService>((x => x.DownloadAndUpdateProductsStockFromSubiektGT()), Cron.Hourly);
         }
-
     }
 }

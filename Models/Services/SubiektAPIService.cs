@@ -12,14 +12,15 @@ using Microsoft.EntityFrameworkCore;
 using HurtowniaReptiGood.Models.Interfaces;
 using HurtowniaReptiGood.Models.Repositories;
 using MimeKit.Encodings;
+using HurtowniaReptiGood.Models.Interfaces.Repositories;
 
 namespace HurtowniaReptiGood.Models.Services
 {
     public class SubiektAPIService : ISubiektAPIService
     {
-        private readonly ProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;
         private readonly MyContext _myContex;
-        public SubiektAPIService(ProductRepository productRepository, MyContext myContex)
+        public SubiektAPIService(IProductRepository productRepository, MyContext myContex)
         {
             _productRepository = productRepository;
             _myContex = myContex;

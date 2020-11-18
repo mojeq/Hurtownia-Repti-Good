@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HurtowniaReptiGood.Models.Entities;
 using HurtowniaReptiGood.Models.Interfaces;
+using HurtowniaReptiGood.Models.Interfaces.Repositories;
 using HurtowniaReptiGood.Models.Repositories;
 using HurtowniaReptiGood.Models.ViewModels;
 using iTextSharp.text;
@@ -22,18 +23,18 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class CartService : ICartService
     {
-        private readonly ProductRepository _productRepository;
-        private readonly OrderDetailRepository _orderDetailRepository;
-        private readonly OrderRepository _orderRepository;
+        private readonly IMailRepository _mailRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IOrderDetailRepository _orderDetailRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
-        private readonly MyContext _myContex;
-        public CartService(ProductRepository productRepository, OrderDetailRepository orderDetailRepository, OrderRepository orderRepository, IMapper mapper, MyContext myContex)
+        public CartService(IMailRepository mailRepository, IProductRepository productRepository, IOrderDetailRepository orderDetailRepository, IOrderRepository orderRepository, IMapper mapper)
         {
+            _mailRepository = mailRepository;
             _productRepository = productRepository;
             _orderDetailRepository = orderDetailRepository;
             _orderRepository = orderRepository;
             _mapper = mapper;
-            _myContex = myContex;
         }
 
         // creating new cart and saving that to database with state "cart"
@@ -142,11 +143,7 @@ namespace HurtowniaReptiGood.Models.Services
             // increase stock in database
             await IncreaseStockInWholesale(orderDetailId);
 
-            var orderDetailToRemove = await _myContex.OrderDetails.FindAsync(orderDetailId);
-
-            _myContex.OrderDetails.Remove(orderDetailToRemove);
-
-            await _myContex.SaveChangesAsync();
+            await _orderDetailRepository.DeleteByIdAsync(orderDetailId);
         }
 
         // update quantity of one item from current cart (button quantity in cart) 
@@ -268,7 +265,7 @@ namespace HurtowniaReptiGood.Models.Services
 
             using (var smtpClient = new SmtpClient())
             {
-                var mailConfig = _myContex.Mails.Find(1);
+                var mailConfig = await _mailRepository.GetByIdAsync(1);
                 smtpClient.Connect(mailConfig.Serwer, 465, true);
                 smtpClient.Authenticate(mailConfig.Mail, mailConfig.Password);
                 smtpClient.Send(message);

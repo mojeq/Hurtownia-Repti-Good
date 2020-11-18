@@ -7,19 +7,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using HurtowniaReptiGood.Models.Services;
 using HurtowniaReptiGood.Models;
+using HurtowniaReptiGood.Models.Interfaces;
 
 namespace HurtowniaReptiGood.Controllers
 {
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-        private readonly AdminService _adminService;
-        private readonly AppService _appService;
-        private readonly CustomerAccountService _customerAccountService;
-        private readonly DpdService _dpdService;
-        private readonly SubiektAPIService _subiektAPIService;
-        public AdminController(AdminService adminService, AppService appService, 
-            CustomerAccountService customerAccountService, DpdService dpdService, SubiektAPIService subiektAPIService)
+        private readonly IAdminService _adminService;
+        private readonly IAppService _appService;
+        private readonly ICustomerAccountService _customerAccountService;
+        private readonly IDpdService _dpdService;
+        private readonly ISubiektAPIService _subiektAPIService;
+        public AdminController(IAdminService adminService, IAppService appService, 
+            ICustomerAccountService customerAccountService, IDpdService dpdService, ISubiektAPIService subiektAPIService)
         {
             _adminService = adminService;
             _appService = appService;
