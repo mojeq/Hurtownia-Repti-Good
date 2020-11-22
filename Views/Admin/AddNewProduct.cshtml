@@ -8,7 +8,7 @@
 
 <body>
     <div>
-        <form action="AddNewProduct" method="post">            
+        <form action="AddNewProduct" method="post" enctype="multipart/form-data">            
                 <div class="form-group">
                     <label>Symbol produktu</label>
                     <input type="text" class="form-control" name="ProductSymbol">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label>Zdjęcie</label>
-                    <input type="text" class="form-control" name="Photo">
+                    <input type="file"  name="file">
                 </div>
                     <input class="myButton4" type="submit" value="Dodaj produkt" />           
         </form>

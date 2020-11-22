@@ -10,7 +10,7 @@
 
 <body>
     <div>
-        <form action="EditProduct" method="post">
+        <form action="EditProduct" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Symbol produktu</label>
                 <input type="text" class="form-control" name="ProductSymbol" value="@Model.ProductSymbol">
@@ -23,7 +23,7 @@
                 <label>Producent</label>
                 <input type="text" class="form-control" readonly="readonly" value="@Model.Manufacturer">
                 <label>Zmiana na:</label>
-                <select type="text" class="form-control" name="Manufacturer" >
+                <select type="text" class="form-control" name="Manufacturer">
                     <option>Hobby</option>
                     <option>Repti Good</option>
                     <option>Repashy</option>
@@ -35,12 +35,13 @@
             </div>
             <div class="form-group">
                 <label>Ilość</label>
-                <input type="number" class="form-control" min="1" name="Stock" value="@Model.Stock">
+                <input type="number" class="form-control" min="0" name="Stock" value="@Model.Stock">
             </div>
             <div class="form-group">
                 <label>Zdjęcie</label>
-                <input type="text" class="form-control" name="Photo" value="@Model.Photo">
+                <input type="file" name="file">
                 <input type="hidden" name="ProductId" value="@Model.ProductId" />
+                <input type="hidden" name="Photo" value="@Model.Photo" />
             </div>
             <input class="myButton4" type="submit" value="Zapisz zmiany" />
         </form>
