@@ -122,7 +122,7 @@ namespace HurtowniaReptiGood.Controllers
         [Authorize(Roles = "user")]
         public async Task<IActionResult> RemoveItemFromCart(int orderId, int orderDetailId)
         {
-            await _cartService.RemoveItemFromCart(orderDetailId);
+            await _cartService.RemoveItemFromCart(orderDetailId);            
 
             return RedirectToAction("Cart", orderId);
         }

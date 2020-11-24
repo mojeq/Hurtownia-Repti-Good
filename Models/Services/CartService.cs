@@ -140,10 +140,11 @@ namespace HurtowniaReptiGood.Models.Services
         // remowe one item from current cart
         public async Task RemoveItemFromCart(int orderDetailId)
         {
-            // increase stock in database
-            await IncreaseStockInWholesale(orderDetailId);
+            var orderDetail = await _orderDetailRepository.GetByIdAsync(orderDetailId);
 
-            await _orderDetailRepository.DeleteByIdAsync(orderDetailId);
+            await IncreaseProductStockInWholesale(orderDetail.ProductId, orderDetail.Quantity);
+
+            await _orderDetailRepository.DeleteAsync(orderDetail);
         }
 
         // update quantity of one item from current cart (button quantity in cart) 
@@ -286,15 +287,13 @@ namespace HurtowniaReptiGood.Models.Services
 
             return product.Stock;
         }
-        public async Task IncreaseStockInWholesale(int orderDetailId)
+        public async Task IncreaseProductStockInWholesale(int productId, int quantity)
         {
-            var productWithOrderDetail = await _orderDetailRepository.GetByIdAsync(orderDetailId,
-                include: source => source
-                .Include(x => x.Product));
+            var product = await _productRepository.GetByIdAsync(productId);          
 
-            productWithOrderDetail.Product.Stock = productWithOrderDetail.Product.Stock + productWithOrderDetail.Quantity;
+            product.Stock = product.Stock + quantity;
 
-            await _orderDetailRepository.Update(productWithOrderDetail);
+            await _productRepository.Update(product);
         }
         public async Task IncreaseStockInWholesale(int orderDetailId, int quantity)
         {

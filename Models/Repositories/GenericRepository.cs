@@ -141,7 +141,7 @@ namespace HurtowniaReptiGood.Models.Repositories
         {
             if (id == null) throw new NullReferenceException($"Parameter {nameof(id)} cannot be null.");
 
-            var entity = GetByIdAsync(id);
+            var entity = await GetByIdAsync(id);
 
             _context.Remove(entity);
 
