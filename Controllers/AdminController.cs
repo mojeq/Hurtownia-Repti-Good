@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using HurtowniaReptiGood.Models.Services;
 using HurtowniaReptiGood.Models;
 using HurtowniaReptiGood.Models.Interfaces;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace HurtowniaReptiGood.Controllers
 {
@@ -19,7 +22,7 @@ namespace HurtowniaReptiGood.Controllers
         private readonly ICustomerAccountService _customerAccountService;
         private readonly IDpdService _dpdService;
         private readonly ISubiektAPIService _subiektAPIService;
-        public AdminController(IAdminService adminService, IAppService appService, 
+        public AdminController(IAdminService adminService, IAppService appService,
             ICustomerAccountService customerAccountService, IDpdService dpdService, ISubiektAPIService subiektAPIService)
         {
             _adminService = adminService;
@@ -38,8 +41,12 @@ namespace HurtowniaReptiGood.Controllers
         //adding new product to database
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<IActionResult> AddNewProduct(NewProductViewModel newProduct)
+        public async Task<IActionResult> AddNewProduct(NewProductViewModel newProduct, IFormFile file)
         {
+            await _adminService.SaveFile(file);
+            
+            newProduct.Photo = "Media/img/" + file.FileName;
+
             await _adminService.AddNewProduct(newProduct);
 
             return View();
@@ -74,15 +81,22 @@ namespace HurtowniaReptiGood.Controllers
         // saving edited product and return to view with all products
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<IActionResult> EditProduct(ProductViewModel productToChange)
+        public async Task<IActionResult> EditProduct(ProductViewModel productToChange, IFormFile file)
         {
+            if (file != null)
+            {
+                await _adminService.SaveFile(file);
+
+                productToChange.Photo = "Media/img/" + file.FileName;
+            }
+
             await _adminService.SaveChangesProduct(productToChange);
 
             return RedirectToAction("Products");
         }
 
         // view list with all orders
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> Orders()
         {
@@ -92,7 +106,7 @@ namespace HurtowniaReptiGood.Controllers
         }
 
         // view details of one order
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> OrderDetails(int orderId)
         {
@@ -117,7 +131,7 @@ namespace HurtowniaReptiGood.Controllers
 
         // create view with order to edit
         [Authorize(Roles = "admin")]
-        [HttpGet]        
+        [HttpGet]
         public async Task<IActionResult> EditOrder(int orderId)
         {
             OrderViewModel orderToEdit = await _customerAccountService.GetOrder(orderId);
@@ -127,16 +141,16 @@ namespace HurtowniaReptiGood.Controllers
 
         // edit order, change status, add tracking number etc
         [Authorize(Roles = "admin")]
-        [HttpPost]        
+        [HttpPost]
         public async Task<IActionResult> EditOrder(OrderViewModel order)
         {
             await _adminService.SaveChangesOrder(order);
 
-            return RedirectToAction("Orders");         
+            return RedirectToAction("Orders");
         }
 
         // update products stock form SubiektGT via API
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> UpdateProductsStock()
         {
@@ -144,19 +158,19 @@ namespace HurtowniaReptiGood.Controllers
 
             try
             {
-                await _subiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT();                
+                await _subiektAPIService.DownloadAndUpdateProductsStockFromSubiektGT();
 
                 status.UpdateStatus = "Import stanu magazynowego powiódł się.";
             }
             catch
-            {                
+            {
                 status.UpdateStatus = "Import stanu magazynowego nie powiódł się.";
-            }     
+            }
 
             return View("UpdateStock", status);
         }
 
-        [Authorize(Roles = "admin")]        
+        [Authorize(Roles = "admin")]
         public IActionResult UpdateStock()
         {
             UpdateProductsStockStatusViewModel status = new UpdateProductsStockStatusViewModel();

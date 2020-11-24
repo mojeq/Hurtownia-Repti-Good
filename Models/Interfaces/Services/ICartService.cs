@@ -21,7 +21,7 @@ namespace HurtowniaReptiGood.Models.Interfaces
         Task SendMailWithAttachment(int orderId);
         Task DecreaseStockInWholesale(ItemCartViewModel itemCart);
         Task<int> GetCurrentStockInWholesale(int productId);
-        Task IncreaseStockInWholesale(int orderDetailId);
+        Task IncreaseProductStockInWholesale(int productId, int quantity);
         Task IncreaseStockInWholesale(int orderDetailId, int quantity);
     }
 }

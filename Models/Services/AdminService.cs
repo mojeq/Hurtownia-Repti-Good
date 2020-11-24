@@ -4,10 +4,12 @@ using HurtowniaReptiGood.Models.Interfaces;
 using HurtowniaReptiGood.Models.Interfaces.Repositories;
 using HurtowniaReptiGood.Models.Repositories;
 using HurtowniaReptiGood.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Math.EC.Rfc7748;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -97,6 +99,19 @@ namespace HurtowniaReptiGood.Models.Services
             var orderDetail = _mapper.Map<OrderDetail>(order);
 
             return orderDetail;
+        }
+
+        public async Task SaveFile(IFormFile file)
+        {
+            if (file != null)
+            {
+                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Media/img", file.FileName);
+
+                using (var stream = new FileStream(SavePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
         }
     }
 }
