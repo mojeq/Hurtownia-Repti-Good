@@ -56,6 +56,12 @@ namespace HurtowniaReptiGood.Models.Services
             await _productRepository.Update(mapped);
         }
 
+        // remove product from database
+        public async Task DeleteProduct(int productId)
+        {
+            await _productRepository.DeleteByIdAsync(productId);
+        }
+
         // get list with all orders
         public async Task<OrderListViewModel> GetOrders()
         {

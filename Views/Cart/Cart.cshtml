@@ -14,36 +14,38 @@
         <tr>
             <th>Symbol</th>
             <th>Nazwa</th>
+            <th>Cena netto</th>
             <th>Cena brutto</th>
             <th>Sztuk</th>
-            <th>Wartość</th>
+            <th>Wartość brutto</th>
             <th>Usuń</th>
         </tr>
         @foreach (OrderDetailViewModel cart in Model.CartToView.OrderDetailList)
         {
-            <tr text-align="center">
-                <td>@cart.ProductSymbol</td>
-                <td>@cart.ProductName</td>
-                <td>@cart.Price zł</td>
-                <td>
+    <tr text-align="center">
+        <td>@cart.ProductSymbol</td>
+        <td>@cart.ProductName</td>
+        <td>@(Math.Round(cart.Price/1.23, 2))zł</td>
+        <td>@(cart.Price)zł</td>
+        <td>
 
-                    <form action="UpdateQuantityInCart" method="post">
-                        <input size="5" height="25" type="number" name="Quantity" min="1" max="@cart.CurrentStockInWholesale" value="@cart.Quantity" />
-                        <input type="hidden" name="OrderId" value="@cart.OrderId" />
-                        <input type="hidden" name="OrderDetailId" value="@cart.OrderDetailId" />
-                        <input type="hidden" name="ProductId" value="@cart.ProductId" />
-                        <input type="submit" value="Odśwież" />
-                    </form>
-                </td>
-                <td>
-                    @(itemValue = cart.Price * (Convert.ToDouble(cart.Quantity)))zł
-                </td>
-                <td>
-                    @using (Html.BeginForm("RemoveItemFromCart", "Cart", new { orderDetailId = cart.OrderDetailId, orderId = cart.OrderId }))
-                    {<input type="submit" value="Usuń" />}
-                </td>
+            <form action="UpdateQuantityInCart" method="post">
+                <input size="5" height="25" type="number" name="Quantity" min="1" max="@cart.CurrentStockInWholesale" value="@cart.Quantity" />
+                <input type="hidden" name="OrderId" value="@cart.OrderId" />
+                <input type="hidden" name="OrderDetailId" value="@cart.OrderDetailId" />
+                <input type="hidden" name="ProductId" value="@cart.ProductId" />
+                <input type="submit" value="Odśwież" />
+            </form>
+        </td>
+        <td>
+            @(itemValue = cart.Price * (Convert.ToDouble(cart.Quantity)))zł
+        </td>
+        <td>
+            @using (Html.BeginForm("RemoveItemFromCart", "Cart", new { orderDetailId = cart.OrderDetailId, orderId = cart.OrderId }))
+            {<input type="submit" value="Usuń" />}
+        </td>
 
-            </tr>
+    </tr>
             method: @CalculateCartBrutto(itemValue);
                 @CalculateCartNetto(totalValueBrutto);
                 @GenerateMessageAndDiscount(totalValueNetto, totalValueBrutto);
@@ -51,29 +53,29 @@
 
         <tr>
             <th colspan="2">Wartość netto zamówienia</th>
-            <th colspan="4">@totalValueNetto zł</th>
+            <th colspan="5">@(totalValueNetto)zł</th>
         </tr>
         <tr>
             <th colspan="2">Wartość brutto zamówienia</th>
-            <th colspan="4">@totalValueBrutto zł</th>
+            <th colspan="5">@(totalValueBrutto)zł</th>
         </tr>
         <tr>
             <th colspan="2">Koszt wysyłki</th>
-            <th colspan="4">@shippingCost zł</th>
+            <th colspan="5">@shippingCost zł</th>
         </tr>
         <tr>
             <th colspan="2">Rabat</th>
-            <th colspan="4">@discount %</th>
+            <th colspan="5">@discount %</th>
         </tr>
         <tr>
             <th colspan="2">Wartość brutto zamówienia po rabacie</th>
-            <th colspan="4">@(valueOrder = totalValueBruttoWithDiscount + shippingCost) zł</th>
+            <th colspan="5">@(Math.Round(valueOrder = totalValueBruttoWithDiscount + shippingCost, 2)) zł</th>
         </tr>
         <tr>
-            <th colspan="6">@message</th>
+            <th colspan="7">@message</th>
         </tr>
         <tr>
-            <td colspan="6">
+            <td colspan="7">
                 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                 {<input type="submit" value="Dodaj kolejny produkt" />}
         </td>
@@ -188,6 +190,7 @@
     void CalculateCartBrutto(double itemValue)
     {
         totalValueBrutto = totalValueBrutto + itemValue;
+        totalValueBrutto = Math.Round(totalValueBrutto, 2);
     }
 
     void GenerateMessageAndDiscount(double totalValueNetto, double totalValueBrutto)
@@ -234,8 +237,6 @@
     }
     void CalculateCartNetto(double totalValueBrutto)
     {
-        totalValueNetto = totalValueBrutto / 1.23;
-        string netto = String.Format("{0:N0}", totalValueNetto);
-        totalValueNetto = double.Parse(netto);
+        totalValueNetto = Math.Round(totalValueBrutto / 1.23, 2);
     }
 }
