@@ -18,5 +18,6 @@ namespace HurtowniaReptiGood.Models.Interfaces
         Task SaveChangesOrder(Order orderToChange);
         Task<OrderDetail> GetOrderDetail(int orderDetailId);
         Task SaveFile(IFormFile file);
+        Task DeleteFile(int productId);
     }
 }

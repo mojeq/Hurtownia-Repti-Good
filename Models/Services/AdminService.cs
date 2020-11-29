@@ -34,7 +34,7 @@ namespace HurtowniaReptiGood.Models.Services
         public async Task AddNewProduct(NewProductViewModel newProduct)
         {
             ProductEntity newProductEntity = _mapper.Map<ProductEntity>(newProduct);
-                
+
             await _productRepository.AddAsync(newProductEntity);
         }
 
@@ -60,6 +60,8 @@ namespace HurtowniaReptiGood.Models.Services
         public async Task DeleteProduct(int productId)
         {
             await _productRepository.DeleteByIdAsync(productId);
+
+
         }
 
         // get list with all orders
@@ -119,5 +121,20 @@ namespace HurtowniaReptiGood.Models.Services
                 }
             }
         }
+
+        public async Task DeleteFile(int productId)
+        {
+            var product = await _productRepository.GetByIdAsync(productId);
+
+            try
+            {
+                File.Delete(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", product.Photo));
+            }
+            catch (Exception)
+            {
+                throw new Exception("Nie znaleziono pliku"); ;
+            }
+        }
+
     }
 }

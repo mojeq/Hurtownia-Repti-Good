@@ -25,8 +25,8 @@
     <tr text-align="center">
         <td>@cart.ProductSymbol</td>
         <td>@cart.ProductName</td>
-        <td>@(Math.Round(cart.Price/1.23, 2))zł</td>
-        <td>@(cart.Price)zł</td>
+        <td>@(Math.Round(cart.Price/1.23, 2)) zł</td>
+        <td>@(cart.Price) zł</td>
         <td>
 
             <form action="UpdateQuantityInCart" method="post">
@@ -53,11 +53,11 @@
 
         <tr>
             <th colspan="2">Wartość netto zamówienia</th>
-            <th colspan="5">@(totalValueNetto)zł</th>
+            <th colspan="5">@(totalValueNetto) zł</th>
         </tr>
         <tr>
             <th colspan="2">Wartość brutto zamówienia</th>
-            <th colspan="5">@(totalValueBrutto)zł</th>
+            <th colspan="5">@(totalValueBrutto) zł</th>
         </tr>
         <tr>
             <th colspan="2">Koszt wysyłki</th>
