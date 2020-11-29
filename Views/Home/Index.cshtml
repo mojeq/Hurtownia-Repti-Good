@@ -10,15 +10,13 @@
 <body>
     <style>
         .zoom {
-            padding: 5px;
-            
-            transition: transform .2s; /* Animation */
+            padding: 5px;            
+            transition: transform .2s;
             width: 80px;            
             margin: 0 auto;
         }
-
             .zoom:hover {
-                transform: scale(5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+                transform: scale(5);
             }
     </style>
     <div class="zoom"></div>
@@ -35,23 +33,27 @@
             <input class="myButton4" type="submit" value="Pokaż produkty" />
         </form><br />
 
-        <table style="width:1200px" cellpadding="2" cellspacing="2" border="1">
+        <table style="width:100%" cellpadding="2" cellspacing="2" border="1">
             <tr>
-                <th>Symbol</th>
-                <th>Nazwa</th>
-                <th>Zdjęcie</th>
-                <th>Cena brutto</th>
-                <th>Stan</th>
-                <th>Do koszyka</th>
+                <th scope="col" class="text-center">Nazwa</th>
+                <th scope="col" class="text-center">Symbol</th>
+                <th scope="col" class="text-center" width="12%">Producent</th>
+                <th scope="col" class="text-center">Zdjęcie</th>
+                <th scope="col" class="text-center" width="9%">Cena netto</th>
+                <th scope="col" class="text-center" width="9%">Cena brutto</th>
+                <th scope="col" class="text-center">Stan</th>
+                <th scope="col" class="text-center">Do koszyka</th>
             </tr>
             @foreach (ProductViewModel product in Model.Products)
             {
                 <tr text-align="center">
-                    <td>@product.ProductSymbol</td>
                     <td>@product.ProductName</td>
+                    <td>@product.ProductSymbol</td>
+                    <td>@product.Manufacturer</td>
                     <td><img src="~/@product.Photo" class="zoom"/></td>
-                    <td>@product.Price zł</td>
-                    <td>@product.Stock szt</td>
+                    <td>@(Math.Round(product.Price/1.23, 2)) zł</td>
+                    <td>@(product.Price) zł</td>
+                    <td>@(product.Stock)szt</td>
                     <td>
                         @using (Html.BeginForm("AddItemToCart", "Cart"))
                         {

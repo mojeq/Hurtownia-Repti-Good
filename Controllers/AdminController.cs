@@ -95,6 +95,18 @@ namespace HurtowniaReptiGood.Controllers
             return RedirectToAction("Products");
         }
 
+        //remove product from database
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<IActionResult> DeleteProduct(int productId)
+        {
+            await _adminService.DeleteFile(productId);
+
+            await _adminService.DeleteProduct(productId);
+
+            return RedirectToAction("Products");
+        }
+
         // view list with all orders
         [Authorize(Roles = "admin")]
         [HttpGet]

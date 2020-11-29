@@ -8,33 +8,53 @@
 @model ProductsListViewModel
 
 <body>
+    <style>
+        .zoom {
+            padding: 5px;
+            transition: transform .2s;
+            width: 80px;
+            margin: 0 auto;
+        }
+            .zoom:hover {
+                transform: scale(5);
+            }
+    </style>
     <div>
         <table class="table table-bordered">
             <thead>
-                <tr scope="col" class="text-center">
-                    <th>Symbol</th>
-                    <th>Nazwa</th>
-                    <th>Producent</th>
-                    <th>Zdjęcie</th>
-                    <th>Cena</th>
-                    <th>Stan</th>
-                    <th>Edytuj</th>
+                <tr>
+                    <th scope="col" class="text-center">Nazwa</th>
+                    <th scope="col" class="text-center">Symbol</th>
+                    <th scope="col" class="text-center" width="12%">Producent</th>
+                    <th scope="col" class="text-center">Zdjęcie</th>
+                    <th scope="col" class="text-center" width="9%">Cena netto</th>
+                    <th scope="col" class="text-center" width="9%">Cena brutto</th>
+                    <th scope="col" class="text-center">Stan</th>
+                    <th scope="col" class="text-center">Edytuj</th>
+                    <th scope="col" class="text-center">Usuń</th>
                 </tr>
             <thead>
             <tbody>
                 @foreach (ProductViewModel product in Model.Products)
                 {
                     <tr class="text-center">
-                        <td>@product.ProductSymbol</td>
                         <td>@product.ProductName</td>
+                        <td>@product.ProductSymbol</td>
                         <td>@product.Manufacturer</td>
-                        <td><img src="~/@product.Photo" width="200" /></td>
-                        <td>@product.Price</td>
-                        <td>@product.Stock szt</td>
+                        <td><img src="~/@product.Photo" class="zoom" /></td>
+                        <td>@(Math.Round(product.Price/1.23, 2)) zł</td>
+                        <td>@(product.Price) zł</td>
+                        <td>@(product.Stock)szt</td>
                         <td>
                             <form action="ProductDetails" method="get">
                                 <input type="hidden" name="ProductId" value="@product.ProductId">
                                 <input type="submit" value="Edytuj" />
+                            </form>
+                        </td>
+                        <td>
+                            <form action="DeleteProduct" method="get" onclick="return confirm('Na pewno usunąć produkt z bazy?')">
+                                <input type="hidden" name="ProductId" value="@product.ProductId">
+                                <input type="submit" value="Usuń" />
                             </form>
                         </td>
                     </tr>
