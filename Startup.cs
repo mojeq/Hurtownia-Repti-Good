@@ -66,7 +66,7 @@ namespace HurtowniaReptiGood
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "Identity.Cookie";
-                config.LoginPath = "/Home/Login";
+                config.LoginPath = "/Account/Login";
             });
 
             services.AddSession();
