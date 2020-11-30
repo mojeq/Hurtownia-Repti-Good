@@ -38,6 +38,11 @@ namespace HurtowniaReptiGood.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
+            if(username == null || password == null)
+            {
+                return RedirectToAction("Login");
+            }
+
             var user = await _userManager.FindByNameAsync(username);
 
             Response.Cookies.Append("userLogged", user.UserName);
