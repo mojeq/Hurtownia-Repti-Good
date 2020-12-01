@@ -6,6 +6,7 @@ using HurtowniaReptiGood.Models.Repositories;
 using HurtowniaReptiGood.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Math.EC.Rfc7748;
 using System;
 using System.Collections.Generic;
@@ -60,8 +61,6 @@ namespace HurtowniaReptiGood.Models.Services
         public async Task DeleteProduct(int productId)
         {
             await _productRepository.DeleteByIdAsync(productId);
-
-
         }
 
         // get list with all orders
@@ -136,5 +135,46 @@ namespace HurtowniaReptiGood.Models.Services
             }
         }
 
+        public async Task SaveProductsStockSubiektFile(IFormFile formFile)
+        {
+            if (formFile != null)
+            {
+                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/SubiektFiles", formFile.FileName);
+
+                using (var stream = new FileStream(SavePath, FileMode.Create))
+                {
+                    formFile.CopyTo(stream);
+                }
+            }
+        }
+
+        public async Task UpdateProductsStockFromSubiektFile()
+        {
+            List<ProductAPI> productsListFromSubiektFile = new List<ProductAPI>();
+
+            string ReadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/SubiektFiles", "ListaSubiekt.json");
+
+            productsListFromSubiektFile = JsonConvert.DeserializeObject<List<ProductAPI>>(File.ReadAllText(ReadPath));
+
+            var productListToUpdate = await _productRepository.GetAllAsync();
+
+            var resultList = from product1 in productsListFromSubiektFile
+                             join product2 in productListToUpdate
+                             on product1.ProductSymbol equals product2.ProductSymbol
+                             select new ProductEntity
+                             {
+                                 IdGroupSubiekt = product2.IdGroupSubiekt,
+                                 IdSubiekt = product2.IdSubiekt,
+                                 ProductId = product2.ProductId,
+                                 ProductSymbol = product2.ProductSymbol,
+                                 ProductName = product2.ProductName,
+                                 Manufacturer = product2.Manufacturer,
+                                 Price = product2.Price,
+                                 Photo = product2.Photo,
+                                 Stock = product1.Stock
+                             };
+
+            await _productRepository.UpdateRange(resultList);
+        }
     }
 }

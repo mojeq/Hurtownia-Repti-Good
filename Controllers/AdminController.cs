@@ -182,6 +182,29 @@ namespace HurtowniaReptiGood.Controllers
             return View("UpdateStock", status);
         }
 
+        // update products stock form SubiektGT with file
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateProductsStockFromFile(IFormFile formFile)
+        {
+            UpdateProductsStockStatusViewModel status = new UpdateProductsStockStatusViewModel();
+
+            try
+            {
+                await _adminService.SaveProductsStockSubiektFile(formFile);
+
+                await _adminService.UpdateProductsStockFromSubiektFile();
+
+                status.UpdateStatus = "Import stanu magazynowego powiódł się.";
+            }
+            catch
+            {
+                status.UpdateStatus = "Import stanu magazynowego nie powiódł się.";
+            }
+
+            return View("UpdateStock", status);
+        }
+
         [Authorize(Roles = "admin")]
         public IActionResult UpdateStock()
         {

@@ -47,7 +47,7 @@ namespace HurtowniaReptiGood.Models.Services
 
             var resultList = from product1 in productsListFromSubiektAPI
                              join product2 in productListToUpdate
-                             on product1.IdSubiekt equals product2.IdSubiekt
+                             on product1.ProductSymbol equals product2.ProductSymbol
                              select new ProductEntity
                              {
                                  IdGroupSubiekt = product2.IdGroupSubiekt,

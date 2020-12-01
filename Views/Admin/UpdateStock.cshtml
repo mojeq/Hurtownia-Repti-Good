@@ -11,9 +11,16 @@
     <div>
         <button class="myButton">@Html.ActionLink("Importuj stan magazynowy produktów z SubiektGT", "UpdateProductsStock", "Admin")</button>
     </div>
-    <div> 
+    <div>
         <p><span>@Status()</span></p>
     </div>
+    <form action="UpdateProductsStockFromFile" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Załaduj plik z Subiekta</label>
+            <input type="file" name="formFile">
+            <input type="submit" class="myButton4" value="Prześlij plik" />
+        </div>
+    </form>
 </body>
 
 @functions{
