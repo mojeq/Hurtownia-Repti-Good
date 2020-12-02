@@ -214,5 +214,27 @@ namespace HurtowniaReptiGood.Controllers
 
             return View(status);
         }
+
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Customers()
+        {
+            var customersList = await _adminService.GetCustomers();
+
+            return View("Customers", customersList);
+        }
+
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetCustomer(int customerId)
+        {
+            await _adminService.GetCustomer(customerId);
+
+            return View("Customers");
+        }
+
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> AddNewCustomer(CustomerViewModel customer)
+        {
+            return View("Customers");
+        }
     }
 }

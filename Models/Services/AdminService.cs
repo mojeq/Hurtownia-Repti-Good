@@ -19,12 +19,14 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class AdminService : IAdminService
     {
+        private readonly ICustomerRepository _customerRepository;
         private readonly IProductRepository _productRepository;
         private readonly IOrderDetailRepository _orderDetailRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
-        public AdminService(IProductRepository productRepository, IOrderDetailRepository orderDetailRepository, IOrderRepository orderRepository, IMapper mapper)
+        public AdminService(ICustomerRepository customerRepository, IProductRepository productRepository, IOrderDetailRepository orderDetailRepository, IOrderRepository orderRepository, IMapper mapper)
         {
+            _customerRepository = customerRepository;
             _productRepository = productRepository;
             _orderDetailRepository = orderDetailRepository;
             _orderRepository = orderRepository;
@@ -175,6 +177,32 @@ namespace HurtowniaReptiGood.Models.Services
                              };
 
             await _productRepository.UpdateRange(resultList);
+        }
+
+        public async Task<CustomersListViewModel> GetCustomers()
+        {
+            var customers = await _customerRepository.GetAllAsync();
+
+            var mapped = _mapper.Map<List<CustomerViewModel>>(customers);
+
+            CustomersListViewModel customersList = new CustomersListViewModel()
+            {
+                CustomersList = mapped
+            };
+
+            return customersList;
+        }
+
+        public async Task<CustomerWithAddressesViewModel> GetCustomer(int customerId)
+        {
+            var customer = await _customerRepository.GetByIdAsync(customerId,
+                include: source => source
+                .Include(x => x.InvoiceAddress)
+                .Include(c => c.ShippingAddress));
+
+            var mapped = _mapper.Map<CustomerWithAddressesViewModel>(customer);
+
+            return mapped;
         }
     }
 }
