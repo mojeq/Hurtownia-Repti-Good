@@ -216,6 +216,7 @@ namespace HurtowniaReptiGood.Controllers
         }
 
         [Authorize(Roles = "admin")]
+        [HttpGet]
         public async Task<IActionResult> Customers()
         {
             var customersList = await _adminService.GetCustomers();
@@ -224,6 +225,7 @@ namespace HurtowniaReptiGood.Controllers
         }
 
         [Authorize(Roles = "admin")]
+        [HttpGet]
         public async Task<IActionResult> GetCustomer(int customerId)
         {
             var customerWithAddresses = await _adminService.GetCustomer(customerId);
@@ -232,9 +234,27 @@ namespace HurtowniaReptiGood.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddNewCustomer(CustomerViewModel customer)
+        [HttpPost]
+        public async Task<IActionResult> EditCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel)
         {
+            //var customerWithAddresses = await _adminService.GetCustomer(customerId);
+
             return View("Customers");
         }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<IActionResult> AddCustomer()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> AddCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel, RegisterViewModel registerViewModel)
+        {
+            return View();
+        }
+
     }
 }

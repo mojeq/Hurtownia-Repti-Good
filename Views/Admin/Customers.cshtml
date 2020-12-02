@@ -8,8 +8,13 @@
 
 <h3>Klienci</h3>
 <body>
+    <p>
+        <div>
+            @using (Html.BeginForm("AddCustomer", "Admin", FormMethod.Get))
+            {<input type="submit" class="button" value="Dodaj nowego klienta" />}
+        </div>
+    </p>
     <div>
-
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -24,20 +29,20 @@
             <tbody>
                 @foreach (CustomerViewModel customer in Model.CustomersList)
                 {
-                <tr class="text-center">
-                    <td>@customer.CustomerId</td>
-                    <td>@customer.UserName</td>
-                    <td>@customer.CompanyName</td>
-                    <td>@customer.CustomerName</td>
-                    <td>@customer.CustomerSurname</td>
-                    <td>
-                        <form action="GetCustomer" method="get">
-                            <input type="hidden" name="customerId" value="@customer.CustomerId">
-                            <input type="submit" value="Edytuj" />
-                        </form>
-                    </td>
-                </tr>
-                }
+                    <tr class="text-center">
+                        <td>@customer.CustomerId</td>
+                        <td>@customer.UserName</td>
+                        <td>@customer.CompanyName</td>
+                        <td>@customer.CustomerName</td>
+                        <td>@customer.CustomerSurname</td>
+                        <td>
+                            <form action="GetCustomer" method="get">
+                                <input type="hidden" name="customerId" value="@customer.CustomerId">
+                                <input type="submit" value="Edytuj" />
+                            </form>
+                        </td>
+                    </tr>
+                    }
             <tbody>
         </table>
     </div>
