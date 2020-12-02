@@ -8,6 +8,6 @@ namespace HurtowniaReptiGood.Models.ViewModels
     public class CustomerWithAddressesViewModel : Customer
     {
         public InvoiceAddressViewModel InvoiceAddress { get; set; }
-        public InvoiceAddressViewModel ShippingAddress { get; set; }
+        public ShippingAddressViewModel ShippingAddress { get; set; }
     }
 }

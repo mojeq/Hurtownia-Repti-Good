@@ -226,9 +226,9 @@ namespace HurtowniaReptiGood.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetCustomer(int customerId)
         {
-            await _adminService.GetCustomer(customerId);
+            var customerWithAddresses = await _adminService.GetCustomer(customerId);
 
-            return View("Customers");
+            return View("Customer", customerWithAddresses);
         }
 
         [Authorize(Roles = "admin")]
