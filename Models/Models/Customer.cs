@@ -12,6 +12,7 @@ namespace HurtowniaReptiGood.Models
         public string CompanyName { get; set; }
         public string CustomerName { get; set; }
         public string CustomerSurname { get; set; }
+        public string Email { get; set; }
         public int ShippingAddressId { get; set; }
         public int InvoiceAddressId { get; set; }
     }

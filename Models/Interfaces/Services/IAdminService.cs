@@ -23,5 +23,8 @@ namespace HurtowniaReptiGood.Models.Interfaces
         Task UpdateProductsStockFromSubiektFile();
         Task<CustomersListViewModel> GetCustomers();
         Task<CustomerWithAddressesViewModel> GetCustomer(int customerId);
+        Task UpdateCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel);
+        Task AddCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel, string login);
+        Task RegisterCustomer(RegisterViewModel registerViewModel);
     }
 }

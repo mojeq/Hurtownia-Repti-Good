@@ -6,14 +6,11 @@
 
 @model CustomersListViewModel
 
-<h3>Klienci</h3>
 <body>
-    <p>
-        <div>
-            @using (Html.BeginForm("AddCustomer", "Admin", FormMethod.Get))
-            {<input type="submit" class="button" value="Dodaj nowego klienta" />}
-        </div>
-    </p>
+    <div>
+        @using (Html.BeginForm("AddCustomer", "Admin", FormMethod.Get))
+        {<input type="submit" class="button" value="Dodaj nowego klienta" />}
+    </div><br />
     <div>
         <table class="table table-bordered">
             <thead>
@@ -42,7 +39,7 @@
                             </form>
                         </td>
                     </tr>
-                    }
+                }
             <tbody>
         </table>
     </div>

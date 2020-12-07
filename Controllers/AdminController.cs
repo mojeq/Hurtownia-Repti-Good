@@ -235,11 +235,11 @@ namespace HurtowniaReptiGood.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<IActionResult> EditCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel)
+        public async Task<IActionResult> UpdateCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel)
         {
-            //var customerWithAddresses = await _adminService.GetCustomer(customerId);
+            await _adminService.UpdateCustomer(customerWithAddressesViewModel);
 
-            return View("Customers");
+            return RedirectToAction("Customers");
         }
 
         [Authorize(Roles = "admin")]
@@ -253,6 +253,10 @@ namespace HurtowniaReptiGood.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel, RegisterViewModel registerViewModel)
         {
+            await _adminService.RegisterCustomer(registerViewModel);
+
+            await _adminService.AddCustomer(customerWithAddressesViewModel, registerViewModel.Login);
+
             return View();
         }
 

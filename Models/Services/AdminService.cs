@@ -5,6 +5,7 @@ using HurtowniaReptiGood.Models.Interfaces.Repositories;
 using HurtowniaReptiGood.Models.Repositories;
 using HurtowniaReptiGood.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Math.EC.Rfc7748;
@@ -19,13 +20,17 @@ namespace HurtowniaReptiGood.Models.Services
 {
     public class AdminService : IAdminService
     {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ICustomerRepository _customerRepository;
         private readonly IProductRepository _productRepository;
         private readonly IOrderDetailRepository _orderDetailRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
-        public AdminService(ICustomerRepository customerRepository, IProductRepository productRepository, IOrderDetailRepository orderDetailRepository, IOrderRepository orderRepository, IMapper mapper)
+        public AdminService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ICustomerRepository customerRepository, IProductRepository productRepository, IOrderDetailRepository orderDetailRepository, IOrderRepository orderRepository, IMapper mapper)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _customerRepository = customerRepository;
             _productRepository = productRepository;
             _orderDetailRepository = orderDetailRepository;
@@ -203,6 +208,80 @@ namespace HurtowniaReptiGood.Models.Services
             var mapped = _mapper.Map<CustomerWithAddressesViewModel>(customer);
 
             return mapped;
+        }
+
+        public async Task UpdateCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel)
+        {
+            CustomerViewModel customer = new CustomerViewModel()
+            {
+                UserName = customerWithAddressesViewModel.UserName,
+                CustomerId = customerWithAddressesViewModel.CustomerId,
+                CompanyName = customerWithAddressesViewModel.InvoiceAddress.CompanyName,
+                CustomerName = customerWithAddressesViewModel.InvoiceAddress.CustomerName,                
+                CustomerSurname = customerWithAddressesViewModel.InvoiceAddress.CustomerSurname,
+                Email = customerWithAddressesViewModel.ShippingAddress.Email,
+                InvoiceAddressId = customerWithAddressesViewModel.InvoiceAddress.AddressId,
+                ShippingAddressId = customerWithAddressesViewModel.ShippingAddress.AddressId,
+            };
+
+            var mappedCustomer = _mapper.Map<CustomerEntity>(customer);
+
+            var mappedInvoiceAddress = _mapper.Map<InvoiceAddressEntity>(customerWithAddressesViewModel.InvoiceAddress);
+
+            var mappedShippingAddress = _mapper.Map<ShippingAddressEntity>(customerWithAddressesViewModel.ShippingAddress);
+
+            mappedCustomer.InvoiceAddress = mappedInvoiceAddress;
+
+            mappedCustomer.ShippingAddress = mappedShippingAddress;
+
+            await _customerRepository.Update(mappedCustomer);
+        }
+
+        public async Task RegisterCustomer(RegisterViewModel registerViewModel)
+        {
+            var user = new IdentityUser
+            {
+                UserName = registerViewModel.Login,
+                Email = "",
+            };
+
+            try
+            {
+                await _userManager.CreateAsync(user, registerViewModel.Password);
+
+                await _userManager.AddToRoleAsync(user, "user");
+            }
+            catch (Exception)
+            {
+                throw new Exception("Nie udało się zarejestrować nowego klienta");
+            }
+        }
+
+        public async Task AddCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel, string login)
+        {
+            var mappedInvoiceAddress = _mapper.Map<InvoiceAddressEntity>(customerWithAddressesViewModel.InvoiceAddress);
+
+            var mappedShippingAddress = _mapper.Map<ShippingAddressEntity>(customerWithAddressesViewModel.ShippingAddress);
+
+            CustomerViewModel customer = new CustomerViewModel()
+            {
+                UserName = login,
+                CompanyName = customerWithAddressesViewModel.InvoiceAddress.CompanyName,
+                CustomerName = customerWithAddressesViewModel.InvoiceAddress.CustomerName,
+                CustomerSurname = customerWithAddressesViewModel.InvoiceAddress.CustomerSurname,
+                Email = customerWithAddressesViewModel.ShippingAddress.Email,
+            };
+
+            var mappedCustomer = _mapper.Map<CustomerEntity>(customer);
+
+            mappedCustomer.InvoiceAddress = mappedInvoiceAddress;
+
+            mappedCustomer.ShippingAddress = mappedShippingAddress;
+
+
+            await _customerRepository.AddAsync(mappedCustomer);
+
+
         }
     }
 }
