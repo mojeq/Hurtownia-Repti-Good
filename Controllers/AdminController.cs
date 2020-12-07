@@ -214,5 +214,51 @@ namespace HurtowniaReptiGood.Controllers
 
             return View(status);
         }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<IActionResult> Customers()
+        {
+            var customersList = await _adminService.GetCustomers();
+
+            return View("Customers", customersList);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<IActionResult> GetCustomer(int customerId)
+        {
+            var customerWithAddresses = await _adminService.GetCustomer(customerId);
+
+            return View("Customer", customerWithAddresses);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel)
+        {
+            await _adminService.UpdateCustomer(customerWithAddressesViewModel);
+
+            return RedirectToAction("Customers");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<IActionResult> AddCustomer()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> AddCustomer(CustomerWithAddressesViewModel customerWithAddressesViewModel, RegisterViewModel registerViewModel)
+        {
+            await _adminService.RegisterCustomer(registerViewModel);
+
+            await _adminService.AddCustomer(customerWithAddressesViewModel, registerViewModel.Login);
+
+            return View();
+        }
+
     }
 }

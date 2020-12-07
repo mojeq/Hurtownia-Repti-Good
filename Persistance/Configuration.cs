@@ -13,6 +13,18 @@ namespace HurtowniaReptiGood.Persistance
     {
         public Configuration()
         {
+            CreateMap<CustomerEntity, CustomerWithAddressesViewModel>()
+                .ReverseMap();
+            CreateMap<InvoiceAddressEntity, InvoiceAddressViewModel>()
+                .ForMember(dest => dest.AddressId,
+                    opt => opt.MapFrom(src => src.InvoiceAddressId))
+                .ReverseMap();
+            CreateMap<ShippingAddressEntity, ShippingAddressViewModel>()
+                .ForMember(dest => dest.AddressId,
+                    opt => opt.MapFrom(src => src.ShippingAddressId))
+                .ReverseMap();
+            CreateMap<CustomerEntity, CustomerViewModel>()
+                .ReverseMap();
             CreateMap<ProductEntity, NewProductViewModel>()
                 .ReverseMap();
             CreateMap<ProductEntity, ProductViewModel>()

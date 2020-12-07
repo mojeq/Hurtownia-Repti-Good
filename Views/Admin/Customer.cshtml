@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "Customer";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using HurtowniaReptiGood.Models.ViewModels
+
+@model CustomerWithAddressesViewModel
+
+<body>
+    <div>
+        <form action="UpdateCustomer" method="post" enctype="multipart/form-data">
+            <h4>Dane do faktury</h4>
+            <div class="form-group">
+                <label>Nazwa firmy</label>
+                <input type="text" class="form-control" name="InvoiceAddress.CompanyName" value="@Model.InvoiceAddress.CompanyName">
+                <input type="hidden" name="InvoiceAddress.AddressId" value="@Model.InvoiceAddress.AddressId" />
+                <input type="hidden" name="CustomerId" value="@Model.CustomerId" />
+                <input type="hidden" name="UserName" value="@Model.UserName" />
+            </div>
+            <div class="form-group">
+                <label>Imię</label>
+                <input type="text" class="form-control" name="InvoiceAddress.CustomerName" value="@Model.InvoiceAddress.CustomerName">
+            </div>
+            <div class="form-group">
+                <label>Nazwisko</label>
+                <input type="text" class="form-control" name="InvoiceAddress.CustomerSurname" value="@Model.InvoiceAddress.CustomerSurname">
+            </div>
+            <div class="form-group">
+                <label>NIP</label>
+                <input type="text" class="form-control" name="InvoiceAddress.NIP" value="@Model.InvoiceAddress.NIP">
+            </div>
+            <div class="form-group">
+                <label>Ulica</label>
+                <input type="text" class="form-control" name="InvoiceAddress.Street" value="@Model.InvoiceAddress.Street">
+            </div>
+            <div class="form-group">
+                <label>Numer budynku</label>
+                <input type="text" class="form-control" name="InvoiceAddress.StreetNumber" value="@Model.InvoiceAddress.StreetNumber">
+            </div>
+            <div class="form-group">
+                <label>Miasto</label>
+                <input type="text" class="form-control" name="InvoiceAddress.City" value="@Model.InvoiceAddress.City">
+            </div>
+            <div class="form-group">
+                <label>Kod pocztowy</label>
+                <input type="text" class="form-control" name="InvoiceAddress.ZipCode" value="@Model.InvoiceAddress.ZipCode">
+            </div>
+            <div class="form-group">
+                <label>Telefon</label>
+                <input type="text" class="form-control" name="InvoiceAddress.Phone" value="@Model.InvoiceAddress.Phone">
+            </div>
+            <h4>Dane do wysyłki</h4>
+            <div class="form-group">
+                <label>Nazwa firmy</label>
+                <input type="text" class="form-control" name="ShippingAddress.CompanyName" value="@Model.ShippingAddress.CompanyName">
+                <input type="hidden" name="ShippingAddress.AddressId" value="@Model.ShippingAddress.AddressId" />
+            </div>
+            <div class="form-group">
+                <label>Imię</label>
+                <input type="text" class="form-control" name="ShippingAddress.CustomerName" value="@Model.ShippingAddress.CustomerName">
+            </div>
+            <div class="form-group">
+                <label>Nazwisko</label>
+                <input type="text" class="form-control" name="ShippingAddress.CustomerSurname" value="@Model.ShippingAddress.CustomerSurname">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" name="ShippingAddress.Email" value="@Model.ShippingAddress.Email">
+            </div>
+            <div class="form-group">
+                <label>Telefon</label>
+                <input type="text" class="form-control" name="ShippingAddress.Phone" value="@Model.ShippingAddress.Phone">
+            </div>
+            <div class="form-group">
+                <label>Ulica</label>
+                <input type="text" class="form-control" name="ShippingAddress.Street" value="@Model.ShippingAddress.Street">
+            </div>
+            <div class="form-group">
+                <label>Numer budynku</label>
+                <input type="text" class="form-control" name="ShippingAddress.StreetNumber" value="@Model.ShippingAddress.StreetNumber">
+            </div>
+            <div class="form-group">
+                <label>Miasto</label>
+                <input type="text" class="form-control" name="ShippingAddress.City" value="@Model.ShippingAddress.City">
+            </div>
+            <div class="form-group">
+                <label>Kod pocztowy</label>
+                <input type="text" class="form-control" name="ShippingAddress.ZipCode" value="@Model.ShippingAddress.ZipCode">
+            </div>
+
+            <input class="myButton4" type="submit" value="Zapisz zmiany" />
+        </form>
+    </div>
+</body>

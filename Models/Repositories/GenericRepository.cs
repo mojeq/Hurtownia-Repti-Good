@@ -43,7 +43,7 @@ namespace HurtowniaReptiGood.Models.Repositories
 
             query = include?.Invoke(query) ?? query;
 
-            query.Where(predicate);
+            query = query.Where(predicate);
 
             var result = await query.Cacheable().FirstOrDefaultAsync();
 
