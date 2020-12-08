@@ -22,11 +22,13 @@ namespace HurtowniaReptiGood.Models.Repositories
             return list;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
             if (predicate == null) throw new NullReferenceException($"Parameter {nameof(predicate)} cannot be null.");
 
             var query = _context.Set<TEntity>().AsNoTracking();
+
+            query = include?.Invoke(query) ?? query;
 
             var result = query.Where(predicate);
 
