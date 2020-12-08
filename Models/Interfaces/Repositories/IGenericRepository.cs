@@ -10,7 +10,7 @@ namespace HurtowniaReptiGood.Models.Interfaces.Repositories
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByFieldAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
         Task<TEntity> AddAsync(TEntity entity);

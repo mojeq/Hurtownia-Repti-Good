@@ -73,7 +73,9 @@ namespace HurtowniaReptiGood.Models.Services
         // get list with all orders
         public async Task<OrderListViewModel> GetOrders()
         {
-            var orders = await _orderRepository.GetAsync(predicate: x => x.StateOrder == "bought");
+            var orders = await _orderRepository.GetAsync(predicate: x => x.StateOrder == "bought",
+                include: source => source
+                .Include(x => x.Customer));
 
             var mapped = _mapper.Map<List<OrderViewModel>>(orders);
 

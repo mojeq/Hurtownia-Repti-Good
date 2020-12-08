@@ -30,6 +30,8 @@ namespace HurtowniaReptiGood.Persistance
             CreateMap<ProductEntity, ProductViewModel>()
                 .ReverseMap();
             CreateMap<OrderEntity, OrderViewModel>()
+                .ForMember(dest => dest.Customer,
+                    opt => opt.MapFrom(src => src.Customer.CompanyName))
                 .ReverseMap();
             CreateMap<OrderEntity, ShippingAddressViewModel>()
                 .ForMember(dest => dest.AddressId,
