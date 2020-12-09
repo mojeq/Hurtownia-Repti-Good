@@ -17,7 +17,7 @@
             <div id="logo">
                 <h1><span class="icon icon-cog"></span><a href="#">ReptiHurt</a></h1>
                 <span>Jesteś zalogowany: @Html.Raw(HttpContextAccessor.HttpContext.Request.Cookies["userLogged"])</span>
-                <button class="myButton">@Html.ActionLink("Wyloguj", "LogOut", "Account")</button>
+                <input type="button" class="myButton" value="Wyloguj" onclick="location.href='@Url.Action("LogOut", "Account")'" />
                 <nav>
                     <ul>
                         <li>

@@ -104,13 +104,13 @@ namespace HurtowniaReptiGood.Models.Repositories
 
             try
             {
-                _context.Set<TEntity>().Update(entity);
+                var result  = _context.Set<TEntity>().Update(entity);
 
                 await _context.SaveChangesAsync();
             }
             catch
             {
-                throw new Exception();
+                throw;
             }
         }
 
