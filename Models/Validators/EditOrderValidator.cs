@@ -10,32 +10,11 @@ namespace HurtowniaReptiGood.Models.Validators
     {
         public EditOrderValidator()
         {
-            RuleFor(x => x.DateOrder)
+            RuleFor(x => x.OrderId)
                 .NotNull()
                 .OnAnyFailure(x =>
                 {
-                    throw new Exception($"Parameter {nameof(x.DateOrder)} can't be empty.");
-                });
-
-            RuleFor(x => x.ValueOrder)
-                .GreaterThan(0)
-                .OnAnyFailure(x =>
-                {
-                    throw new Exception($"Parameter {nameof(x.ValueOrder)} can't be 0.");
-                });
-
-            RuleFor(x => x.StateOrder)
-                .NotNull()
-                .OnAnyFailure(x =>
-                {
-                    throw new Exception($"Parameter {nameof(x.StateOrder)} can't be empty.");
-                });
-
-            RuleFor(x => x.StatusOrder)
-                .NotNull()
-                .OnAnyFailure(x =>
-                {
-                    throw new Exception($"Parameter {nameof(x.StatusOrder)} can't be empty.");
+                    throw new Exception($"Parameter {nameof(x.OrderId)} can't be empty.");
                 });
         }
     }

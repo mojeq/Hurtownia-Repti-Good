@@ -35,16 +35,16 @@
                     <td>@order.StatusOrder</td>
                     <td>@order.TrackingNumber</td>
                     <td>
-                        <button class="myButton3">
-                            @Html.ActionLink("Edytuj", "EditOrder", "Admin",
-                            new { orderId = order.OrderId })
-                        </button>
+                        <form action="EditOrder" method="get">
+                            <input type="hidden" name="orderId" value="@order.OrderId">
+                            <input type="submit" value="Edytuj" />
+                        </form>
                     </td>
                     <td>
-                        <button class="myButton3">
-                            @Html.ActionLink("Pokaż", "OrderDetails", "Admin",
-                            new { OrderId = order.OrderId })
-                        </button>
+                        <form action="OrderDetails" method="get">
+                            <input type="hidden" name="orderId" value="@order.OrderId">
+                            <input type="submit" value="Pokaż" />
+                        </form>
                     </td>
                 </tr>
                 }
