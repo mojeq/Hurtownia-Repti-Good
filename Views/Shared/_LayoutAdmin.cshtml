@@ -18,6 +18,7 @@
                 <h1><span class="icon icon-cog"></span><a href="#">ReptiHurt</a></h1>
                 <span>Jesteś zalogowany: @Html.Raw(HttpContextAccessor.HttpContext.Request.Cookies["userLogged"])</span>
                 <input type="button" class="myButton" value="Wyloguj" onclick="location.href='@Url.Action("LogOut", "Account")'" />
+                <input type="button" class="myButton" value="Zmiana hasła" onclick="location.href='@Url.Action("ChangePassword", "Account")'" />
                 <nav>
                     <ul>
                         <li>
