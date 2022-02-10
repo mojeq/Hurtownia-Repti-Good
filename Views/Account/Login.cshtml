@@ -23,11 +23,19 @@
                 <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
                 <input type="password" id="password" class="fadeIn third" name="password" placeholder="hasło">
                 <input type="submit" class="fadeIn fourth" value="Zaloguj">
+
+                @if (ViewBag.LogInfo != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @ViewBag.LogInfo
+                    </div>
+                }
             </form>
 
+
             @*<div id="formFooter">
-                <a class="underlineHover" href="#">Nie możesz się zalogować?</a>
-            </div>*@
+            <a class="underlineHover" href="#">Nie możesz się zalogować?</a>
+        </div>*@
 
         </div>
         <div id="copyright" class="container">

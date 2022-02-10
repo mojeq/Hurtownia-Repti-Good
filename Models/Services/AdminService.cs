@@ -280,10 +280,7 @@ namespace HurtowniaReptiGood.Models.Services
 
             mappedCustomer.ShippingAddress = mappedShippingAddress;
 
-
             await _customerRepository.AddAsync(mappedCustomer);
-
-
         }
     }
 }

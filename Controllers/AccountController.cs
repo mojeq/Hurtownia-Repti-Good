@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -43,12 +44,12 @@ namespace HurtowniaReptiGood.Controllers
                 return RedirectToAction("Login");
             }
 
-            var user = await _userManager.FindByNameAsync(username);
-
-            Response.Cookies.Append("userLogged", user.UserName);
+            var user = await _userManager.FindByNameAsync(username);            
 
             if (user != null)
             {
+                Response.Cookies.Append("userLogged", user.UserName);
+
                 //Sign in
                 var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
 
@@ -68,10 +69,18 @@ namespace HurtowniaReptiGood.Controllers
                     }
                 }
             }
+
+            TempData["LogInfo"] = "Niepoprawny login lub hasło.";
+
             return RedirectToAction("Login");
         }
         public IActionResult Login()
         {
+            if (!String.IsNullOrEmpty((string)TempData["LogInfo"]))
+            {
+                ViewBag.LogInfo = TempData["LogInfo"];
+            }
+
             return View();
         }
 
@@ -117,6 +126,37 @@ namespace HurtowniaReptiGood.Controllers
             await _signInManager.SignOutAsync();
 
             return RedirectToAction("Login");
+        }
+
+        //change password
+        public IActionResult ChangePassword()
+        {
+            if (!String.IsNullOrEmpty((string)TempData["LogInfo"]))
+            {
+                ViewBag.LogInfo = TempData["LogInfo"];
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            try
+            {
+                await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+                TempData["LogInfo"] = "Zmieniono hasło.";
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation(e,"Zmiana hasła nieudana {user}", user);
+                TempData["LogInfo"] = "Zmiana hasła niudana.";
+            }            
+
+            return RedirectToAction("ChangePassword");
         }
     }
 }
