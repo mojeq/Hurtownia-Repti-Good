@@ -8,8 +8,8 @@
 
 @model OrderListViewModel
 
-<h4>Historia zamówień</h4>
 <body>
+    <h3>Historia zamówień:</h3>
     <div>
         <table style="width:100%" cellpadding="2" cellspacing="2" border="1">
             <tr scope="col" class="text-center">
@@ -26,14 +26,14 @@
                     <td>@order.OrderId</td>
                     <td>@order.DateOrder</td>
                     <td>@order.ValueOrder zł</td>
-                    <td>@order.StatusOrder</td>                  
+                    <td>@order.StatusOrder</td>
                     <td>@order.TrackingNumber</td>
                     <td>
                         @using (Html.BeginForm("OrderHistoryDetails", "CustomerAccount", new { OrderId = order.OrderId }))
                         {<input type="submit" value="Pokaż" />}
                     </td>
                 </tr>
-             }
+            }
         </table>
     </div>
 </body>
